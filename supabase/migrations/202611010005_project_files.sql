@@ -1,0 +1,25 @@
+begin;
+create table public.project_photos(id uuid primary key default gen_random_uuid(),household_id uuid not null,project_id uuid not null,storage_path text not null,caption text not null default 'Tijdens',created_at timestamptz not null default now(),foreign key(project_id,household_id) references public.projects(id,household_id),check(split_part(storage_path,'/',1)=household_id::text));
+create table public.task_photos(id uuid primary key default gen_random_uuid(),household_id uuid not null,task_id uuid not null,storage_path text not null,caption text not null default '',created_at timestamptz not null default now(),foreign key(task_id,household_id) references public.tasks(id,household_id),check(split_part(storage_path,'/',1)=household_id::text));
+create table public.task_comments(id uuid primary key default gen_random_uuid(),household_id uuid not null,task_id uuid not null,body text not null check(length(body) between 1 and 4000),user_id uuid not null default auth.uid(),created_at timestamptz not null default now(),foreign key(task_id,household_id) references public.tasks(id,household_id),foreign key(household_id,user_id) references public.household_members(household_id,user_id));
+create table public.suppliers(id uuid primary key default gen_random_uuid(),household_id uuid not null references public.households,title text not null,description text not null default '',room_id uuid,project_id uuid,email text not null default '',phone text not null default '',url text,created_by uuid default auth.uid() references public.profiles,created_at timestamptz not null default now(),updated_at timestamptz not null default now(),version integer not null default 1,foreign key(room_id,household_id) references public.rooms(id,household_id),foreign key(project_id,household_id) references public.projects(id,household_id));
+alter table public.documents add column task_id uuid,add column expense_id uuid,add column maintenance_id uuid;
+alter table public.documents add foreign key(task_id,household_id) references public.tasks(id,household_id),add foreign key(expense_id,household_id) references public.expenses(id,household_id),add foreign key(maintenance_id,household_id) references public.maintenance_items(id,household_id);
+do $$declare t text;begin foreach t in array array['project_photos','task_photos','task_comments','suppliers'] loop
+ execute format('alter table public.%I enable row level security',t);
+ execute format('create policy member_read on public.%I for select to authenticated using(public.is_member(household_id))',t);
+ execute format('create policy member_insert on public.%I for insert to authenticated with check(public.is_member(household_id))',t);
+ execute format('create policy member_update on public.%I for update to authenticated using(public.is_member(household_id)) with check(public.is_member(household_id))',t);
+ execute format('create policy member_delete on public.%I for delete to authenticated using(public.is_member(household_id))',t);
+ execute format('create index on public.%I(household_id)',t);
+ execute format('alter publication supabase_realtime add table public.%I',t);
+ end loop;end$$;
+create trigger version_update before update on public.suppliers for each row execute function public.version_record();
+create trigger audit_change after insert or update or delete on public.suppliers for each row execute function public.audit_record();
+create trigger assign_creator before insert on public.suppliers for each row execute function public.set_creator();
+create function public.set_actor() returns trigger language plpgsql set search_path=public as $$begin new.user_id=auth.uid();return new;end$$;
+create trigger assign_actor before insert or update on public.idea_comments for each row execute function public.set_actor();
+create trigger assign_actor before insert or update on public.task_comments for each row execute function public.set_actor();
+revoke execute on function public.set_actor() from public,anon,authenticated;
+commit;
+alter table public.idea_photos add column caption text not null default '';

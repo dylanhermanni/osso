@@ -1,0 +1,63 @@
+{
+  "name": "ons-huis",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "backend:start": "node scripts/start-local.mjs",
+    "test:connected": "E2E_SUPABASE=1 playwright test connected.spec.ts",
+    "format": "prettier --write src tests scripts *.ts *.mjs *.json *.md",
+    "test:database": "bash scripts/test-database.sh"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.3.0",
+    "@fontsource/fraunces": "^5.3.0",
+    "@fullcalendar/daygrid": "^6.1.19",
+    "@fullcalendar/interaction": "^6.1.19",
+    "@fullcalendar/list": "^6.1.19",
+    "@fullcalendar/luxon3": "^6.1.19",
+    "@fullcalendar/react": "^6.1.19",
+    "@fullcalendar/timegrid": "^6.1.19",
+    "@hookform/resolvers": "^5.2.2",
+    "@radix-ui/react-dialog": "^1.1.15",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@supabase/ssr": "^0.8.0",
+    "@supabase/supabase-js": "^2.80.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.468.0",
+    "luxon": "^3.7.2",
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-hook-form": "^7.66.0",
+    "recharts": "^3.4.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/luxon": "^3.7.1",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "eslint": "^9.39.0",
+    "eslint-config-next": "^16.0.0",
+    "prettier": "^3.9.10",
+    "supabase": "^2.122.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.0"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=22 <25"
+  }
+}
