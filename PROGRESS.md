@@ -59,7 +59,7 @@ De ontwikkelserver is gestart met `npm run dev`; een echte HTTP-aanvraag gaf sta
 1. Een **hosted Supabase-project** met uitgevoerde migraties, publieke appconfiguratie, juiste netwerktoegang tot het project en een eigen backupbeleid.
 2. De echte productie-URL, Supabase Auth Site URL en eigen SMTP-instellingen, met e-mailbevestiging actief.
 3. Eigen accounts voor Dylan en Floor en een uitnodiging naar het echte e-mailadres van de partner. Lokale testaccounts zijn uitsluitend testfixtures.
-4. GitHub/Vercel-publicatie en een nieuwe controle tegen die hosted omgeving. Er is niets gepusht of op Vercel gedeployed.
+4. De code staat op GitHub (`dylanhermanni/osso`, branch `main`). Vercel-publicatie en een nieuwe controle tegen die hosted omgeving zijn nog nodig. Er is nog geen Vercel-deployment.
 5. Installatie/downloadgedrag op fysieke iPhone/Android controleren. De downloadflow opent het tabblad vóór het ophalen van een verse ondertekende URL om Safari-popupblokkades te vermijden, maar Safari is hier niet uitgevoerd.
 
 ## Bewuste grenzen en vervolgwerk
@@ -74,3 +74,7 @@ De ontwikkelserver is gestart met `npm run dev`; een echte HTTP-aanvraag gaf sta
 - Alle huishoudgegevens worden gepagineerd geladen, maar de eerste UI houdt één gezamenlijke snapshot. Verdere splitsing in gerichte modulequeries is nuttig bij zeer grote dossiers.
 
 De betrouwbare kern is functioneel en getest. Dit is geen verklaring dat iedere aanvullende wens uit de masterprompt of de volledige hosted productieacceptatie al is afgerond.
+
+## Publicatiestatus · 1 november 2026
+
+De geteste implementatie is naar de eerder lege GitHub-repository gepusht en de remote `main` is gecontroleerd. Publicatie is door de gebruiker opgedragen. De daadwerkelijke Supabase- en Vercel-beheerrequests worden momenteel door de beheerde netwerkproxy met HTTP 403 geweigerd. `api.supabase.com` en `api.vercel.com` staan al in de opgeslagen conceptconfiguratie, maar die netwerktoegang is nog niet actief in de draaiende omgeving. Het activeren/publiceren van de omgevingsinstellingen vereist een handeling in de productinterface; daarvoor is hier geen uitvoerbare tool beschikbaar. Er is geen toegangstoken in broncode, commits of deze documentatie opgenomen.

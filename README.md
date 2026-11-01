@@ -81,4 +81,4 @@ Uploads zijn beperkt tot **3 MB** voor JPG, PNG, WebP en PDF, met controle op be
 
 De PWA is installeerbaar met manifest en PNG-iconen. Offline wordt uitsluitend een statische verbindingsmelding getoond. Geauthenticeerde pagina's en gegevens worden niet offline gecachet. Push, e-mailherinneringen en volledige offline synchronisatie zijn niet geïmplementeerd.
 
-Deze repository is niet automatisch naar GitHub gepusht of op Vercel gepubliceerd.
+De code is gepubliceerd op `main` van `dylanhermanni/osso`. De app is nog niet op Vercel gepubliceerd. De publicatie-API’s van Supabase en Vercel worden in de huidige cloudomgeving nog geblokkeerd; de benodigde domeinen staan klaar in de conceptconfiguratie en moeten via de omgevingsinstellingen worden geactiveerd.
