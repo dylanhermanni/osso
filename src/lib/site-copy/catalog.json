@@ -1,0 +1,4386 @@
+[
+  {
+    "key": "copy_49050031",
+    "source": ". Afronding wordt exact in centen verdeeld.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_82450704",
+    "source": "· aandeel",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_910c7d04",
+    "source": "“{1}” verwijderen? Gekoppelde gegevens kunnen verwijderen blokkeren.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_cda21953",
+    "source": "{1} m²",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_683e9766",
+    "source": "{1} minuten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_dbe70de0",
+    "source": "{1} open taken · {2} ideeën",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_06409a7f",
+    "source": "{1} openen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_0a94a8c6",
+    "source": "{1} te betalen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_8da96299",
+    "source": "{1} te ontvangen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_664dfa94",
+    "source": "{1} toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_d8a2159d",
+    "source": "{1}/auth/herstel",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_81b010a7",
+    "source": "60 / 40 — in onderstaande volgorde",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2f7ab27f",
+    "source": "70 / 30 — in onderstaande volgorde",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_35acb247",
+    "source": "Aankoop gekoppeld.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_66bcf105",
+    "source": "Aankoop opslaan{1}",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_04f6615e",
+    "source": "Aankoop registreren",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_21e62648",
+    "source": "Aantal",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c857dda0",
+    "source": "Account maken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3268dd8d",
+    "source": "Actief",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4bf00c22",
+    "source": "Actieve projecten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8a47591f",
+    "source": "Afgerond",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cbdabf34",
+    "source": "afgerond · goed bezig",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ab16c967",
+    "source": "Afgewezen",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c2ef12a4",
+    "source": "Afspraak",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_125ce274",
+    "source": "Afspraak plannen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c0c2619b",
+    "source": "Al gespaard",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_162fa584",
+    "source": "Al gespaard (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a85a5d26",
+    "source": "Alle activiteiten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_81f444fe",
+    "source": "Alle afspraken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_860841d4",
+    "source": "Alle kamers",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6c02e6fb",
+    "source": "Alle statussen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f8ddf914",
+    "source": "Alle websiteteksten aanpassen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6adf38b2",
+    "source": "Alleen geldige JPG-, PNG-, WebP- en PDF-bestanden zijn toegestaan.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cef6e984",
+    "source": "Alles in balans",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_189dc723",
+    "source": "ALLES PER KAMER",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0ecf1e5e",
+    "source": "Alles voor ons thuis, op één plek.",
+    "groups": [
+      "Knoppen en vensters",
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_94284b1f",
+    "source": "Als dit e-mailadres bij een account hoort, ontvang je een resetmail. Controleer ook je spammap en open de link in deze browser.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_35de0a19",
+    "source": "Annuleren",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f31ea7f7",
+    "source": "april",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6cfc9f88",
+    "source": "augustus",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d3c34f72",
+    "source": "Bedrag",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_02121dde",
+    "source": "Begint",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_50539629",
+    "source": "Begint (Amsterdam)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_54cb616c",
+    "source": "Bekijk alle taken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f6f1ea58",
+    "source": "Beschikbaar",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9cc11e1e",
+    "source": "Beschikbaar huisbudget",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ea4dff44",
+    "source": "Bespreken",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6a1eba50",
+    "source": "Bestand",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cd18a582",
+    "source": "Bestand openen mislukt.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5c283173",
+    "source": "Bestand verwijderen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cbb114ee",
+    "source": "Besteld",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ae11bda",
+    "source": "betaald",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d181f07a",
+    "source": "Betaald",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4db0da77",
+    "source": "Betalingen en aandelen moeten exact gelijk zijn aan het totaal.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5acff511",
+    "source": "Betalingen en verdeling",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8c61a11d",
+    "source": "Bevestig je e-mailadres via de link in je e-mail.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_87ddf20b",
+    "source": "Bewaar een mooie gedachte",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_27130629",
+    "source": "Bewaren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3bc4daf7",
+    "source": "Bewerk",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_970b0aa8",
+    "source": "Bewerken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_48ca3606",
+    "source": "Bezig",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7c53166f",
+    "source": "Bijgewerkt",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_95711eca",
+    "source": "Bijlage privé opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6ec29915",
+    "source": "Bijlage toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cbdd77bb",
+    "source": "Bijvoorbeeld: Woonkamer",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6162ceea",
+    "source": "Bonnen en facturen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1a87aaad",
+    "source": "Breedte (cm)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2715dda8",
+    "source": "Budget",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3275ce67",
+    "source": "Budget (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_50da5937",
+    "source": "Budgetten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_850c675f",
+    "source": "Budgetten & spaardoelen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6c59dc2c",
+    "source": "Categorie",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e81fffc8",
+    "source": "Cheese",
+    "groups": [
+      "Website en navigatie",
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5882f467",
+    "source": "Cheese the Rooster",
+    "groups": [
+      "Website en navigatie",
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_56a70367",
+    "source": "CHEESE THE ROOSTER",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_54c0bd03",
+    "source": "Cheese the Rooster — alles voor ons thuis",
+    "groups": [
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_02940047",
+    "source": "Cheese the Rooster — naar overzicht",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5f9dab76",
+    "source": "CHEESE THE ROOSTER ·",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_02dec21d",
+    "source": "Cheese the Rooster · offline",
+    "groups": [
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_99fafd8d",
+    "source": "Cheese the Rooster laden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7a4839af",
+    "source": "Configureer de app-URL bij Supabase Auth en herstart de app.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_77d141a0",
+    "source": "Contactgegevens en afspraken, bij het juiste project.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2d6a57f0",
+    "source": "Controleer de ingevulde gegevens.",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7b21a23f",
+    "source": "CSV",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c10bf213",
+    "source": "D",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4b5425c3",
+    "source": "Dag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_aee64606",
+    "source": "Dan vinden jullie hem hier terug.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_56f3988c",
+    "source": "Datum",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_25ee7bc7",
+    "source": "De aankoop en uitgave worden samen opgeslagen.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4c6f0298",
+    "source": "De complete instructies staan in README.md. Gebruik nooit een service-role key in de browser.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bdc9dcbd",
+    "source": "De eindtijd moet na de starttijd liggen.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5c716adf",
+    "source": "De laatste stappen die jullie samen hebben gezet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4151103a",
+    "source": "De percentages moeten samen 100% zijn.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3d719d59",
+    "source": "De resetmail kon niet worden verstuurd. Probeer later opnieuw of laat de mailinstellingen controleren.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_229c3d79",
+    "source": "De volgende datum wordt automatisch berekend vanaf de uitvoerdatum.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bf14b249",
+    "source": "De wachtwoorden komen niet overeen.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_53c11cb2",
+    "source": "De woonkamer, de keuken of een fijne tuin.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_402e1ed5",
+    "source": "Deadline",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_16ff797e",
+    "source": "december",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_933f2de9",
+    "source": "Deel deze link zelf met je partner",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d8f01033",
+    "source": "Deze herstellink is verlopen of ongeldig. Vraag een nieuwe resetmail aan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4268e057",
+    "source": "Deze herstellink is verlopen of ongeldig. Vraag hieronder een nieuwe aan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_10241af1",
+    "source": "Deze module gebruikt een aparte transactie.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2467812a",
+    "source": "Deze pagina bestaat niet of is verplaatst.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_82c6c12d",
+    "source": "Deze week",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_601cd4ee",
+    "source": "di",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_684efabf",
+    "source": "dinsdag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ce22740",
+    "source": "Dit document en de bijbehorende galerijfoto verwijderen?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a1f516ae",
+    "source": "Dit is niet gelukt. Probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_23a7b90b",
+    "source": "Dit lukte niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e3a33af0",
+    "source": "Dit onderdeel is ondertussen gewijzigd.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_574c5fb8",
+    "source": "Dit onderdeel is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_be0ef026",
+    "source": "Dit onderdeel kan niet direct verwijderd worden.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6ad116e2",
+    "source": "Dit staat er voor jullie op de planning.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_621cd814",
+    "source": "do",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f843faf4",
+    "source": "Document",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d57c7de0",
+    "source": "Document verwijderd uit het dossier, maar het opslagobject kon nog niet worden verwijderd.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2ef87532",
+    "source": "Document verwijderd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9e6cbcd7",
+    "source": "Documenten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ef78476a",
+    "source": "Doelbedrag",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7e8cd9d9",
+    "source": "Doelbedrag (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f248949f",
+    "source": "donderdag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ca5e2f3",
+    "source": "Doorzoek jullie kamers, ideeën, taken, projecten en meer.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fb059e47",
+    "source": "Doorzoek ons huis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8e830575",
+    "source": "Dylan & Floor",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_adb823ac",
+    "source": "Dylan of Floor",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d0dccbf9",
+    "source": "E-mailadres",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8300059f",
+    "source": "E-mailadres partner",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7b601b5f",
+    "source": "Een aankoop kan geen terugbetaling zijn.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ac5098c",
+    "source": "Een blik op jullie uitgaven",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c62477a4",
+    "source": "Een eigen account. Eén gezamenlijk thuis.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f8d987a0",
+    "source": "Een eigen plek voor alle details van dit plan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e2015de9",
+    "source": "Een fijne basis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b02b24d5",
+    "source": "Een fijne plek voor jullie ideeën, plannen en alles rondom jullie huis.",
+    "groups": [
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f5312a51",
+    "source": "Een huis wordt een thuis.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_89a5b166",
+    "source": "Een idee, een plan of een kleine stap vooruit.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8b916759",
+    "source": "Een klein stapje dichter bij jullie thuis.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5253bd9e",
+    "source": "Een klus, een aankoop of dat ene goede idee.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dd088e95",
+    "source": "Een lege agenda, vol mogelijkheden.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b1473b62",
+    "source": "Een nieuw begin. Koppel Supabase om jullie eigen huisgegevens veilig op te slaan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_06c5bc21",
+    "source": "Een overzicht van jullie grotere plannen en de stappen ernaartoe.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8e6f0b82",
+    "source": "Een paar details, een gedachte of een plan…",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a8ded609",
+    "source": "Een plan voor ons thuis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a44dfe22",
+    "source": "Een stapje dichterbij",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9ba39101",
+    "source": "Een vondst voor jullie thuis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f6c69450",
+    "source": "Eerlijk verdeeld",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f1492e72",
+    "source": "Eigen percentages",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8309303b",
+    "source": "Eindigt",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8b368dcc",
+    "source": "Eindigt (Amsterdam)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3705ed88",
+    "source": "Elke",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_411a658a",
+    "source": "en",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_be2ab323",
+    "source": "Er ging iets mis.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0e2b0104",
+    "source": "Even aan denken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_aa0be00a",
+    "source": "Even geduld…",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_375da518",
+    "source": "Even geen verbinding.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_092adf3c",
+    "source": "Even offline.",
+    "groups": [
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_103545cf",
+    "source": "Even snel toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c30bf539",
+    "source": "F",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_743a9d0c",
+    "source": "Fase",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6b8ce143",
+    "source": "februari",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6f71f90c",
+    "source": "Fijne mensen voor jullie plannen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_74e300e6",
+    "source": "Filter op kamer",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a13f8caa",
+    "source": "Filter op persoon",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9ab9a890",
+    "source": "Filter op status",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1ef9b918",
+    "source": "Financiën",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3891feaf",
+    "source": "Foto {1} openen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_21bedf19",
+    "source": "Foto bewaren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dbf5fc07",
+    "source": "Foto openen mislukt. Vernieuw en probeer opnieuw.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_57110d34",
+    "source": "Foto privé opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_37aa443b",
+    "source": "Foto toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3f7a31db",
+    "source": "Foto’s",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5ba5f4d1",
+    "source": "Geannuleerd",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b45c94aa",
+    "source": "Gearchiveerd",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e8aa73d2",
+    "source": "Geblokkeerd",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_458a0d32",
+    "source": "Gebruik een https-link.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3f66e5f4",
+    "source": "Gebruik een wachtwoord van 10 tot 128 tekens.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8106eca7",
+    "source": "Gebruik minimaal 10 tekens.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e05a035d",
+    "source": "Gebruik minimaal 10 tekens. Ieder heeft een eigen account.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_86452f38",
+    "source": "Geef dit een naam.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_46515ab7",
+    "source": "Geef een groot plan de ruimte",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d88371df",
+    "source": "Geef jullie eerste kamer een plek.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1de63c22",
+    "source": "Geef jullie plannen een financieel kader.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ec6676e",
+    "source": "Geen afspraken om weer te geven",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3c34c409",
+    "source": "Geen datum",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_84e4d7db",
+    "source": "Geen project",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e032f82d",
+    "source": "Geen resultaten gevonden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1651ddd1",
+    "source": "Geen taak",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_418e742b",
+    "source": "Geen taken voor deze week",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3eec5759",
+    "source": "Geen toegang tot dit huishouden.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_41b599d1",
+    "source": "Geen toegang.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0c3beebc",
+    "source": "Gekocht",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a4e18dac",
+    "source": "gekoppeld.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_100d7631",
+    "source": "Geleverd",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_effc86b6",
+    "source": "Gelijk verdelen",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5a4e7b47",
+    "source": "Gelijkwaardige partner",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0d3c48fd",
+    "source": "Gepauzeerd",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c9b08926",
+    "source": "Gepland",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0ee50c3f",
+    "source": "Geregistreerd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_571b4859",
+    "source": "Geschatte duur",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d17c26c0",
+    "source": "Geschatte kosten (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d2a20ddd",
+    "source": "Geschatte tijd (minuten)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fed1b1c6",
+    "source": "Geschiedenis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1d673cae",
+    "source": "Gewenst",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ca9bc071",
+    "source": "Globaal zoeken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f5c5fd17",
+    "source": "GOED GEREGELD",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0b4f1d47",
+    "source": "Goed onderhoud begint met een rustig overzicht.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_35e9671f",
+    "source": "Goedgekeurd",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_980438d6",
+    "source": "Grafiekgroepering",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_92a398e9",
+    "source": "Hé, wat pakken we aan?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_de1b9811",
+    "source": "hele dag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8665f864",
+    "source": "Hele huis",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_37000820",
+    "source": "Herhaal nieuw wachtwoord",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cb9c3330",
+    "source": "Herhalen iedere … maanden",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1b7058ff",
+    "source": "Herhaling",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_464264cc",
+    "source": "Herinnering",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ae8660ff",
+    "source": "Herinneringen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_294a37c0",
+    "source": "Herinneringen verschijnen hier in de app. E-mail- en pushberichten zijn nog niet beschikbaar.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9698c162",
+    "source": "Het bedrag moet groter zijn dan nul.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_69d207e2",
+    "source": "Het hoeft niet in één dag af. Het is al van jullie.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3d4ceb4f",
+    "source": "Hier is ruimte voor jullie {1}",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_71fa20a3",
+    "source": "Hier komen jullie recente activiteiten.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bc2537eb",
+    "source": "Hier zijn we de weg even kwijt.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0b9ecf01",
+    "source": "Hoe verdelen jullie de kosten?",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_52f50eae",
+    "source": "Home",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_15bf6f6f",
+    "source": "Hoofdnavigatie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_20f93d26",
+    "source": "Hoog",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_def6434d",
+    "source": "Houd het eerlijk verdeeld",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e0f95d8d",
+    "source": "Huishouden instellen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_79978d6e",
+    "source": "Idee",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a51f2454",
+    "source": "Idee bewaren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0fcc243f",
+    "source": "Iedere betaler mag maar één keer voorkomen.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dd2f0eae",
+    "source": "Iedereen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a614fd50",
+    "source": "In een plek die van jullie is",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8a101384",
+    "source": "In uitvoering",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6bc64cbe",
+    "source": "in volgorde uit.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5be92310",
+    "source": "in.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_24bfcb5e",
+    "source": "Inloggen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c52d8159",
+    "source": "Inloggen mislukt. Controleer je e-mail en wachtwoord.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_52dd606d",
+    "source": "Inspiratie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ac8e857f",
+    "source": "Instellen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e1162ded",
+    "source": "Is deze onderlinge betaling daadwerkelijk uitgevoerd?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_268c400d",
+    "source": "januari",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_faa3b627",
+    "source": "Je bent helemaal bij.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_907c2320",
+    "source": "Je herstellink is verlopen. Vraag een nieuwe resetmail aan.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_97b16343",
+    "source": "Je nieuwe wachtwoord is opgeslagen. Je bent ingelogd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f6056291",
+    "source": "Jouw naam",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_15100b1e",
+    "source": "JPG, PNG of WebP · maximaal 3 MB per foto. Voeg meerdere foto’s één voor één toe.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f1d0edc5",
+    "source": "JPG, PNG, WebP of PDF · maximaal 3 MB · privé opgeslagen.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_aa3d222f",
+    "source": "juli",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9c1b0610",
+    "source": "Jullie aankomende afspraken, deadlines en onderhoud.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e2ed1c93",
+    "source": "Jullie eerste stap is het begin van iets moois.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7c0b7ee9",
+    "source": "Jullie eerste uitgave vertelt het begin.",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_15003de4",
+    "source": "Jullie fotogalerij",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b0c5ef4e",
+    "source": "Jullie huis, jullie instellingen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1f6f9d12",
+    "source": "Jullie huisbudget is overschreden.",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a25fe34f",
+    "source": "Jullie kamers",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dd13b8b1",
+    "source": "Jullie taken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5ca2e702",
+    "source": "Jullie uitgaven, budgetten en verrekeningen. Eerlijk verdeeld.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_864166b1",
+    "source": "juni",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e5e4dc63",
+    "source": "Kalender",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_df30b9c3",
+    "source": "Kamer",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fe5916df",
+    "source": "Kamer toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_09b45010",
+    "source": "Kamers",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_003c7a8e",
+    "source": "Kanban",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_24eeacd8",
+    "source": "KB",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f3a2ff17",
+    "source": "Kies de uitgave",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0617f329",
+    "source": "Kies een afbeelding voor de galerij.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ecd489ad",
+    "source": "Kies een bestand van maximaal 3 MB.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_af4ffc9b",
+    "source": "Kies een nieuw wachtwoord van minimaal 10 tekens.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1bdd2324",
+    "source": "KLEINE MOEITE, FIJN GEREGELD",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_73e71a8a",
+    "source": "Klusdag",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1392c389",
+    "source": "Klusdagen, leveringen en afspraken, in één gezamenlijke agenda.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_15e398c8",
+    "source": "Koppel een Supabase-project om veilig met jullie eigen gegevens te werken. Deze omgeving bevat nog geen huisgegevens.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e0085a4c",
+    "source": "Koppel eerst Supabase via de configuratie-instructies.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f4d487ad",
+    "source": "Koppelen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_623d3f57",
+    "source": "Kosten in de onderhoudshistorie worden niet automatisch een gezamenlijke uitgave. Registreer deze apart bij Financiën.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_29748d07",
+    "source": "Kostenindicatie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4bd257f8",
+    "source": "Kostenindicatie (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e13b3f1e",
+    "source": "Laag",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_38e80692",
+    "source": "Laatst uitgevoerd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_37eef92d",
+    "source": "Lengte (cm)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_af83852f",
+    "source": "Leverancier",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a80aefd4",
+    "source": "Leveranciers",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_854f1175",
+    "source": "Levering",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_36fbe1d3",
+    "source": "Lijst",
+    "groups": [
+      "Website en navigatie",
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f05e6cb8",
+    "source": "Link gekopieerd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_10c06f74",
+    "source": "Link kopiëren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_881c63cf",
+    "source": "Live",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_be080708",
+    "source": "Live sessie kon niet worden geopend. Log opnieuw in.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_70afe32a",
+    "source": "Live sessie niet beschikbaar. Log opnieuw in.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_94587863",
+    "source": "Live verbinding maken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dbc32f6a",
+    "source": "Live verbinding onderbroken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3fd7c080",
+    "source": "Live verbinding onderbroken. Vernieuw om wijzigingen op te halen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8bd72720",
+    "source": "Live verbonden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d46446bd",
+    "source": "Log in en maak een huishouden aan.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5a862923",
+    "source": "Log opnieuw in.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_642e245b",
+    "source": "ma",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8f9ebd9b",
+    "source": "Maak een Supabase-project aan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0764e9c0",
+    "source": "Maak er een taak van",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0584d79f",
+    "source": "Maak er tijd voor",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3aa35653",
+    "source": "Maak favoriet",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6477261e",
+    "source": "Maak het van jullie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_36f6c5c0",
+    "source": "Maak jullie huishouden aan of accepteer een uitnodiging.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b52c47d0",
+    "source": "Maak ruimte voor de volgende grote wens.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b3714e1d",
+    "source": "Maak verbinding met internet om je huisgegevens veilig te bekijken en te wijzigen.",
+    "groups": [
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d67eb0ec",
+    "source": "Maand",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d4deda10",
+    "source": "maandag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bdd5bb7f",
+    "source": "maanden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_14c7d900",
+    "source": "maart",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_725a39c3",
+    "source": "Materialen",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f1b4a69c",
+    "source": "Meer",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9662aae4",
+    "source": "Meerdere betalers? Vul per persoon het betaalde bedrag in.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cead624a",
+    "source": "mei",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cc923735",
+    "source": "Melding sluiten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d76d8c4d",
+    "source": "Menu openen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fa1e50b6",
+    "source": "Menu sluiten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cc2fc2a7",
+    "source": "Mijlpaal",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2615f03e",
+    "source": "Mobiele navigatie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_763acc92",
+    "source": "Mooie vondsten voor later. Of voor binnenkort.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_53e6a810",
+    "source": "Na",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_17c26a8a",
+    "source": "Naam",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0aec511d",
+    "source": "Naam van jullie huis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1ac26f43",
+    "source": "Naar",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_050a00df",
+    "source": "Naar de website",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1097a39a",
+    "source": "Naar inloggen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9b33cccd",
+    "source": "Naar tekstbeheer",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5c217a37",
+    "source": "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2e818f41",
+    "source": "NEXT_PUBLIC_SUPABASE_URL",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a04b0bc3",
+    "source": "Nieuw",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d126b50d",
+    "source": "Nieuw onderdeel",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1c4af8df",
+    "source": "Nieuw toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c2687a73",
+    "source": "Nieuw wachtwoord",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2e282c50",
+    "source": "Nieuwe opmerking",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_769b1b9f",
+    "source": "Nieuwe reactie",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e92bb105",
+    "source": "Nieuwe resetmail aanvragen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_15bad82f",
+    "source": "Nodig je partner uit met het e-mailadres van diens eigen account. De code is 7 dagen geldig.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ef9abc95",
+    "source": "Nodig je partner uit om samen te verrekenen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d5c63d4e",
+    "source": "Nog geen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e9608589",
+    "source": "Nog geen activiteiten.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_575b6ea4",
+    "source": "Nog geen winkel",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2ff4c5b5",
+    "source": "Nog iets om aan te denken?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_254b48e5",
+    "source": "Nog niet ingevuld",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7a3dd30a",
+    "source": "Nog te kiezen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_01c45d07",
+    "source": "Normaal",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4794261f",
+    "source": "november",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8fca9a6d",
+    "source": "Of koppel een bestaande uitgave",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c47c37c8",
+    "source": "Offline",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8c8226ef",
+    "source": "oktober",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7aaee64c",
+    "source": "Omschrijving",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d0caac28",
+    "source": "Omslagfoto (https-link, optioneel)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ae2e4aa3",
+    "source": "Onderhoud",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c3e16d36",
+    "source": "Ons fijne thuis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_087538bc",
+    "source": "Ons huis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6c9e0653",
+    "source": "Ons huishouden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f00b8af7",
+    "source": "Ons huishouden maken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b9601699",
+    "source": "Ontdek, organiseer en maak elke kamer een beetje meer van jullie.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4ef858a5",
+    "source": "Oorspronkelijke uitgave",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c6c5e6ba",
+    "source": "Op de planning",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_44ed9d52",
+    "source": "Open taken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_32c0334a",
+    "source": "Openstaande taken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c3ca7124",
+    "source": "Opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_036c5d48",
+    "source": "Opmerking toegevoegd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b55b7cf6",
+    "source": "Opmerkingen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9cfe9e0d",
+    "source": "Opnieuw proberen",
+    "groups": [
+      "Website en navigatie",
+      "App en browser"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_29b5fb14",
+    "source": "Oppervlakte",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_414388eb",
+    "source": "Opslaan",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a5aee9a2",
+    "source": "Opslaan mislukt.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_10c554e1",
+    "source": "Opslaan mislukt. Controleer de gegevens en vernieuw bij een gelijktijdige wijziging.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8a82bab7",
+    "source": "Opslaan…",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_39dfc8cf",
+    "source": "Overig",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_794394ff",
+    "source": "Overzicht",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_038a02a9",
+    "source": "PAGINA NIET GEVONDEN",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_110b0f34",
+    "source": "PDF of afbeelding · maximaal 3 MB.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_381e46e3",
+    "source": "Per categorie",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_45e55c90",
+    "source": "Per kamer",
+    "groups": [
+      "Website en navigatie",
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7832dabf",
+    "source": "Per maand",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_47cc9c58",
+    "source": "Per persoon",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_525b3661",
+    "source": "Per project",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ddbe31b1",
+    "source": "Persoonlijke uitgave",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f26fd0b9",
+    "source": "Plaatsen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b460ce59",
+    "source": "Plak hier de code uit de uitnodiging",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9b3fb875",
+    "source": "Plan iets samen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f4a277c4",
+    "source": "Planning",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5107bece",
+    "source": "Prijs per stuk (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1c4117f8",
+    "source": "Prioriteit",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2b9538dd",
+    "source": "Privéfoto",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4393be0c",
+    "source": "Privéfoto openen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_52c26db9",
+    "source": "Probeer een andere zoekterm of pas je filters aan.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_529c60cc",
+    "source": "Product",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7b5fea5e",
+    "source": "Project",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_173d03df",
+    "source": "Projectbudget overschreden met",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_946caf1d",
+    "source": "Projecten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6a31b72c",
+    "source": "Projectfases",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d32c0212",
+    "source": "Registreren mislukt. Probeer later opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0146a525",
+    "source": "Resetmail versturen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b2ff048e",
+    "source": "Ruimte in jullie budget.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d60c1322",
+    "source": "S",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c514756f",
+    "source": "Samen",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5566dc89",
+    "source": "SAMEN AAN DE SLAG",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6449756c",
+    "source": "Samen bespreken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_49d270bf",
+    "source": "Samen ergens naartoe.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ba9e6a82",
+    "source": "Samen geïnvesteerd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ccde0d28",
+    "source": "Samen in beweging",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_08e75fd1",
+    "source": "Samen is fijner",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1aa789b1",
+    "source": "Selecteer de link en kopieer deze handmatig.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b30020f4",
+    "source": "Selecteer uitgave",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0f8a5260",
+    "source": "september",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dc802a5b",
+    "source": "Sluiten",
+    "groups": [
+      "Knoppen en vensters"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6f4f7efb",
+    "source": "Soort afspraak",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_95ab78ad",
+    "source": "Soort registratie",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_eb2066a6",
+    "source": "Spaardoel",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3ec879b5",
+    "source": "Spaardoelen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1cf693e5",
+    "source": "Stapje voor stapje, samen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a05ef53a",
+    "source": "Start een project",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0c49d772",
+    "source": "Startdatum",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_005ef20f",
+    "source": "Status",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_07491ccc",
+    "source": "Status {1}",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_3b71e64b",
+    "source": "Stel",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_12087e8c",
+    "source": "Stel jullie eerste budget in",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7c9bdb33",
+    "source": "Streefdatum",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_576aa358",
+    "source": "Subtaken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ecb62239",
+    "source": "Supabase is nog niet gekoppeld. Volg de stappen bij Instellingen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_502c04dd",
+    "source": "supabase/migrations",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_76ccab4a",
+    "source": "Taak",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0a164d7e",
+    "source": "Taak toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_685b6933",
+    "source": "Tags (gescheiden door komma's)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d6152dc8",
+    "source": "Taken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ce9657e9",
+    "source": "Taken, plannen en geldzaken. Samen geregeld.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3eeaa3fc",
+    "source": "Te doen",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1888b353",
+    "source": "Telefoon",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ed7738ec",
+    "source": "Terug naar de website",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ce3f70bf",
+    "source": "Terug naar het overzicht",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bfa49daf",
+    "source": "Terugbetaling van een winkel",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a12f1bf4",
+    "source": "Terugdraaien",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ad0b2a65",
+    "source": "Teruggedraaid",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_65187914",
+    "source": "the Rooster",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_089c28f8",
+    "source": "Tijdens",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_af2c5e5d",
+    "source": "Tijdzone: Europe/Amsterdam",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_75305dc5",
+    "source": "Tijdzone: Europe/Amsterdam · Bestanden zijn privé.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8c1df7fc",
+    "source": "Toegevoegd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2ddbce3c",
+    "source": "Toegevoegd door",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_652d1f96",
+    "source": "Toegevoegd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e9f8702b",
+    "source": "toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3ac669cb",
+    "source": "Toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_33fe8f7e",
+    "source": "Totaal",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7c45f57a",
+    "source": "Totaalbedrag (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0819c549",
+    "source": "Totaalbudget min jullie uitgaven",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_411e7c11",
+    "source": "Totale gezamenlijke uitgaven",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c2fa44b2",
+    "source": "Typ minimaal twee tekens om te zoeken.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f06b0f3c",
+    "source": "Uitgave",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f928cf50",
+    "source": "Uitgave invoeren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2ababf99",
+    "source": "Uitgave terugdraaien",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ca891e16",
+    "source": "Uitgaven",
+    "groups": [
+      "Website en navigatie",
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b8aef297",
+    "source": "Uitgevoerd",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_405c0c5a",
+    "source": "Uitgevoerd op",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_69d43fb9",
+    "source": "Uitloggen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e8e91278",
+    "source": "Uitnodigen mislukt.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2d99fc52",
+    "source": "Uitnodiging accepteren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_afc5a432",
+    "source": "Uitnodigingscode (als je partner al een huis heeft)",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a957ef3f",
+    "source": "Uitnodigingslink maken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_eef9913f",
+    "source": "Uitvoering opslaan",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e1faebbd",
+    "source": "Uitvoering vastleggen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_92fa0c90",
+    "source": "Urgent",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_75b96627",
+    "source": "Van de eerste offerte tot dat ene garantiebewijs.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_decfdb44",
+    "source": "Van plannen naar werkelijkheid",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e84e292d",
+    "source": "vandaag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c03ec7cd",
+    "source": "Vandaag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a1e5193a",
+    "source": "Vaste bedragen",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8967f5d2",
+    "source": "Verantwoordelijke",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_89be5e26",
+    "source": "Verbinden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b5c64f90",
+    "source": "Verbinding mislukt. Probeer opnieuw.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b43405a2",
+    "source": "Verfkleuren",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8e4f6d19",
+    "source": "Vergelijken",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0f5cd2a2",
+    "source": "Verlanglijst",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_46b9da76",
+    "source": "Verrekening opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_45eaf010",
+    "source": "Verrekeningen tellen nooit mee als huisuitgave.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fd1d1309",
+    "source": "Verrekeningshistorie (",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0075a867",
+    "source": "Verwijder favoriet",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_decd9335",
+    "source": "Verwijderd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d89e9381",
+    "source": "Verwijderd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f69c8424",
+    "source": "Verwijderen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4c67bfc3",
+    "source": "Verzamel wat jullie raakt. Droom, bespreek en maak het werkelijkheid.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5cee646e",
+    "source": "Voeg een stap toe…",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_575f905e",
+    "source": "Voeg een taak met een datum toe.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_56cde779",
+    "source": "Voeg het eerste onderdeel toe en maak jullie huis een beetje meer thuis.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e40eae88",
+    "source": "Voer de migraties uit de map",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2c6c48c3",
+    "source": "Volgende",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_b7daa17f",
+    "source": "Volgende uitvoering",
+    "groups": [
+      "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e8a3f2b1",
+    "source": "Volgorde",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c516d0d1",
+    "source": "Volgorde:",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dee7f14f",
+    "source": "Voor",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c025994d",
+    "source": "Voor een correctie: draai de uitgave terug en registreer het juiste bedrag opnieuw. Bestaande verrekeningen blijven zichtbaar.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e3261b41",
+    "source": "Voor later",
+    "groups": [
+      "Formulieren en velden",
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6864166a",
+    "source": "VOOR ONS THUIS",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9cbb765d",
+    "source": "Voor wie?",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_96c7df46",
+    "source": "Voortgang",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3f9ac2f3",
+    "source": "Vorige",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5749e661",
+    "source": "vr",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9b725276",
+    "source": "vrijdag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2b2780c5",
+    "source": "Vul een geldig e-mailadres in.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_503b9a8b",
+    "source": "Vul een titel in.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cf464375",
+    "source": "Vul het e-mailadres van je account in. Je ontvangt een link om zelf een nieuw wachtwoord te kiezen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3f721da0",
+    "source": "Waar begint jullie verhaal?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8e69c511",
+    "source": "Waar ben je naar op zoek?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7b29042f",
+    "source": "Wachtwoord",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_94b3c2a3",
+    "source": "Wachtwoord opslaan",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7b1d929b",
+    "source": "Wachtwoord opslaan mislukt. Kies een ander wachtwoord of vraag een nieuwe resetmail aan.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_9ead9344",
+    "source": "Wachtwoord opslaan mislukt. Probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_27d498be",
+    "source": "Wachtwoord vergeten?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d84c0733",
+    "source": "Wat er thuis gebeurt.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6754df71",
+    "source": "Wat gaan we doen?",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1b281aec",
+    "source": "Wat vind jij?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1cdc30e8",
+    "source": "Wat voegen we toe?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ecc3c224",
+    "source": "We kunnen je huisgegevens niet laden. Controleer de Supabase-configuratie en migraties, of probeer opnieuw.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_8051cf83",
+    "source": "Website bekijken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1acf7f44",
+    "source": "Website of productlink",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_55f2e27d",
+    "source": "Week",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d1292e09",
+    "source": "weight_{1}",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_472368bb",
+    "source": "Welkom thuis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_191bab7a",
+    "source": "WELKOM THUIS{1}",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_eff757bf",
+    "source": "Welkom! Log in om samen aan jullie huis te werken.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_dfd7a036",
+    "source": "Werkelijke kosten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_be61876d",
+    "source": "Werkelijke kosten (€)",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7749771b",
+    "source": "Werkelijke uitgaven",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1f8086be",
+    "source": "Wie heeft betaald?",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c71d5b2b",
+    "source": "Wie heeft het geld teruggekregen?",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_1ff401bf",
+    "source": "Winkel",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a3ff2907",
+    "source": "Winkel · aantal",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6247b91b",
+    "source": "wo",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_3886358b",
+    "source": "woensdag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_52eec09e",
+    "source": "Woningdossier",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4c67ea24",
+    "source": "za",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5fbc591d",
+    "source": "zaterdag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_10c700fe",
+    "source": "Zie wat er moet gebeuren, voor wie en wanneer.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4267da66",
+    "source": "zo",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_eb8a7b60",
+    "source": "Zoek iets voor ons thuis",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_23d150c5",
+    "source": "Zoeken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f900d7bf",
+    "source": "Zoeken in {1}…",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_425d05f8",
+    "source": "zondag",
+    "groups": [
+      "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d35c0692",
+    "source": "Zonder project",
+    "groups": [
+      "Financiën"
+    ],
+    "template": false
+  }
+]

@@ -1,7 +1,10 @@
 "use client";
+import { CopyScope, useSiteContent } from "@/components/content-provider";
+
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import {
   House,
   LayoutGrid,
@@ -162,6 +165,8 @@ export function App({
   initialToken?: string;
   weekEnd: string;
 }) {
+  const { canEdit: canEditCopy, text: copy } = useSiteContent();
+
   const router = useRouter();
   const [view, setView] = useState<View>(
     initialView in titles ? (initialView as View) : "home",
@@ -592,1221 +597,1257 @@ export function App({
       empty(entity)
     );
   return (
-    <div className="app-shell">
-      <aside className={`sidebar ${showMenu ? "sidebar-open" : ""}`}>
-        <button
-          className="brand"
-          aria-label="Cheese the Rooster — naar overzicht"
-          onClick={() => go("home")}
-        >
-          <Image
-            className="brand-logo"
-            src="/cheese-the-rooster-logo.webp"
-            width={48}
-            height={48}
-            alt=""
-          />
-          <span className="brand-wordmark">
-            <span>Cheese</span>
-            <small>the Rooster</small>
-          </span>
-        </button>
-        <div className="home-switch">
-          <span className="house-mark">
-            <House size={17} />
-          </span>
-          <div>
-            <strong>{data.household?.name || "Ons fijne thuis"}</strong>
-            <small>
-              {data.members.length
-                ? data.members.map((m) => m.profiles.display_name).join(" & ")
-                : "Dylan & Floor"}
-            </small>
-          </div>
-          <ChevronRight size={15} />
-        </div>
-        <nav aria-label="Hoofdnavigatie">
-          {navigation.map((n) => (
-            <div key={n.key}>
-              {n.section && <p className="nav-section">{n.section}</p>}
-              <button
-                className={`nav-item ${view === n.key ? "active" : ""}`}
-                onClick={() => go(n.key)}
-              >
-                <n.icon size={19} strokeWidth={1.7} />
-                <span>{n.label}</span>
-                {n.key === "tasks" && tasks.length > 0 && (
-                  <span className="nav-count">{tasks.length}</span>
-                )}
-              </button>
-            </div>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <div className="together-note">
-            <Leaf size={21} strokeWidth={1.3} />
-            <p>
-              Een huis wordt een thuis.
-              <br />
-              <span>Stapje voor stapje, samen.</span>
-            </p>
-          </div>
-          <button
-            className="profile"
-            onClick={() => {
-              setShowMenu(false);
-              if (data.user) setSettings(true);
-              else setAuth(true);
-            }}
-          >
-            <span className="avatar">{name?.[0] || "D"}</span>
-            <span>
-              <strong>{name || "Dylan & Floor"}</strong>
-              <small>{data.user ? "Ons huishouden" : "Welkom thuis"}</small>
-            </span>
-            <Settings size={17} />
-          </button>
-        </div>
-      </aside>
-      {showMenu && (
-        <button
-          className="mobile-scrim"
-          onClick={() => setShowMenu(false)}
-          aria-label="Menu sluiten"
-        />
-      )}
-      <div className="main-shell">
-        <header className="topbar">
-          <div className="breadcrumb">
+    <CopyScope>
+      {
+        <div className="app-shell">
+          <aside className={`sidebar ${showMenu ? "sidebar-open" : ""}`}>
             <button
-              className="mobile-menu icon-button"
-              onClick={() => setShowMenu(true)}
-              aria-label="Menu openen"
+              className="brand"
+              aria-label="Cheese the Rooster — naar overzicht"
+              onClick={() => go("home")}
             >
-              <Menu size={22} />
+              <Image
+                className="brand-logo"
+                src="/cheese-the-rooster-logo.webp"
+                width={48}
+                height={48}
+                alt=""
+              />
+              <span className="brand-wordmark">
+                <span>Cheese</span>
+                <small>the Rooster</small>
+              </span>
             </button>
-            <Image
-              className="breadcrumb-logo"
-              src="/cheese-the-rooster-logo.webp"
-              width={24}
-              height={24}
-              alt=""
-            />
-            <span>Cheese the Rooster</span>
-            <ChevronRight size={12} />
-            <strong>
-              {navigation.find((n) => n.key === view)?.label || "Overzicht"}
-            </strong>
-          </div>
-          <div className="topbar-actions">
-            {h && (
-              <span
-                className="live-status"
-                aria-label={
-                  liveStatus === "Live"
-                    ? "Live verbonden"
-                    : liveStatus === "Offline"
-                      ? "Live verbinding onderbroken"
-                      : "Live verbinding maken"
-                }
-              >
-                <i className={liveStatus === "Live" ? "connected" : ""} />
-                <span>{liveStatus}</span>
+            <div className="home-switch">
+              <span className="house-mark">
+                <House size={17} />
               </span>
-            )}
-            <button
-              className="icon-button"
-              onClick={() => setGlobalSearch(true)}
-              aria-label="Doorzoek ons huis"
-            >
-              <Search size={18} />
-            </button>
-            <span className="today-label">
-              {new Intl.DateTimeFormat("nl-NL", {
-                day: "numeric",
-                month: "long",
-                timeZone: "Europe/Amsterdam",
-              }).format(new Date())}
-            </span>
-            <button
-              className="icon-button notification-button"
-              onClick={() => setNotificationOpen(true)}
-              aria-label="Herinneringen"
-            >
-              <Bell size={19} />
-              {upcoming.length > 0 && <i />}
-            </button>
-            <div className="couple-avatars">
-              <span className="avatar avatar-small">
-                {data.members[0]?.profiles.display_name[0] || "D"}
-              </span>
-              <span className="avatar avatar-small avatar-clay">
-                {data.members[1]?.profiles.display_name[0] || "F"}
-              </span>
+              <div>
+                <strong>{data.household?.name || "Ons fijne thuis"}</strong>
+                <small>
+                  {data.members.length
+                    ? data.members
+                        .map((m) => m.profiles.display_name)
+                        .join(" & ")
+                    : "Dylan & Floor"}
+                </small>
+              </div>
+              <ChevronRight size={15} />
             </div>
-          </div>
-        </header>
-        <main id="main-content">
-          <div className="page-heading">
-            <div>
-              <p className="eyebrow">
-                {view === "home"
-                  ? `WELKOM THUIS${name ? ", " + name.toUpperCase() : ""}`
-                  : "CHEESE THE ROOSTER · " +
-                    (
-                      navigation.find((n) => n.key === view)?.label || "SAMEN"
-                    ).toUpperCase()}
-              </p>
-              <h1>{titles[view]}</h1>
-              <p className="page-description">{descriptions[view]}</p>
-            </div>
-            <Button
-              className="heading-add"
-              aria-label={
-                view === "home" || view === "activity"
-                  ? "Nieuw toevoegen"
-                  : `${labels[view]} toevoegen`
-              }
-              onClick={() =>
-                view === "home" || view === "activity"
-                  ? setQuick(true)
-                  : create(view)
-              }
-            >
-              <Plus size={17} />
-              <span className="heading-add-label">
-                {view === "home" || view === "activity"
-                  ? "Nieuw toevoegen"
-                  : `${labels[view]} toevoegen`}
-              </span>
-            </Button>
-          </div>
-          {!data.configured && (
-            <div className="setup-notice">
-              <span>
-                <span className="status-dot" />
-                Een nieuw begin. Koppel Supabase om jullie eigen huisgegevens
-                veilig op te slaan.
-              </span>
-              <button onClick={() => setSettings(true)}>
-                Instellen <ArrowRight size={14} />
-              </button>
-            </div>
-          )}
-          {data.configured && !data.household && (
-            <div className="setup-notice">
-              <span>
-                {data.user
-                  ? "Maak jullie huishouden aan of accepteer een uitnodiging."
-                  : "Welkom! Log in om samen aan jullie huis te werken."}
-              </span>
-              <button onClick={() => setAuth(true)}>
-                {data.user ? "Huishouden instellen" : "Inloggen"}{" "}
-                <ArrowRight size={14} />
-              </button>
-            </div>
-          )}
-          {view === "home" ? (
-            <>
-              <div className="dashboard-top">
-                <section className="week-card">
-                  <div className="section-heading">
-                    <h2>Deze week</h2>
-                    <span className="subtle-icon">
-                      <CalendarDays size={20} />
-                    </span>
-                  </div>
-                  <p className="muted">
-                    Dit staat er voor jullie op de planning.
-                  </p>
-                  <div className="week-tasks">
-                    {tasks
-                      .filter(
-                        (t) =>
-                          t.due_date &&
-                          t.due_date >= today() &&
-                          t.due_date <= weekEnd,
-                      )
-                      .slice(0, 3)
-                      .map(taskRow)}
-                    {!tasks.some(
-                      (t) =>
-                        t.due_date &&
-                        t.due_date >= today() &&
-                        t.due_date <= weekEnd,
-                    ) && (
-                      <div className="calm-empty">
-                        <span>
-                          <CheckCheck size={26} strokeWidth={1.3} />
-                        </span>
-                        <h3>Geen taken voor deze week</h3>
-                        <p>
-                          Voeg een taak met een datum toe.
-                          <br />
-                          Dan vinden jullie hem hier terug.
-                        </p>
-                      </div>
-                    )}
-                  </div>
+            <nav aria-label="Hoofdnavigatie">
+              {navigation.map((n) => (
+                <div key={n.key}>
+                  {n.section && <p className="nav-section">{n.section}</p>}
                   <button
-                    className="text-link card-bottom-link"
-                    onClick={() => go("tasks")}
+                    className={`nav-item ${view === n.key ? "active" : ""}`}
+                    onClick={() => go(n.key)}
                   >
-                    Bekijk alle taken <ArrowRight size={16} />
-                  </button>
-                </section>
-                <section
-                  className="quick-start-card"
-                  aria-labelledby="quick-start-heading"
-                >
-                  <div className="section-heading">
-                    <div>
-                      <p className="eyebrow">KLEINE MOEITE, FIJN GEREGELD</p>
-                      <h2 id="quick-start-heading">Even snel toevoegen</h2>
-                    </div>
-                    <Plus size={22} aria-hidden="true" />
-                  </div>
-                  <p>Een klus, een aankoop of dat ene goede idee.</p>
-                  <div className="quick-start-actions">
-                    <button onClick={() => create("tasks")}>
-                      <CheckCheck size={19} />
-                      <span>Taak toevoegen</span>
-                      <ArrowUpRight size={16} />
-                    </button>
-                    <button onClick={() => create("expenses")}>
-                      <Wallet size={19} />
-                      <span>Uitgave invoeren</span>
-                      <ArrowUpRight size={16} />
-                    </button>
-                    <button onClick={() => create("ideas")}>
-                      <Lightbulb size={19} />
-                      <span>Idee bewaren</span>
-                      <ArrowUpRight size={16} />
-                    </button>
-                    <button onClick={() => create("calendar_events")}>
-                      <CalendarDays size={19} />
-                      <span>Afspraak plannen</span>
-                      <ArrowUpRight size={16} />
-                    </button>
-                  </div>
-                </section>
-              </div>
-              <div className="stats-grid">
-                <button className="stat-card" onClick={() => go("tasks")}>
-                  <div>
-                    <span className="stat-icon sage">
-                      <CheckCheck size={20} />
-                    </span>
-                    <ArrowUpRight size={16} />
-                  </div>
-                  <strong>{tasks.length}</strong>
-                  <span>Openstaande taken</span>
-                  <small>
-                    {r.tasks.filter((t) => t.status === "Afgerond").length}{" "}
-                    afgerond · goed bezig
-                  </small>
-                </button>
-                <button className="stat-card" onClick={() => go("projects")}>
-                  <div>
-                    <span className="stat-icon clay">
-                      <FolderKanban size={20} />
-                    </span>
-                    <ArrowUpRight size={16} />
-                  </div>
-                  <strong>{activeProjects.length}</strong>
-                  <span>Actieve projecten</span>
-                  <small>Van plannen naar werkelijkheid</small>
-                </button>
-                <button className="stat-card" onClick={() => go("expenses")}>
-                  <div>
-                    <span className="stat-icon sand">
-                      <Wallet size={20} />
-                    </span>
-                    <ArrowUpRight size={16} />
-                  </div>
-                  <strong>{euro(total)}</strong>
-                  <span>Samen geïnvesteerd</span>
-                  <small>In een plek die van jullie is</small>
-                </button>
-                <button className="stat-card" onClick={() => go("budgets")}>
-                  <div>
-                    <span className="stat-icon sage">
-                      <Leaf size={20} />
-                    </span>
-                    <ArrowUpRight size={16} />
-                  </div>
-                  <strong>
-                    {householdBudget ? euro(householdBudget - total) : "—"}
-                  </strong>
-                  <span>Beschikbaar huisbudget</span>
-                  <small>
-                    {householdBudget
-                      ? "Totaalbudget min jullie uitgaven"
-                      : "Stel jullie eerste budget in"}
-                  </small>
-                </button>
-              </div>
-              <section className="dashboard-section">
-                <div className="section-heading">
-                  <div>
-                    <p className="eyebrow">ALLES PER KAMER</p>
-                    <h2>Jullie kamers</h2>
-                  </div>
-                  <button className="text-link" onClick={() => go("rooms")}>
-                    Alle kamers <ArrowRight size={16} />
+                    <n.icon size={19} strokeWidth={1.7} />
+                    <span>{n.label}</span>
+                    {n.key === "tasks" && tasks.length > 0 && (
+                      <span className="nav-count">{tasks.length}</span>
+                    )}
                   </button>
                 </div>
-                {r.rooms.length ? (
-                  grid(
-                    "rooms",
-                    r.rooms
-                      .filter((k) => k.status !== "Gearchiveerd")
-                      .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
-                      .slice(0, 3),
-                  )
-                ) : (
-                  <button
-                    className="start-room-card"
-                    onClick={() => create("rooms")}
+              ))}
+            </nav>
+            <div className="sidebar-bottom">
+              <div className="together-note">
+                <Leaf size={21} strokeWidth={1.3} />
+                <p>
+                  Een huis wordt een thuis.
+                  <br />
+                  <span>Stapje voor stapje, samen.</span>
+                </p>
+              </div>
+              <button
+                className="profile"
+                onClick={() => {
+                  setShowMenu(false);
+                  if (data.user) setSettings(true);
+                  else setAuth(true);
+                }}
+              >
+                <span className="avatar">{name?.[0] || "D"}</span>
+                <span>
+                  <strong>{name || "Dylan & Floor"}</strong>
+                  <small>{data.user ? "Ons huishouden" : "Welkom thuis"}</small>
+                </span>
+                <Settings size={17} />
+              </button>
+            </div>
+          </aside>
+          {showMenu && (
+            <button
+              className="mobile-scrim"
+              onClick={() => setShowMenu(false)}
+              aria-label="Menu sluiten"
+            />
+          )}
+          <div className="main-shell">
+            <header className="topbar">
+              <div className="breadcrumb">
+                <button
+                  className="mobile-menu icon-button"
+                  onClick={() => setShowMenu(true)}
+                  aria-label="Menu openen"
+                >
+                  <Menu size={22} />
+                </button>
+                <Image
+                  className="breadcrumb-logo"
+                  src="/cheese-the-rooster-logo.webp"
+                  width={24}
+                  height={24}
+                  alt=""
+                />
+                <span>Cheese the Rooster</span>
+                <ChevronRight size={12} />
+                <strong>
+                  {navigation.find((n) => n.key === view)?.label || "Overzicht"}
+                </strong>
+              </div>
+              <div className="topbar-actions">
+                {h && (
+                  <span
+                    className="live-status"
+                    aria-label={
+                      liveStatus === "Live"
+                        ? "Live verbonden"
+                        : liveStatus === "Offline"
+                          ? "Live verbinding onderbroken"
+                          : "Live verbinding maken"
+                    }
                   >
-                    <span className="empty-room-art">
-                      <House size={50} strokeWidth={1} />
-                      <Leaf size={24} />
-                    </span>
-                    <span>
-                      <h3>Waar begint jullie verhaal?</h3>
-                      <p>
-                        De woonkamer, de keuken of een fijne tuin.
-                        <br />
-                        Geef jullie eerste kamer een plek.
-                      </p>
-                      <span className="text-link">
-                        Kamer toevoegen <Plus size={15} />
-                      </span>
-                    </span>
-                    <span className="room-drawing" />
-                  </button>
+                    <i className={liveStatus === "Live" ? "connected" : ""} />
+                    <span>{liveStatus}</span>
+                  </span>
                 )}
-              </section>
-              <div className="dashboard-bottom">
-                <section className="panel">
-                  <div className="section-heading">
-                    <h2>Op de planning</h2>
-                    <button
-                      className="icon-button"
-                      onClick={() => go("calendar_events")}
-                      aria-label="Alle afspraken"
+                <button
+                  className="icon-button"
+                  onClick={() => setGlobalSearch(true)}
+                  aria-label="Doorzoek ons huis"
+                >
+                  <Search size={18} />
+                </button>
+                <span className="today-label">
+                  {new Intl.DateTimeFormat("nl-NL", {
+                    day: "numeric",
+                    month: "long",
+                    timeZone: "Europe/Amsterdam",
+                  }).format(new Date())}
+                </span>
+                <button
+                  className="icon-button notification-button"
+                  onClick={() => setNotificationOpen(true)}
+                  aria-label="Herinneringen"
+                >
+                  <Bell size={19} />
+                  {upcoming.length > 0 && <i />}
+                </button>
+                <div className="couple-avatars">
+                  <span className="avatar avatar-small">
+                    {data.members[0]?.profiles.display_name[0] || "D"}
+                  </span>
+                  <span className="avatar avatar-small avatar-clay">
+                    {data.members[1]?.profiles.display_name[0] || "F"}
+                  </span>
+                </div>
+              </div>
+            </header>
+            <main id="main-content">
+              <div className="page-heading">
+                <div>
+                  <p className="eyebrow">
+                    {view === "home"
+                      ? `WELKOM THUIS${name ? ", " + name.toUpperCase() : ""}`
+                      : "CHEESE THE ROOSTER · " +
+                        (
+                          navigation.find((n) => n.key === view)?.label ||
+                          "SAMEN"
+                        ).toUpperCase()}
+                  </p>
+                  <h1>{titles[view]}</h1>
+                  <p className="page-description">{descriptions[view]}</p>
+                </div>
+                <Button
+                  className="heading-add"
+                  aria-label={
+                    view === "home" || view === "activity"
+                      ? "Nieuw toevoegen"
+                      : `${labels[view]} toevoegen`
+                  }
+                  onClick={() =>
+                    view === "home" || view === "activity"
+                      ? setQuick(true)
+                      : create(view)
+                  }
+                >
+                  <Plus size={17} />
+                  <span className="heading-add-label">
+                    {view === "home" || view === "activity"
+                      ? "Nieuw toevoegen"
+                      : `${labels[view]} toevoegen`}
+                  </span>
+                </Button>
+              </div>
+              {!data.configured && (
+                <div className="setup-notice">
+                  <span>
+                    <span className="status-dot" />
+                    Een nieuw begin. Koppel Supabase om jullie eigen
+                    huisgegevens veilig op te slaan.
+                  </span>
+                  <button onClick={() => setSettings(true)}>
+                    Instellen <ArrowRight size={14} />
+                  </button>
+                </div>
+              )}
+              {data.configured && !data.household && (
+                <div className="setup-notice">
+                  <span>
+                    {data.user
+                      ? "Maak jullie huishouden aan of accepteer een uitnodiging."
+                      : "Welkom! Log in om samen aan jullie huis te werken."}
+                  </span>
+                  <button onClick={() => setAuth(true)}>
+                    {data.user ? "Huishouden instellen" : "Inloggen"}{" "}
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              )}
+              {view === "home" ? (
+                <>
+                  <div className="dashboard-top">
+                    <section className="week-card">
+                      <div className="section-heading">
+                        <h2>Deze week</h2>
+                        <span className="subtle-icon">
+                          <CalendarDays size={20} />
+                        </span>
+                      </div>
+                      <p className="muted">
+                        Dit staat er voor jullie op de planning.
+                      </p>
+                      <div className="week-tasks">
+                        {tasks
+                          .filter(
+                            (t) =>
+                              t.due_date &&
+                              t.due_date >= today() &&
+                              t.due_date <= weekEnd,
+                          )
+                          .slice(0, 3)
+                          .map(taskRow)}
+                        {!tasks.some(
+                          (t) =>
+                            t.due_date &&
+                            t.due_date >= today() &&
+                            t.due_date <= weekEnd,
+                        ) && (
+                          <div className="calm-empty">
+                            <span>
+                              <CheckCheck size={26} strokeWidth={1.3} />
+                            </span>
+                            <h3>Geen taken voor deze week</h3>
+                            <p>
+                              Voeg een taak met een datum toe.
+                              <br />
+                              Dan vinden jullie hem hier terug.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      <button
+                        className="text-link card-bottom-link"
+                        onClick={() => go("tasks")}
+                      >
+                        Bekijk alle taken <ArrowRight size={16} />
+                      </button>
+                    </section>
+                    <section
+                      className="quick-start-card"
+                      aria-labelledby="quick-start-heading"
                     >
-                      <ArrowUpRight size={18} />
+                      <div className="section-heading">
+                        <div>
+                          <p className="eyebrow">
+                            KLEINE MOEITE, FIJN GEREGELD
+                          </p>
+                          <h2 id="quick-start-heading">Even snel toevoegen</h2>
+                        </div>
+                        <Plus size={22} aria-hidden="true" />
+                      </div>
+                      <p>Een klus, een aankoop of dat ene goede idee.</p>
+                      <div className="quick-start-actions">
+                        <button onClick={() => create("tasks")}>
+                          <CheckCheck size={19} />
+                          <span>Taak toevoegen</span>
+                          <ArrowUpRight size={16} />
+                        </button>
+                        <button onClick={() => create("expenses")}>
+                          <Wallet size={19} />
+                          <span>Uitgave invoeren</span>
+                          <ArrowUpRight size={16} />
+                        </button>
+                        <button onClick={() => create("ideas")}>
+                          <Lightbulb size={19} />
+                          <span>Idee bewaren</span>
+                          <ArrowUpRight size={16} />
+                        </button>
+                        <button onClick={() => create("calendar_events")}>
+                          <CalendarDays size={19} />
+                          <span>Afspraak plannen</span>
+                          <ArrowUpRight size={16} />
+                        </button>
+                      </div>
+                    </section>
+                  </div>
+                  <div className="stats-grid">
+                    <button className="stat-card" onClick={() => go("tasks")}>
+                      <div>
+                        <span className="stat-icon sage">
+                          <CheckCheck size={20} />
+                        </span>
+                        <ArrowUpRight size={16} />
+                      </div>
+                      <strong>{tasks.length}</strong>
+                      <span>Openstaande taken</span>
+                      <small>
+                        {r.tasks.filter((t) => t.status === "Afgerond").length}{" "}
+                        afgerond · goed bezig
+                      </small>
+                    </button>
+                    <button
+                      className="stat-card"
+                      onClick={() => go("projects")}
+                    >
+                      <div>
+                        <span className="stat-icon clay">
+                          <FolderKanban size={20} />
+                        </span>
+                        <ArrowUpRight size={16} />
+                      </div>
+                      <strong>{activeProjects.length}</strong>
+                      <span>Actieve projecten</span>
+                      <small>Van plannen naar werkelijkheid</small>
+                    </button>
+                    <button
+                      className="stat-card"
+                      onClick={() => go("expenses")}
+                    >
+                      <div>
+                        <span className="stat-icon sand">
+                          <Wallet size={20} />
+                        </span>
+                        <ArrowUpRight size={16} />
+                      </div>
+                      <strong>{euro(total)}</strong>
+                      <span>Samen geïnvesteerd</span>
+                      <small>In een plek die van jullie is</small>
+                    </button>
+                    <button className="stat-card" onClick={() => go("budgets")}>
+                      <div>
+                        <span className="stat-icon sage">
+                          <Leaf size={20} />
+                        </span>
+                        <ArrowUpRight size={16} />
+                      </div>
+                      <strong>
+                        {householdBudget ? euro(householdBudget - total) : "—"}
+                      </strong>
+                      <span>Beschikbaar huisbudget</span>
+                      <small>
+                        {householdBudget
+                          ? "Totaalbudget min jullie uitgaven"
+                          : "Stel jullie eerste budget in"}
+                      </small>
                     </button>
                   </div>
-                  {upcoming.length ? (
-                    upcoming.slice(0, 3).map((e) => (
-                      <button
-                        className="agenda-row"
-                        key={e.id}
-                        onClick={() => open(e.kind, e)}
-                      >
-                        <span className="date-block">
-                          <strong>{new Date(e.when).getDate()}</strong>
-                          <small>
-                            {new Intl.DateTimeFormat("nl-NL", {
-                              month: "short",
-                              timeZone: "Europe/Amsterdam",
-                            }).format(new Date(e.when))}
-                          </small>
-                        </span>
-                        <span>
-                          <strong>{e.title}</strong>
-                          <small>
-                            {labels[e.kind]} ·{" "}
-                            {r.rooms.find((k) => k.id === e.room_id)?.title ||
-                              "Ons huis"}
-                          </small>
-                        </span>
-                        <ChevronRight size={15} />
-                      </button>
-                    ))
-                  ) : (
-                    <div className="small-empty">
-                      <CalendarDays size={25} />
-                      <p>Een lege agenda, vol mogelijkheden.</p>
-                      <button
-                        className="text-link"
-                        onClick={() => create("calendar_events")}
-                      >
-                        Plan iets samen <Plus size={14} />
+                  <section className="dashboard-section">
+                    <div className="section-heading">
+                      <div>
+                        <p className="eyebrow">ALLES PER KAMER</p>
+                        <h2>Jullie kamers</h2>
+                      </div>
+                      <button className="text-link" onClick={() => go("rooms")}>
+                        Alle kamers <ArrowRight size={16} />
                       </button>
                     </div>
-                  )}
-                </section>
-                <section className="panel activity-panel">
-                  <div className="section-heading">
-                    <h2>Samen in beweging</h2>
-                    <button
-                      className="icon-button"
-                      onClick={() => go("activity")}
-                      aria-label="Alle activiteiten"
-                    >
-                      <ArrowUpRight size={18} />
-                    </button>
+                    {r.rooms.length ? (
+                      grid(
+                        "rooms",
+                        r.rooms
+                          .filter((k) => k.status !== "Gearchiveerd")
+                          .sort(
+                            (a, b) => (a.sort_order || 0) - (b.sort_order || 0),
+                          )
+                          .slice(0, 3),
+                      )
+                    ) : (
+                      <button
+                        className="start-room-card"
+                        onClick={() => create("rooms")}
+                      >
+                        <span className="empty-room-art">
+                          <House size={50} strokeWidth={1} />
+                          <Leaf size={24} />
+                        </span>
+                        <span>
+                          <h3>Waar begint jullie verhaal?</h3>
+                          <p>
+                            De woonkamer, de keuken of een fijne tuin.
+                            <br />
+                            Geef jullie eerste kamer een plek.
+                          </p>
+                          <span className="text-link">
+                            Kamer toevoegen <Plus size={15} />
+                          </span>
+                        </span>
+                        <span className="room-drawing" />
+                      </button>
+                    )}
+                  </section>
+                  <div className="dashboard-bottom">
+                    <section className="panel">
+                      <div className="section-heading">
+                        <h2>Op de planning</h2>
+                        <button
+                          className="icon-button"
+                          onClick={() => go("calendar_events")}
+                          aria-label="Alle afspraken"
+                        >
+                          <ArrowUpRight size={18} />
+                        </button>
+                      </div>
+                      {upcoming.length ? (
+                        upcoming.slice(0, 3).map((e) => (
+                          <button
+                            className="agenda-row"
+                            key={e.id}
+                            onClick={() => open(e.kind, e)}
+                          >
+                            <span className="date-block">
+                              <strong>{new Date(e.when).getDate()}</strong>
+                              <small>
+                                {new Intl.DateTimeFormat("nl-NL", {
+                                  month: "short",
+                                  timeZone: "Europe/Amsterdam",
+                                }).format(new Date(e.when))}
+                              </small>
+                            </span>
+                            <span>
+                              <strong>{e.title}</strong>
+                              <small>
+                                {labels[e.kind]} ·{" "}
+                                {r.rooms.find((k) => k.id === e.room_id)
+                                  ?.title || "Ons huis"}
+                              </small>
+                            </span>
+                            <ChevronRight size={15} />
+                          </button>
+                        ))
+                      ) : (
+                        <div className="small-empty">
+                          <CalendarDays size={25} />
+                          <p>Een lege agenda, vol mogelijkheden.</p>
+                          <button
+                            className="text-link"
+                            onClick={() => create("calendar_events")}
+                          >
+                            Plan iets samen <Plus size={14} />
+                          </button>
+                        </div>
+                      )}
+                    </section>
+                    <section className="panel activity-panel">
+                      <div className="section-heading">
+                        <h2>Samen in beweging</h2>
+                        <button
+                          className="icon-button"
+                          onClick={() => go("activity")}
+                          aria-label="Alle activiteiten"
+                        >
+                          <ArrowUpRight size={18} />
+                        </button>
+                      </div>
+                      {data.activity.length ? (
+                        data.activity.slice(0, 3).map((a) => (
+                          <div className="activity-row" key={a.id}>
+                            <span className="avatar avatar-small">
+                              {data.members.find((m) => m.user_id === a.user_id)
+                                ?.profiles.display_name[0] || "S"}
+                            </span>
+                            <p>
+                              <strong>{a.title || "Ons huis"}</strong>
+                              <span>
+                                {a.action === "INSERT"
+                                  ? "Toegevoegd"
+                                  : a.action === "DELETE"
+                                    ? "Verwijderd"
+                                    : "Bijgewerkt"}{" "}
+                                · {dateLabel(a.created_at)}
+                              </span>
+                            </p>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="small-empty">
+                          <Users size={25} />
+                          <p>Jullie eerste stap is het begin van iets moois.</p>
+                          <span className="muted">
+                            Hier komen jullie recente activiteiten.
+                          </span>
+                        </div>
+                      )}
+                    </section>
                   </div>
+                  <div className="home-footer">
+                    <Leaf size={17} />
+                    <p>Het hoeft niet in één dag af. Het is al van jullie.</p>
+                    <span>CHEESE THE ROOSTER</span>
+                  </div>
+                </>
+              ) : view === "activity" ? (
+                <section className="panel">
                   {data.activity.length ? (
-                    data.activity.slice(0, 3).map((a) => (
+                    data.activity.map((a) => (
                       <div className="activity-row" key={a.id}>
                         <span className="avatar avatar-small">
                           {data.members.find((m) => m.user_id === a.user_id)
                             ?.profiles.display_name[0] || "S"}
                         </span>
                         <p>
-                          <strong>{a.title || "Ons huis"}</strong>
+                          <strong>{a.title || a.entity}</strong>
                           <span>
-                            {a.action === "INSERT"
-                              ? "Toegevoegd"
-                              : a.action === "DELETE"
-                                ? "Verwijderd"
-                                : "Bijgewerkt"}{" "}
-                            · {dateLabel(a.created_at)}
+                            {a.action} ·{" "}
+                            {new Date(a.created_at).toLocaleString("nl-NL", {
+                              timeZone: "Europe/Amsterdam",
+                            })}
                           </span>
                         </p>
                       </div>
                     ))
                   ) : (
-                    <div className="small-empty">
-                      <Users size={25} />
-                      <p>Jullie eerste stap is het begin van iets moois.</p>
-                      <span className="muted">
-                        Hier komen jullie recente activiteiten.
-                      </span>
-                    </div>
+                    <p>Nog geen activiteiten.</p>
                   )}
                 </section>
-              </div>
-              <div className="home-footer">
-                <Leaf size={17} />
-                <p>Het hoeft niet in één dag af. Het is al van jullie.</p>
-                <span>CHEESE THE ROOSTER</span>
-              </div>
-            </>
-          ) : view === "activity" ? (
-            <section className="panel">
-              {data.activity.length ? (
-                data.activity.map((a) => (
-                  <div className="activity-row" key={a.id}>
-                    <span className="avatar avatar-small">
-                      {data.members.find((m) => m.user_id === a.user_id)
-                        ?.profiles.display_name[0] || "S"}
-                    </span>
-                    <p>
-                      <strong>{a.title || a.entity}</strong>
-                      <span>
-                        {a.action} ·{" "}
-                        {new Date(a.created_at).toLocaleString("nl-NL", {
-                          timeZone: "Europe/Amsterdam",
-                        })}
-                      </span>
-                    </p>
-                  </div>
-                ))
               ) : (
-                <p>Nog geen activiteiten.</p>
-              )}
-            </section>
-          ) : (
-            <>
-              {view === "expenses" && (
                 <>
-                  <FinanceChart
-                    expenses={expenses}
-                    members={data.members}
-                    payments={data.payments}
-                    total={total}
-                    budget={householdBudget}
-                    rooms={r.rooms}
-                    projects={r.projects}
-                  />
-                  <section className="panel settlement-panel">
-                    <div className="section-heading">
-                      <div>
-                        <h2>Eerlijk verdeeld</h2>
-                        <p className="muted">
-                          Verrekeningen tellen nooit mee als huisuitgave.
-                        </p>
-                      </div>
-                      <button
-                        className="text-link"
-                        onClick={() => go("budgets")}
-                      >
-                        Budgetten & spaardoelen <ArrowRight size={16} />
-                      </button>
-                    </div>
-                    {data.members.length < 2 ? (
-                      <p className="muted">
-                        Nodig je partner uit om samen te verrekenen.
-                      </p>
-                    ) : (
-                      <div className="balances">
-                        {data.members.map((m) => {
-                          const valid = new Set(expenses.map((e) => e.id));
-                          const b = balance(
-                            m.user_id,
-                            data.payments.filter((p) =>
-                              valid.has(p.expense_id),
-                            ),
-                            data.shares.filter((s) => valid.has(s.expense_id)),
-                            data.settlements,
-                          );
-                          return (
-                            <div key={m.user_id}>
-                              <span className="avatar">
-                                {m.profiles.display_name[0]}
-                              </span>
-                              <div>
-                                <strong>{m.profiles.display_name}</strong>
-                                <p>
-                                  {b > 0
-                                    ? `${euro(b)} te ontvangen`
-                                    : b < 0
-                                      ? `${euro(-b)} te betalen`
-                                      : "Alles in balans"}
-                                </p>
-                              </div>
-                              {b < 0 && (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  disabled={pending}
-                                  onClick={() => {
-                                    const recipient = data.members.find(
-                                      (n) =>
-                                        balance(
-                                          n.user_id,
-                                          data.payments.filter((p) =>
-                                            valid.has(p.expense_id),
-                                          ),
-                                          data.shares.filter((s) =>
-                                            valid.has(s.expense_id),
-                                          ),
-                                          data.settlements,
-                                        ) > 0,
-                                    );
-                                    if (
-                                      recipient &&
+                  {view === "expenses" && (
+                    <>
+                      <FinanceChart
+                        expenses={expenses}
+                        members={data.members}
+                        payments={data.payments}
+                        total={total}
+                        budget={householdBudget}
+                        rooms={r.rooms}
+                        projects={r.projects}
+                      />
+                      <section className="panel settlement-panel">
+                        <div className="section-heading">
+                          <div>
+                            <h2>Eerlijk verdeeld</h2>
+                            <p className="muted">
+                              Verrekeningen tellen nooit mee als huisuitgave.
+                            </p>
+                          </div>
+                          <button
+                            className="text-link"
+                            onClick={() => go("budgets")}
+                          >
+                            Budgetten & spaardoelen <ArrowRight size={16} />
+                          </button>
+                        </div>
+                        {data.members.length < 2 ? (
+                          <p className="muted">
+                            Nodig je partner uit om samen te verrekenen.
+                          </p>
+                        ) : (
+                          <div className="balances">
+                            {data.members.map((m) => {
+                              const valid = new Set(expenses.map((e) => e.id));
+                              const b = balance(
+                                m.user_id,
+                                data.payments.filter((p) =>
+                                  valid.has(p.expense_id),
+                                ),
+                                data.shares.filter((s) =>
+                                  valid.has(s.expense_id),
+                                ),
+                                data.settlements,
+                              );
+                              return (
+                                <div key={m.user_id}>
+                                  <span className="avatar">
+                                    {m.profiles.display_name[0]}
+                                  </span>
+                                  <div>
+                                    <strong>{m.profiles.display_name}</strong>
+                                    <p>
+                                      {b > 0
+                                        ? `${euro(b)} te ontvangen`
+                                        : b < 0
+                                          ? `${euro(-b)} te betalen`
+                                          : "Alles in balans"}
+                                    </p>
+                                  </div>
+                                  {b < 0 && (
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      disabled={pending}
+                                      onClick={() => {
+                                        const recipient = data.members.find(
+                                          (n) =>
+                                            balance(
+                                              n.user_id,
+                                              data.payments.filter((p) =>
+                                                valid.has(p.expense_id),
+                                              ),
+                                              data.shares.filter((s) =>
+                                                valid.has(s.expense_id),
+                                              ),
+                                              data.settlements,
+                                            ) > 0,
+                                        );
+                                        if (
+                                          recipient &&
+                                          h &&
+                                          window.confirm(
+                                            copy(
+                                              "Is deze onderlinge betaling daadwerkelijk uitgevoerd?",
+                                            ),
+                                          )
+                                        )
+                                          mutate(
+                                            () =>
+                                              settle(
+                                                h,
+                                                m.user_id,
+                                                recipient.user_id,
+                                                Math.min(
+                                                  -b,
+                                                  balance(
+                                                    recipient.user_id,
+                                                    data.payments.filter((p) =>
+                                                      valid.has(p.expense_id),
+                                                    ),
+                                                    data.shares.filter((s) =>
+                                                      valid.has(s.expense_id),
+                                                    ),
+                                                    data.settlements,
+                                                  ),
+                                                ),
+                                                crypto.randomUUID(),
+                                              ),
+                                            "Verrekening opgeslagen.",
+                                          );
+                                      }}
+                                    >
+                                      Betaald
+                                    </Button>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                        {data.settlements.length > 0 && (
+                          <details>
+                            <summary>
+                              Verrekeningshistorie ({data.settlements.length})
+                            </summary>
+                            {data.settlements.map((s) => (
+                              <div className="list-row" key={s.id}>
+                                <span>
+                                  {dateLabel(s.created_at)} ·{" "}
+                                  {
+                                    data.members.find(
+                                      (m) => m.user_id === s.from_user,
+                                    )?.profiles.display_name
+                                  }{" "}
+                                  →{" "}
+                                  {
+                                    data.members.find(
+                                      (m) => m.user_id === s.to_user,
+                                    )?.profiles.display_name
+                                  }{" "}
+                                  · {euro(s.amount_cents)}{" "}
+                                  {s.reversed_at ? "(teruggedraaid)" : ""}
+                                </span>
+                                {!s.reversed_at && (
+                                  <Button
+                                    size="sm"
+                                    variant="ghost"
+                                    disabled={pending}
+                                    onClick={() =>
                                       h &&
                                       window.confirm(
-                                        "Is deze onderlinge betaling daadwerkelijk uitgevoerd?",
-                                      )
-                                    )
+                                        copy("Deze verrekening terugdraaien?"),
+                                      ) &&
                                       mutate(
                                         () =>
-                                          settle(
+                                          reverseFinancial(
                                             h,
-                                            m.user_id,
-                                            recipient.user_id,
-                                            Math.min(
-                                              -b,
-                                              balance(
-                                                recipient.user_id,
-                                                data.payments.filter((p) =>
-                                                  valid.has(p.expense_id),
-                                                ),
-                                                data.shares.filter((s) =>
-                                                  valid.has(s.expense_id),
-                                                ),
-                                                data.settlements,
-                                              ),
-                                            ),
-                                            crypto.randomUUID(),
+                                            s.id,
+                                            "settlements",
                                           ),
-                                        "Verrekening opgeslagen.",
-                                      );
-                                  }}
-                                >
-                                  Betaald
-                                </Button>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                    {data.settlements.length > 0 && (
-                      <details>
-                        <summary>
-                          Verrekeningshistorie ({data.settlements.length})
-                        </summary>
-                        {data.settlements.map((s) => (
-                          <div className="list-row" key={s.id}>
-                            <span>
-                              {dateLabel(s.created_at)} ·{" "}
-                              {
-                                data.members.find(
-                                  (m) => m.user_id === s.from_user,
-                                )?.profiles.display_name
-                              }{" "}
-                              →{" "}
-                              {
-                                data.members.find(
-                                  (m) => m.user_id === s.to_user,
-                                )?.profiles.display_name
-                              }{" "}
-                              · {euro(s.amount_cents)}{" "}
-                              {s.reversed_at ? "(teruggedraaid)" : ""}
-                            </span>
-                            {!s.reversed_at && (
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                disabled={pending}
-                                onClick={() =>
-                                  h &&
-                                  window.confirm(
-                                    "Deze verrekening terugdraaien?",
-                                  ) &&
-                                  mutate(
-                                    () =>
-                                      reverseFinancial(h, s.id, "settlements"),
-                                    "Verrekening teruggedraaid.",
-                                  )
-                                }
-                              >
-                                Terugdraaien
-                              </Button>
-                            )}
-                          </div>
-                        ))}
-                      </details>
-                    )}
-                  </section>
-                </>
-              )}
-              {view === "savings_goals" || view === "budgets" ? (
-                <div className="tab-bar">
-                  <button
-                    className={view === "budgets" ? "selected" : ""}
-                    onClick={() => go("budgets")}
-                  >
-                    Budgetten
-                  </button>
-                  <button
-                    className={view === "savings_goals" ? "selected" : ""}
-                    onClick={() => go("savings_goals")}
-                  >
-                    Spaardoelen
-                  </button>
-                </div>
-              ) : null}
-              <div className="filters">
-                <label className="search-box">
-                  <Search size={17} />
-                  <input
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    placeholder={`Zoeken in ${navigation.find((n) => n.key === view)?.label.toLowerCase() || "ons huis"}…`}
-                    aria-label="Zoeken"
-                  />
-                </label>
-                {view !== "rooms" && (
-                  <select
-                    aria-label="Filter op kamer"
-                    value={roomFilter}
-                    onChange={(e) => setRoomFilter(e.target.value)}
-                  >
-                    <option value="">Alle kamers</option>
-                    {r.rooms.map((k) => (
-                      <option value={k.id} key={k.id}>
-                        {k.title}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                {statuses[view] && (
-                  <select
-                    aria-label="Filter op status"
-                    value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
-                  >
-                    <option value="">Alle statussen</option>
-                    {(view === "wishlist_items"
-                      ? [...statuses[view]!, "Gekocht"]
-                      : statuses[view]!
-                    ).map((s) => (
-                      <option key={s}>{s}</option>
-                    ))}
-                  </select>
-                )}
-                {view === "tasks" && (
-                  <select
-                    value={personFilter}
-                    onChange={(e) => setPersonFilter(e.target.value)}
-                    aria-label="Filter op persoon"
-                  >
-                    <option value="">Iedereen</option>
-                    {data.members.map((m) => (
-                      <option key={m.user_id} value={m.user_id}>
-                        {m.profiles.display_name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-                <span className="result-count">
-                  {visible.length}{" "}
-                  {visible.length === 1 ? "onderdeel" : "onderdelen"}
-                </span>
-                {view === "expenses" && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      const csv = expensesCSV(visible);
-                      const url = URL.createObjectURL(
-                        new Blob([csv], { type: "text/csv;charset=utf-8" }),
-                      );
-                      const a = document.createElement("a");
-                      a.href = url;
-                      a.download = "cheese-the-rooster-uitgaven.csv";
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
-                  >
-                    <Download size={15} />
-                    CSV
-                  </Button>
-                )}
-              </div>
-              {view === "tasks" && (
-                <div className="tab-bar">
-                  {[
-                    "Lijst",
-                    "Kanban",
-                    "Per kamer",
-                    "Per persoon",
-                    "Kalender",
-                  ].map((m) => (
-                    <button
-                      className={taskMode === m ? "selected" : ""}
-                      key={m}
-                      onClick={() => setTaskMode(m)}
-                    >
-                      {m}
-                    </button>
-                  ))}
-                </div>
-              )}
-              {["rooms", "ideas", "projects", "wishlist_items"].includes(
-                view,
-              ) ? (
-                grid(
-                  view,
-                  visible.sort((a, b) =>
-                    view === "rooms"
-                      ? (a.sort_order || 0) - (b.sort_order || 0)
-                      : 0,
-                  ),
-                )
-              ) : view === "calendar_events" ||
-                (view === "tasks" && taskMode === "Kalender") ? (
-                <section className="panel calendar-panel">
-                  <CalendarView
-                    records={view === "tasks" ? visible : visible}
-                    tasks={view === "tasks"}
-                    onSelect={(item) => open(view, item)}
-                    onAdd={() =>
-                      create(view === "tasks" ? "tasks" : "calendar_events")
-                    }
-                  />
-                </section>
-              ) : view === "tasks" ? (
-                visible.length ? (
-                  taskMode === "Lijst" ? (
-                    <div className="panel task-list">
-                      {visible.map(taskRow)}
-                    </div>
-                  ) : (
-                    <div className="kanban-grid">
-                      {(taskMode === "Kanban"
-                        ? statuses.tasks!
-                        : taskMode === "Per kamer"
-                          ? ["", ...r.rooms.map((k) => k.id)]
-                          : ["", ...data.members.map((m) => m.user_id)]
-                      ).map((group) => (
-                        <section className="kanban-column" key={group}>
-                          <h3>
-                            {taskMode === "Kanban"
-                              ? group
-                              : taskMode === "Per kamer"
-                                ? r.rooms.find((k) => k.id === group)?.title ||
-                                  "Hele huis"
-                                : data.members.find((m) => m.user_id === group)
-                                    ?.profiles.display_name || "Samen"}
-                          </h3>
-                          {visible
-                            .filter((t) =>
-                              taskMode === "Kanban"
-                                ? t.status === group
-                                : taskMode === "Per kamer"
-                                  ? (t.room_id || "") === group
-                                  : (t.assignee_id || "") === group,
-                            )
-                            .map((t) => (
-                              <div className="kanban-task" key={t.id}>
-                                {taskRow(t)}
-                                {taskMode === "Kanban" && (
-                                  <select
-                                    aria-label={`Status ${t.title}`}
-                                    value={t.status}
-                                    disabled={pending}
-                                    onChange={(e) =>
-                                      h &&
-                                      mutate(() =>
-                                        saveRecord(
-                                          "tasks",
-                                          h,
-                                          {
-                                            title: t.title,
-                                            status: e.target.value,
-                                          },
-                                          t.id,
-                                          t.version,
-                                        ),
+                                        "Verrekening teruggedraaid.",
                                       )
                                     }
                                   >
-                                    {statuses.tasks!.map((s) => (
-                                      <option key={s}>{s}</option>
-                                    ))}
-                                  </select>
+                                    Terugdraaien
+                                  </Button>
                                 )}
                               </div>
                             ))}
-                        </section>
+                          </details>
+                        )}
+                      </section>
+                    </>
+                  )}
+                  {view === "savings_goals" || view === "budgets" ? (
+                    <div className="tab-bar">
+                      <button
+                        className={view === "budgets" ? "selected" : ""}
+                        onClick={() => go("budgets")}
+                      >
+                        Budgetten
+                      </button>
+                      <button
+                        className={view === "savings_goals" ? "selected" : ""}
+                        onClick={() => go("savings_goals")}
+                      >
+                        Spaardoelen
+                      </button>
+                    </div>
+                  ) : null}
+                  <div className="filters">
+                    <label className="search-box">
+                      <Search size={17} />
+                      <input
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        placeholder={`Zoeken in ${navigation.find((n) => n.key === view)?.label.toLowerCase() || "ons huis"}…`}
+                        aria-label="Zoeken"
+                      />
+                    </label>
+                    {view !== "rooms" && (
+                      <select
+                        aria-label="Filter op kamer"
+                        value={roomFilter}
+                        onChange={(e) => setRoomFilter(e.target.value)}
+                      >
+                        <option value="">Alle kamers</option>
+                        {r.rooms.map((k) => (
+                          <option value={k.id} key={k.id}>
+                            {k.title}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    {statuses[view] && (
+                      <select
+                        aria-label="Filter op status"
+                        value={statusFilter}
+                        onChange={(e) => setStatusFilter(e.target.value)}
+                      >
+                        <option value="">Alle statussen</option>
+                        {(view === "wishlist_items"
+                          ? [...statuses[view]!, "Gekocht"]
+                          : statuses[view]!
+                        ).map((s) => (
+                          <option key={s}>{s}</option>
+                        ))}
+                      </select>
+                    )}
+                    {view === "tasks" && (
+                      <select
+                        value={personFilter}
+                        onChange={(e) => setPersonFilter(e.target.value)}
+                        aria-label="Filter op persoon"
+                      >
+                        <option value="">Iedereen</option>
+                        {data.members.map((m) => (
+                          <option key={m.user_id} value={m.user_id}>
+                            {m.profiles.display_name}
+                          </option>
+                        ))}
+                      </select>
+                    )}
+                    <span className="result-count">
+                      {visible.length}{" "}
+                      {visible.length === 1 ? "onderdeel" : "onderdelen"}
+                    </span>
+                    {view === "expenses" && (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const csv = expensesCSV(visible);
+                          const url = URL.createObjectURL(
+                            new Blob([csv], { type: "text/csv;charset=utf-8" }),
+                          );
+                          const a = document.createElement("a");
+                          a.href = url;
+                          a.download = "cheese-the-rooster-uitgaven.csv";
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                      >
+                        <Download size={15} />
+                        CSV
+                      </Button>
+                    )}
+                  </div>
+                  {view === "tasks" && (
+                    <div className="tab-bar">
+                      {[
+                        "Lijst",
+                        "Kanban",
+                        "Per kamer",
+                        "Per persoon",
+                        "Kalender",
+                      ].map((m) => (
+                        <button
+                          className={taskMode === m ? "selected" : ""}
+                          key={m}
+                          onClick={() => setTaskMode(m)}
+                        >
+                          {m}
+                        </button>
                       ))}
                     </div>
-                  )
-                ) : (
-                  empty(view)
-                )
-              ) : visible.length ? (
-                <div className="panel record-list">
-                  {visible.map((item) => (
-                    <button
-                      className="record-row"
-                      key={item.id}
-                      onClick={() => open(view, item)}
-                    >
-                      <span className="record-icon">
-                        <Icon size={20} />
-                      </span>
-                      <span className="record-name">
-                        <strong>{item.title}</strong>
-                        <small>
-                          {item.reversed_at
-                            ? "Teruggedraaid"
-                            : item.category ||
-                              r.rooms.find((k) => k.id === item.room_id)
-                                ?.title ||
-                              "Ons huis"}
-                          {item.due_date && ` · ${dateLabel(item.due_date)}`}
-                        </small>
-                      </span>
-                      <span className="record-value">
-                        {typeof item.amount_cents === "number"
-                          ? euro(item.amount_cents)
-                          : item.filename || item.status || ""}
-                      </span>
-                      <ChevronRight size={17} />
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                empty(view)
+                  )}
+                  {["rooms", "ideas", "projects", "wishlist_items"].includes(
+                    view,
+                  ) ? (
+                    grid(
+                      view,
+                      visible.sort((a, b) =>
+                        view === "rooms"
+                          ? (a.sort_order || 0) - (b.sort_order || 0)
+                          : 0,
+                      ),
+                    )
+                  ) : view === "calendar_events" ||
+                    (view === "tasks" && taskMode === "Kalender") ? (
+                    <section className="panel calendar-panel">
+                      <CalendarView
+                        records={view === "tasks" ? visible : visible}
+                        tasks={view === "tasks"}
+                        onSelect={(item) => open(view, item)}
+                        onAdd={() =>
+                          create(view === "tasks" ? "tasks" : "calendar_events")
+                        }
+                      />
+                    </section>
+                  ) : view === "tasks" ? (
+                    visible.length ? (
+                      taskMode === "Lijst" ? (
+                        <div className="panel task-list">
+                          {visible.map(taskRow)}
+                        </div>
+                      ) : (
+                        <div className="kanban-grid">
+                          {(taskMode === "Kanban"
+                            ? statuses.tasks!
+                            : taskMode === "Per kamer"
+                              ? ["", ...r.rooms.map((k) => k.id)]
+                              : ["", ...data.members.map((m) => m.user_id)]
+                          ).map((group) => (
+                            <section className="kanban-column" key={group}>
+                              <h3>
+                                {taskMode === "Kanban"
+                                  ? group
+                                  : taskMode === "Per kamer"
+                                    ? r.rooms.find((k) => k.id === group)
+                                        ?.title || "Hele huis"
+                                    : data.members.find(
+                                        (m) => m.user_id === group,
+                                      )?.profiles.display_name || "Samen"}
+                              </h3>
+                              {visible
+                                .filter((t) =>
+                                  taskMode === "Kanban"
+                                    ? t.status === group
+                                    : taskMode === "Per kamer"
+                                      ? (t.room_id || "") === group
+                                      : (t.assignee_id || "") === group,
+                                )
+                                .map((t) => (
+                                  <div className="kanban-task" key={t.id}>
+                                    {taskRow(t)}
+                                    {taskMode === "Kanban" && (
+                                      <select
+                                        aria-label={`Status ${t.title}`}
+                                        value={t.status}
+                                        disabled={pending}
+                                        onChange={(e) =>
+                                          h &&
+                                          mutate(() =>
+                                            saveRecord(
+                                              "tasks",
+                                              h,
+                                              {
+                                                title: t.title,
+                                                status: e.target.value,
+                                              },
+                                              t.id,
+                                              t.version,
+                                            ),
+                                          )
+                                        }
+                                      >
+                                        {statuses.tasks!.map((s) => (
+                                          <option key={s}>{s}</option>
+                                        ))}
+                                      </select>
+                                    )}
+                                  </div>
+                                ))}
+                            </section>
+                          ))}
+                        </div>
+                      )
+                    ) : (
+                      empty(view)
+                    )
+                  ) : visible.length ? (
+                    <div className="panel record-list">
+                      {visible.map((item) => (
+                        <button
+                          className="record-row"
+                          key={item.id}
+                          onClick={() => open(view, item)}
+                        >
+                          <span className="record-icon">
+                            <Icon size={20} />
+                          </span>
+                          <span className="record-name">
+                            <strong>{item.title}</strong>
+                            <small>
+                              {item.reversed_at
+                                ? "Teruggedraaid"
+                                : item.category ||
+                                  r.rooms.find((k) => k.id === item.room_id)
+                                    ?.title ||
+                                  "Ons huis"}
+                              {item.due_date &&
+                                ` · ${dateLabel(item.due_date)}`}
+                            </small>
+                          </span>
+                          <span className="record-value">
+                            {typeof item.amount_cents === "number"
+                              ? euro(item.amount_cents)
+                              : item.filename || item.status || ""}
+                          </span>
+                          <ChevronRight size={17} />
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    empty(view)
+                  )}
+                </>
               )}
-            </>
-          )}
-        </main>
-      </div>
-      <nav className="mobile-nav" aria-label="Mobiele navigatie">
-        <button
-          className={view === "home" ? "active" : ""}
-          onClick={() => go("home")}
-        >
-          <House size={20} />
-          Home
-        </button>
-        <button
-          className={view === "rooms" ? "active" : ""}
-          onClick={() => go("rooms")}
-        >
-          <LayoutGrid size={20} />
-          Kamers
-        </button>
-        <button
-          className="mobile-add"
-          onClick={() => setQuick(true)}
-          aria-label="Nieuw toevoegen"
-        >
-          <Plus size={25} />
-        </button>
-        <button
-          className={view === "calendar_events" ? "active" : ""}
-          onClick={() => go("calendar_events")}
-        >
-          <CalendarDays size={20} />
-          Planning
-        </button>
-        <button onClick={() => setShowMenu(true)}>
-          <MoreHorizontal size={20} />
-          Meer
-        </button>
-      </nav>
-      {toast && (
-        <div className="toast" role="status">
-          <CheckCircle2 size={19} />
-          <span>{toast}</span>
-          <button onClick={() => setToast("")} aria-label="Melding sluiten">
-            <X size={16} />
-          </button>
-        </div>
-      )}
-      <Dialog
-        open={globalSearch}
-        onOpenChange={setGlobalSearch}
-        title="Zoek iets voor ons thuis"
-        description="Doorzoek jullie kamers, ideeën, taken, projecten en meer."
-      >
-        <div className="settings-content">
-          <label className="search-box">
-            <Search size={18} />
-            <input
-              value={globalQuery}
-              onChange={(e) => setGlobalQuery(e.target.value)}
-              placeholder="Waar ben je naar op zoek?"
-              aria-label="Globaal zoeken"
-              autoFocus
-            />
-          </label>
-          {globalQuery.trim().length > 1 ? (
-            Object.entries(r).flatMap(([entity, items]) =>
-              items
-                .filter((item) =>
-                  (item.title + " " + (item.description || ""))
-                    .toLowerCase()
-                    .includes(globalQuery.toLowerCase()),
-                )
-                .map((item) => (
-                  <button
-                    key={item.id}
-                    className="record-row"
-                    onClick={() => {
-                      setGlobalSearch(false);
-                      open(entity as Entity, item);
-                    }}
-                  >
-                    <span className="record-name">
-                      <strong>{item.title}</strong>
-                      <small>{labels[entity as Entity]}</small>
-                    </span>
-                    <ArrowUpRight size={16} />
-                  </button>
-                )),
-            )
-          ) : (
-            <p className="small-empty">
-              Typ minimaal twee tekens om te zoeken.
-            </p>
-          )}
-        </div>
-      </Dialog>
-      <Dialog
-        open={quick}
-        onOpenChange={setQuick}
-        title="Wat voegen we toe?"
-        description="Een idee, een plan of een kleine stap vooruit."
-      >
-        <div className="quick-grid">
-          {quickOptions.map((q) => (
-            <button key={q.entity} onClick={() => create(q.entity)}>
-              <span>
-                <q.icon size={23} />
-              </span>
-              <strong>{labels[q.entity]}</strong>
-              <small>{q.sub}</small>
-              <ArrowUpRight size={16} />
+            </main>
+          </div>
+          <nav className="mobile-nav" aria-label="Mobiele navigatie">
+            <button
+              className={view === "home" ? "active" : ""}
+              onClick={() => go("home")}
+            >
+              <House size={20} />
+              Home
             </button>
-          ))}
-        </div>
-      </Dialog>
-      {editor && (
-        <Editor
-          {...editor}
-          data={data}
-          onClose={() => setEditor(null)}
-          onSaved={(m) => {
-            notify(m);
-            router.refresh();
-          }}
-        />
-      )}
-      {refreshDetail && (
-        <Detail
-          {...refreshDetail}
-          data={data}
-          onClose={() => setDetail(null)}
-          onEdit={() => {
-            if (
-              refreshDetail.entity === "expenses" ||
-              refreshDetail.entity === "documents"
-            )
-              return;
-            setEditor(refreshDetail);
-            setDetail(null);
-          }}
-          onAdd={(entity, extra) => {
-            setDetail(null);
-            create(entity, extra);
-          }}
-          mutate={mutate}
-          pending={pending}
-          progress={progress(refreshDetail.record)}
-          onOpen={open}
-        />
-      )}
-      <Dialog
-        open={auth}
-        onOpenChange={setAuth}
-        title={
-          !data.user
-            ? "Welkom thuis"
-            : !h
-              ? "Maak het van jullie"
-              : "Ons huishouden"
-        }
-        description="Een eigen account. Eén gezamenlijk thuis."
-      >
-        <Auth
-          data={data}
-          token={invitation}
-          done={() => {
-            setAuth(false);
-            router.refresh();
-          }}
-          notify={notify}
-        />
-      </Dialog>
-      <Dialog
-        open={settings}
-        onOpenChange={setSettings}
-        title="Een fijne basis"
-        description="Jullie huis, jullie instellingen."
-      >
-        <div className="settings-content">
-          {!data.configured ? (
-            <>
-              <p>
-                Koppel een Supabase-project om veilig met jullie eigen gegevens
-                te werken. Deze omgeving bevat nog geen huisgegevens.
-              </p>
-              <ol>
-                <li>Maak een Supabase-project aan.</li>
-                <li>
-                  Voer de migraties uit de map <code>supabase/migrations</code>{" "}
-                  in volgorde uit.
-                </li>
-                <li>
-                  Stel <code>NEXT_PUBLIC_SUPABASE_URL</code> en{" "}
-                  <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> in.
-                </li>
-                <li>
-                  Configureer de app-URL bij Supabase Auth en herstart de app.
-                </li>
-              </ol>
-              <p>
-                De complete instructies staan in README.md. Gebruik nooit een
-                service-role key in de browser.
-              </p>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSettings(false);
-                  setAuth(true);
-                }}
-              >
-                Naar inloggen <ArrowRight size={15} />
-              </Button>
-            </>
-          ) : (
-            <>
-              <div className="settings-members">
-                {data.members.map((m) => (
-                  <div key={m.user_id}>
-                    <span className="avatar">{m.profiles.display_name[0]}</span>
-                    <strong>{m.profiles.display_name}</strong>
-                    <small>Gelijkwaardige partner</small>
-                  </div>
-                ))}
-              </div>
-              {h && <Invite h={h} notify={notify} />}
-              <p className="muted">
-                Tijdzone: Europe/Amsterdam · Bestanden zijn privé.
-              </p>
-              {data.user && (
-                <Button
-                  variant="outline"
-                  onClick={() =>
-                    mutate(async () => {
-                      await signout();
-                      setSettings(false);
-                    }, "Je bent uitgelogd.")
-                  }
-                >
-                  <LogOut size={16} />
-                  Uitloggen
-                </Button>
-              )}
-            </>
-          )}
-        </div>
-      </Dialog>
-      <Dialog
-        open={notificationOpen}
-        onOpenChange={setNotificationOpen}
-        title="Even aan denken"
-        description="Jullie aankomende afspraken, deadlines en onderhoud."
-      >
-        <div className="settings-content">
-          {upcoming.length ? (
-            upcoming.map((e) => (
-              <button
-                className="record-row"
-                key={e.id}
-                onClick={() => {
-                  setNotificationOpen(false);
-                  open(e.kind, e);
-                }}
-              >
-                <CalendarDays size={19} />
-                <span className="record-name">
-                  <strong>{e.title}</strong>
-                  <small>
-                    {dateLabel(e.when)} · {labels[e.kind]}
-                  </small>
-                </span>
-                <ChevronRight size={16} />
+            <button
+              className={view === "rooms" ? "active" : ""}
+              onClick={() => go("rooms")}
+            >
+              <LayoutGrid size={20} />
+              Kamers
+            </button>
+            <button
+              className="mobile-add"
+              onClick={() => setQuick(true)}
+              aria-label="Nieuw toevoegen"
+            >
+              <Plus size={25} />
+            </button>
+            <button
+              className={view === "calendar_events" ? "active" : ""}
+              onClick={() => go("calendar_events")}
+            >
+              <CalendarDays size={20} />
+              Planning
+            </button>
+            <button onClick={() => setShowMenu(true)}>
+              <MoreHorizontal size={20} />
+              Meer
+            </button>
+          </nav>
+          {toast && (
+            <div className="toast" role="status">
+              <CheckCircle2 size={19} />
+              <span>{toast}</span>
+              <button onClick={() => setToast("")} aria-label="Melding sluiten">
+                <X size={16} />
               </button>
-            ))
-          ) : (
-            <div className="small-empty">
-              <CheckCheck size={30} />
-              <p>Je bent helemaal bij.</p>
             </div>
           )}
-          <p className="form-hint">
-            Herinneringen verschijnen hier in de app. E-mail- en pushberichten
-            zijn nog niet beschikbaar.
-          </p>
+          <Dialog
+            open={globalSearch}
+            onOpenChange={setGlobalSearch}
+            title="Zoek iets voor ons thuis"
+            description="Doorzoek jullie kamers, ideeën, taken, projecten en meer."
+          >
+            <div className="settings-content">
+              <label className="search-box">
+                <Search size={18} />
+                <input
+                  value={globalQuery}
+                  onChange={(e) => setGlobalQuery(e.target.value)}
+                  placeholder="Waar ben je naar op zoek?"
+                  aria-label="Globaal zoeken"
+                  autoFocus
+                />
+              </label>
+              {globalQuery.trim().length > 1 ? (
+                Object.entries(r).flatMap(([entity, items]) =>
+                  items
+                    .filter((item) =>
+                      (item.title + " " + (item.description || ""))
+                        .toLowerCase()
+                        .includes(globalQuery.toLowerCase()),
+                    )
+                    .map((item) => (
+                      <button
+                        key={item.id}
+                        className="record-row"
+                        onClick={() => {
+                          setGlobalSearch(false);
+                          open(entity as Entity, item);
+                        }}
+                      >
+                        <span className="record-name">
+                          <strong>{item.title}</strong>
+                          <small>{labels[entity as Entity]}</small>
+                        </span>
+                        <ArrowUpRight size={16} />
+                      </button>
+                    )),
+                )
+              ) : (
+                <p className="small-empty">
+                  Typ minimaal twee tekens om te zoeken.
+                </p>
+              )}
+            </div>
+          </Dialog>
+          <Dialog
+            open={quick}
+            onOpenChange={setQuick}
+            title="Wat voegen we toe?"
+            description="Een idee, een plan of een kleine stap vooruit."
+          >
+            <div className="quick-grid">
+              {quickOptions.map((q) => (
+                <button key={q.entity} onClick={() => create(q.entity)}>
+                  <span>
+                    <q.icon size={23} />
+                  </span>
+                  <strong>{labels[q.entity]}</strong>
+                  <small>{q.sub}</small>
+                  <ArrowUpRight size={16} />
+                </button>
+              ))}
+            </div>
+          </Dialog>
+          {editor && (
+            <Editor
+              {...editor}
+              data={data}
+              onClose={() => setEditor(null)}
+              onSaved={(m) => {
+                notify(m);
+                router.refresh();
+              }}
+            />
+          )}
+          {refreshDetail && (
+            <Detail
+              {...refreshDetail}
+              data={data}
+              onClose={() => setDetail(null)}
+              onEdit={() => {
+                if (
+                  refreshDetail.entity === "expenses" ||
+                  refreshDetail.entity === "documents"
+                )
+                  return;
+                setEditor(refreshDetail);
+                setDetail(null);
+              }}
+              onAdd={(entity, extra) => {
+                setDetail(null);
+                create(entity, extra);
+              }}
+              mutate={mutate}
+              pending={pending}
+              progress={progress(refreshDetail.record)}
+              onOpen={open}
+            />
+          )}
+          <Dialog
+            open={auth}
+            onOpenChange={setAuth}
+            title={
+              !data.user
+                ? "Welkom thuis"
+                : !h
+                  ? "Maak het van jullie"
+                  : "Ons huishouden"
+            }
+            description="Een eigen account. Eén gezamenlijk thuis."
+          >
+            <Auth
+              data={data}
+              token={invitation}
+              done={() => {
+                setAuth(false);
+                router.refresh();
+              }}
+              notify={notify}
+            />
+          </Dialog>
+          <Dialog
+            open={settings}
+            onOpenChange={setSettings}
+            title="Een fijne basis"
+            description="Jullie huis, jullie instellingen."
+          >
+            <div className="settings-content">
+              {!data.configured ? (
+                <>
+                  <p>
+                    Koppel een Supabase-project om veilig met jullie eigen
+                    gegevens te werken. Deze omgeving bevat nog geen
+                    huisgegevens.
+                  </p>
+                  <ol>
+                    <li>Maak een Supabase-project aan.</li>
+                    <li>
+                      Voer de migraties uit de map{" "}
+                      <code>supabase/migrations</code> in volgorde uit.
+                    </li>
+                    <li>
+                      Stel <code>NEXT_PUBLIC_SUPABASE_URL</code> en{" "}
+                      <code>NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY</code> in.
+                    </li>
+                    <li>
+                      Configureer de app-URL bij Supabase Auth en herstart de
+                      app.
+                    </li>
+                  </ol>
+                  <p>
+                    De complete instructies staan in README.md. Gebruik nooit
+                    een service-role key in de browser.
+                  </p>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setSettings(false);
+                      setAuth(true);
+                    }}
+                  >
+                    Naar inloggen <ArrowRight size={15} />
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <div className="settings-members">
+                    {data.members.map((m) => (
+                      <div key={m.user_id}>
+                        <span className="avatar">
+                          {m.profiles.display_name[0]}
+                        </span>
+                        <strong>{m.profiles.display_name}</strong>
+                        <small>Gelijkwaardige partner</small>
+                      </div>
+                    ))}
+                  </div>
+                  {h && <Invite h={h} notify={notify} />}
+                  {canEditCopy && (
+                    <a className="button button-outline" href="/admin/teksten">
+                      <Files size={16} /> Alle websiteteksten aanpassen
+                    </a>
+                  )}
+                  <p className="muted">
+                    Tijdzone: Europe/Amsterdam · Bestanden zijn privé.
+                  </p>
+                  {data.user && (
+                    <Button
+                      variant="outline"
+                      onClick={() =>
+                        mutate(async () => {
+                          await signout();
+                          setSettings(false);
+                        }, "Je bent uitgelogd.")
+                      }
+                    >
+                      <LogOut size={16} />
+                      Uitloggen
+                    </Button>
+                  )}
+                </>
+              )}
+            </div>
+          </Dialog>
+          <Dialog
+            open={notificationOpen}
+            onOpenChange={setNotificationOpen}
+            title="Even aan denken"
+            description="Jullie aankomende afspraken, deadlines en onderhoud."
+          >
+            <div className="settings-content">
+              {upcoming.length ? (
+                upcoming.map((e) => (
+                  <button
+                    className="record-row"
+                    key={e.id}
+                    onClick={() => {
+                      setNotificationOpen(false);
+                      open(e.kind, e);
+                    }}
+                  >
+                    <CalendarDays size={19} />
+                    <span className="record-name">
+                      <strong>{e.title}</strong>
+                      <small>
+                        {dateLabel(e.when)} · {labels[e.kind]}
+                      </small>
+                    </span>
+                    <ChevronRight size={16} />
+                  </button>
+                ))
+              ) : (
+                <div className="small-empty">
+                  <CheckCheck size={30} />
+                  <p>Je bent helemaal bij.</p>
+                </div>
+              )}
+              <p className="form-hint">
+                Herinneringen verschijnen hier in de app. E-mail- en
+                pushberichten zijn nog niet beschikbaar.
+              </p>
+            </div>
+          </Dialog>
         </div>
-      </Dialog>
-    </div>
+      }
+    </CopyScope>
   );
 }
 function Auth({
@@ -1825,189 +1866,205 @@ function Auth({
   const [error, setError] = useState("");
   const [localToken, setLocalToken] = useState(token);
   return (
-    <form
-      className="editor-form"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        setBusy(true);
-        setError("");
-        try {
-          if (!data.configured)
-            throw new Error(
-              "Supabase is nog niet gekoppeld. Volg de stappen bij Instellingen.",
-            );
-          const f = new FormData(e.currentTarget);
-          if (!data.user) {
-            const result = await authenticate(
-              mode,
-              String(f.get("email")),
-              String(f.get("password")),
-            );
-            if (result.confirmation) {
-              notify("Bevestig je e-mailadres via de link in je e-mail.");
-              setMode("login");
-              return;
+    <CopyScope>
+      {
+        <form
+          className="editor-form"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setBusy(true);
+            setError("");
+            try {
+              if (!data.configured)
+                throw new Error(
+                  "Supabase is nog niet gekoppeld. Volg de stappen bij Instellingen.",
+                );
+              const f = new FormData(e.currentTarget);
+              if (!data.user) {
+                const result = await authenticate(
+                  mode,
+                  String(f.get("email")),
+                  String(f.get("password")),
+                );
+                if (result.confirmation) {
+                  notify("Bevestig je e-mailadres via de link in je e-mail.");
+                  setMode("login");
+                  return;
+                }
+              } else
+                await setupHousehold(
+                  String(f.get("house") || "Cheese the Rooster"),
+                  String(f.get("person")),
+                  localToken || undefined,
+                );
+              done();
+            } catch (ex) {
+              setError(ex instanceof Error ? ex.message : "Dit lukte niet.");
+            } finally {
+              setBusy(false);
             }
-          } else
-            await setupHousehold(
-              String(f.get("house") || "Cheese the Rooster"),
-              String(f.get("person")),
-              localToken || undefined,
-            );
-          done();
-        } catch (ex) {
-          setError(ex instanceof Error ? ex.message : "Dit lukte niet.");
-        } finally {
-          setBusy(false);
-        }
-      }}
-    >
-      {!data.user ? (
-        <>
-          <div className="tab-bar">
-            <button
-              type="button"
-              className={mode === "login" ? "selected" : ""}
-              onClick={() => setMode("login")}
-            >
-              Inloggen
-            </button>
-            <button
-              type="button"
-              className={mode === "signup" ? "selected" : ""}
-              onClick={() => setMode("signup")}
-            >
-              Account maken
-            </button>
-          </div>
-          <label className="field">
-            E-mailadres
-            <input name="email" type="email" autoComplete="email" required />
-          </label>
-          <label className="field">
-            Wachtwoord
-            <input
-              name="password"
-              type="password"
-              minLength={10}
-              maxLength={128}
-              autoComplete={
-                mode === "login" ? "current-password" : "new-password"
-              }
-              required
-            />
-          </label>
-          <p className="form-hint">
-            Gebruik minimaal 10 tekens. Ieder heeft een eigen account.
-          </p>
-        </>
-      ) : (
-        <>
-          <label className="field">
-            Jouw naam
-            <input
-              name="person"
-              placeholder="Dylan of Floor"
-              maxLength={80}
-              required
-            />
-          </label>
-          <label className="field">
-            Naam van jullie huis
-            <input
-              name="house"
-              defaultValue="Cheese the Rooster"
-              maxLength={120}
-              required
-            />
-          </label>
-          <label className="field">
-            Uitnodigingscode (als je partner al een huis heeft)
-            <input
-              value={localToken}
-              onChange={(e) => setLocalToken(e.target.value)}
-              placeholder="Plak hier de code uit de uitnodiging"
-            />
-          </label>
-        </>
-      )}
-      {error && (
-        <p role="alert" className="error-message">
-          {error}
-        </p>
-      )}
-      <Button disabled={busy || !data.configured} type="submit">
-        {busy
-          ? "Even geduld…"
-          : !data.user
-            ? mode === "login"
-              ? "Inloggen"
-              : "Account maken"
-            : localToken
-              ? "Uitnodiging accepteren"
-              : "Ons huishouden maken"}
-      </Button>
-    </form>
+          }}
+        >
+          {!data.user ? (
+            <>
+              <div className="tab-bar">
+                <button
+                  type="button"
+                  className={mode === "login" ? "selected" : ""}
+                  onClick={() => setMode("login")}
+                >
+                  Inloggen
+                </button>
+                <button
+                  type="button"
+                  className={mode === "signup" ? "selected" : ""}
+                  onClick={() => setMode("signup")}
+                >
+                  Account maken
+                </button>
+              </div>
+              <label className="field">
+                E-mailadres
+                <input
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                />
+              </label>
+              <label className="field">
+                Wachtwoord
+                <input
+                  name="password"
+                  type="password"
+                  minLength={10}
+                  maxLength={128}
+                  autoComplete={
+                    mode === "login" ? "current-password" : "new-password"
+                  }
+                  required
+                />
+              </label>
+              <p className="form-hint">
+                Gebruik minimaal 10 tekens. Ieder heeft een eigen account.
+              </p>
+              {mode === "login" && (
+                <Link href="/wachtwoord-vergeten">Wachtwoord vergeten?</Link>
+              )}
+            </>
+          ) : (
+            <>
+              <label className="field">
+                Jouw naam
+                <input
+                  name="person"
+                  placeholder="Dylan of Floor"
+                  maxLength={80}
+                  required
+                />
+              </label>
+              <label className="field">
+                Naam van jullie huis
+                <input
+                  name="house"
+                  defaultValue="Cheese the Rooster"
+                  maxLength={120}
+                  required
+                />
+              </label>
+              <label className="field">
+                Uitnodigingscode (als je partner al een huis heeft)
+                <input
+                  value={localToken}
+                  onChange={(e) => setLocalToken(e.target.value)}
+                  placeholder="Plak hier de code uit de uitnodiging"
+                />
+              </label>
+            </>
+          )}
+          {error && (
+            <p role="alert" className="error-message">
+              {error}
+            </p>
+          )}
+          <Button disabled={busy || !data.configured} type="submit">
+            {busy
+              ? "Even geduld…"
+              : !data.user
+                ? mode === "login"
+                  ? "Inloggen"
+                  : "Account maken"
+                : localToken
+                  ? "Uitnodiging accepteren"
+                  : "Ons huishouden maken"}
+          </Button>
+        </form>
+      }
+    </CopyScope>
   );
 }
 function Invite({ h, notify }: { h: string; notify: (s: string) => void }) {
   const [token, setToken] = useState("");
   const [busy, setBusy] = useState(false);
   return (
-    <form
-      className="invite-form"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        setBusy(true);
-        try {
-          const f = new FormData(e.currentTarget);
-          setToken(await invite(h, String(f.get("email"))));
-        } catch (ex) {
-          notify(ex instanceof Error ? ex.message : "Uitnodigen mislukt.");
-        } finally {
-          setBusy(false);
-        }
-      }}
-    >
-      <h3>Samen is fijner</h3>
-      <p>
-        Nodig je partner uit met het e-mailadres van diens eigen account. De
-        code is 7 dagen geldig.
-      </p>
-      <label className="field">
-        E-mailadres partner
-        <input type="email" name="email" required />
-      </label>
-      <Button variant="outline" disabled={busy}>
-        Uitnodigingslink maken
-      </Button>
-      {token && (
-        <>
+    <CopyScope>
+      {
+        <form
+          className="invite-form"
+          onSubmit={async (e) => {
+            e.preventDefault();
+            setBusy(true);
+            try {
+              const f = new FormData(e.currentTarget);
+              setToken(await invite(h, String(f.get("email"))));
+            } catch (ex) {
+              notify(ex instanceof Error ? ex.message : "Uitnodigen mislukt.");
+            } finally {
+              setBusy(false);
+            }
+          }}
+        >
+          <h3>Samen is fijner</h3>
+          <p>
+            Nodig je partner uit met het e-mailadres van diens eigen account. De
+            code is 7 dagen geldig.
+          </p>
           <label className="field">
-            Deel deze link zelf met je partner
-            <textarea
-              readOnly
-              value={`${window.location.origin}/?invite=${token}`}
-              rows={3}
-            />
+            E-mailadres partner
+            <input type="email" name="email" required />
           </label>
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => {
-              navigator.clipboard
-                .writeText(`${window.location.origin}/?invite=${token}`)
-                .then(() => notify("Link gekopieerd."))
-                .catch(() =>
-                  notify("Selecteer de link en kopieer deze handmatig."),
-                );
-            }}
-          >
-            Link kopiëren
+          <Button variant="outline" disabled={busy}>
+            Uitnodigingslink maken
           </Button>
-        </>
-      )}
-    </form>
+          {token && (
+            <>
+              <label className="field">
+                Deel deze link zelf met je partner
+                <textarea
+                  readOnly
+                  value={`${window.location.origin}/?invite=${token}`}
+                  rows={3}
+                />
+              </label>
+              <Button
+                type="button"
+                size="sm"
+                onClick={() => {
+                  navigator.clipboard
+                    .writeText(`${window.location.origin}/?invite=${token}`)
+                    .then(() => notify("Link gekopieerd."))
+                    .catch(() =>
+                      notify("Selecteer de link en kopieer deze handmatig."),
+                    );
+                }}
+              >
+                Link kopiëren
+              </Button>
+            </>
+          )}
+        </form>
+      }
+    </CopyScope>
   );
 }
 function Detail({
@@ -2040,6 +2097,8 @@ function Detail({
   progress: number;
   onOpen: (entity: Entity, r: RecordData) => void;
 }) {
+  const { text: copy } = useSiteContent();
+
   const [tab, setTab] = useState("Overzicht");
   const [maintenanceCost, setMaintenanceCost] = useState(
     String((item.cost_cents || 0) / 100),
@@ -2135,705 +2194,731 @@ function Detail({
       </button>
     ));
   return (
-    <Dialog
-      open
-      onOpenChange={(v) => !v && onClose()}
-      title={item.title}
-      description={`${labels[entity]} · ${item.status || item.category || "Ons huis"}`}
-      wide
-    >
-      <div className="detail-content">
-        {item.image_url && (
-          <div
-            className="detail-image"
-            style={{ backgroundImage: `url("${item.image_url}")` }}
-          />
-        )}
-        {isContainer && (
-          <div className="tab-bar detail-tabs">
-            {tabs
-              .filter((t) => !(entity === "projects" && t === "Projecten"))
-              .map((t) => (
-                <button
-                  className={tab === t ? "selected" : ""}
-                  key={t}
-                  onClick={() => setTab(t)}
-                >
-                  {t}
-                </button>
-              ))}
-          </div>
-        )}
-        {tab === "Overzicht" ? (
-          <>
-            <p className="detail-description">
-              {item.description ||
-                "Een eigen plek voor alle details van dit plan."}
-            </p>
-            <div className="detail-metrics">
-              {entity === "rooms" && (
-                <>
-                  <div>
-                    <small>Oppervlakte</small>
-                    <strong>
-                      {item.width_cm && item.length_cm
-                        ? `${((item.width_cm * item.length_cm) / 10000).toLocaleString("nl-NL")} m²`
-                        : "Nog niet ingevuld"}
-                    </strong>
-                  </div>
-                  <div>
-                    <small>Verfkleuren</small>
-                    <strong>{item.paint || "Nog te kiezen"}</strong>
-                  </div>
-                  <div>
-                    <small>Materialen</small>
-                    <strong>{item.materials || "Nog te kiezen"}</strong>
-                  </div>
-                  <div>
-                    <small>Open taken</small>
-                    <strong>
-                      {
-                        linked("tasks").filter((t) => t.status !== "Afgerond")
-                          .length
-                      }
-                    </strong>
-                  </div>
-                </>
-              )}
-              {entity === "projects" && (
-                <>
-                  <div>
-                    <small>Voortgang</small>
-                    <strong>{progress}%</strong>
-                    <div className="progress-track">
-                      <span style={{ width: progress + "%" }} />
-                    </div>
-                  </div>
-                  <div>
-                    <small>Budget</small>
-                    <strong>{euro(item.budget_cents || 0)}</strong>
-                  </div>
-                  <div>
-                    <small>Werkelijke kosten</small>
-                    <strong>{euro(spent)}</strong>
-                  </div>
-                  <div>
-                    <small>Planning</small>
-                    <strong>
-                      {dateLabel(item.start_date)} – {dateLabel(item.due_date)}
-                    </strong>
-                  </div>
-                  {spent > (item.budget_cents || 0) && (
-                    <p className="error-message">
-                      Projectbudget overschreden met{" "}
-                      {euro(spent - (item.budget_cents || 0))}.
-                    </p>
-                  )}
-                </>
-              )}
-              {entity === "tasks" && (
-                <>
-                  <div>
-                    <small>Verantwoordelijke</small>
-                    <strong>
-                      {data.members.find((m) => m.user_id === item.assignee_id)
-                        ?.profiles.display_name || "Samen"}
-                    </strong>
-                  </div>
-                  <div>
-                    <small>Deadline</small>
-                    <strong>{dateLabel(item.due_date)}</strong>
-                  </div>
-                  <div>
-                    <small>Prioriteit</small>
-                    <strong>{item.priority}</strong>
-                  </div>
-                  <div>
-                    <small>Geschatte duur</small>
-                    <strong>
-                      {item.duration_minutes
-                        ? `${item.duration_minutes} minuten`
-                        : "Nog niet ingevuld"}
-                    </strong>
-                  </div>
-                </>
-              )}
-              {entity === "ideas" && (
-                <>
-                  <div>
-                    <small>Kostenindicatie</small>
-                    <strong>{euro(item.cost_cents || 0)}</strong>
-                  </div>
-                  <div>
-                    <small>Toegevoegd door</small>
-                    <strong>
-                      {data.members.find((m) => m.user_id === item.created_by)
-                        ?.profiles.display_name || "Samen"}
-                    </strong>
-                  </div>
-                </>
-              )}
-              {entity === "expenses" && (
-                <>
-                  <div>
-                    <small>Bedrag</small>
-                    <strong>{euro(item.amount_cents || 0)}</strong>
-                  </div>
-                  <div>
-                    <small>Datum</small>
-                    <strong>{dateLabel(item.expense_date)}</strong>
-                  </div>
-                  <div>
-                    <small>Categorie</small>
-                    <strong>{item.category}</strong>
-                  </div>
-                  <div>
-                    <small>Status</small>
-                    <strong>
-                      {item.reversed_at ? "Teruggedraaid" : "Geregistreerd"}
-                    </strong>
-                  </div>
-                </>
-              )}
-              {entity === "wishlist_items" && (
-                <>
-                  <div>
-                    <small>Totaal</small>
-                    <strong>
-                      {euro((item.price_cents || 0) * (item.quantity || 1))}
-                    </strong>
-                  </div>
-                  <div>
-                    <small>Winkel · aantal</small>
-                    <strong>
-                      {item.store || "Nog te kiezen"} · {item.quantity}
-                    </strong>
-                  </div>
-                </>
-              )}
-              {entity === "calendar_events" && (
-                <>
-                  <div>
-                    <small>Begint</small>
-                    <strong>
-                      {new Date(item.starts_at!).toLocaleString("nl-NL", {
-                        timeZone: "Europe/Amsterdam",
-                      })}
-                    </strong>
-                  </div>
-                  <div>
-                    <small>Eindigt</small>
-                    <strong>
-                      {new Date(item.ends_at!).toLocaleString("nl-NL", {
-                        timeZone: "Europe/Amsterdam",
-                      })}
-                    </strong>
-                  </div>
-                  <p className="muted">Tijdzone: Europe/Amsterdam</p>
-                </>
-              )}
-              {entity === "maintenance_items" && (
-                <>
-                  <div>
-                    <small>Herhaling</small>
-                    <strong>Elke {item.frequency_months} maanden</strong>
-                  </div>
-                  <div>
-                    <small>Volgende uitvoering</small>
-                    <strong>{dateLabel(item.due_date)}</strong>
-                  </div>
-                  <div>
-                    <small>Laatst uitgevoerd</small>
-                    <strong>{dateLabel(item.last_done)}</strong>
-                  </div>
-                </>
-              )}
-              {(entity === "budgets" || entity === "savings_goals") && (
-                <>
-                  <div>
-                    <small>Doelbedrag</small>
-                    <strong>{euro(item.amount_cents || 0)}</strong>
-                  </div>
-                  <div>
-                    <small>
-                      {entity === "budgets"
-                        ? "Werkelijke uitgaven"
-                        : "Al gespaard"}
-                    </small>
-                    <strong>
-                      {euro(
-                        entity === "savings_goals"
-                          ? item.saved_cents || 0
-                          : r.expenses
-                              .filter(
-                                (e) =>
-                                  !e.reversed_at &&
-                                  (item.project_id
-                                    ? e.project_id === item.project_id
-                                    : item.room_id
-                                      ? e.room_id === item.room_id
-                                      : true),
-                              )
-                              .reduce((n, e) => n + (e.amount_cents || 0), 0),
-                      )}
-                    </strong>
-                  </div>
-                </>
-              )}
-            </div>
-            {item.url && (
-              <a
-                className="button button-outline"
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Website bekijken <ExternalLink size={15} />
-              </a>
+    <CopyScope>
+      {
+        <Dialog
+          open
+          onOpenChange={(v) => !v && onClose()}
+          title={item.title}
+          description={`${labels[entity]} · ${item.status || item.category || "Ons huis"}`}
+          wide
+        >
+          <div className="detail-content">
+            {item.image_url && (
+              <div
+                className="detail-image"
+                style={{ backgroundImage: `url("${item.image_url}")` }}
+              />
             )}
-            {item.room_id && (
-              <button
-                className="text-link"
-                onClick={() => {
-                  const room = r.rooms.find((x) => x.id === item.room_id);
-                  if (room) onOpen("rooms", room);
-                }}
-              >
-                Naar{" "}
-                {r.rooms.find((x) => x.id === item.room_id)?.title || "kamer"}{" "}
-                <ArrowRight size={15} />
-              </button>
+            {isContainer && (
+              <div className="tab-bar detail-tabs">
+                {tabs
+                  .filter((t) => !(entity === "projects" && t === "Projecten"))
+                  .map((t) => (
+                    <button
+                      className={tab === t ? "selected" : ""}
+                      key={t}
+                      onClick={() => setTab(t)}
+                    >
+                      {t}
+                    </button>
+                  ))}
+              </div>
             )}
-            {item.project_id && (
-              <button
-                className="text-link"
-                onClick={() => {
-                  const project = r.projects.find(
-                    (x) => x.id === item.project_id,
-                  );
-                  if (project) onOpen("projects", project);
-                }}
-              >
-                Naar{" "}
-                {r.projects.find((x) => x.id === item.project_id)?.title ||
-                  "project"}{" "}
-                <ArrowRight size={15} />
-              </button>
-            )}
-            {entity === "expenses" && (
-              <div className="form-section">
-                <h3>Betalingen en verdeling</h3>
-                {data.members.map((m) => (
-                  <div className="list-row" key={m.user_id}>
-                    <strong>{m.profiles.display_name}</strong>
-                    <span>
-                      Betaald{" "}
-                      {euro(
-                        data.payments
-                          .filter(
-                            (p) =>
-                              p.expense_id === item.id &&
-                              p.user_id === m.user_id,
-                          )
-                          .reduce((n, p) => n + p.amount_cents, 0),
-                      )}{" "}
-                      · aandeel{" "}
-                      {euro(
-                        data.shares
-                          .filter(
-                            (p) =>
-                              p.expense_id === item.id &&
-                              p.user_id === m.user_id,
-                          )
-                          .reduce((n, p) => n + p.amount_cents, 0),
-                      )}
-                    </span>
-                  </div>
-                ))}
-                {!item.reversed_at && (
-                  <Button
-                    variant="outline"
-                    disabled={pending}
-                    onClick={() =>
-                      window.confirm(
-                        "Deze uitgave terugdraaien? De auditgeschiedenis blijft bewaard.",
-                      ) &&
-                      mutate(
-                        () => reverseFinancial(h, item.id, "expenses"),
-                        "Uitgave teruggedraaid.",
-                      )
-                    }
-                  >
-                    Uitgave terugdraaien
-                  </Button>
-                )}
-                <p className="form-hint">
-                  Voor een correctie: draai de uitgave terug en registreer het
-                  juiste bedrag opnieuw. Bestaande verrekeningen blijven
-                  zichtbaar.
+            {tab === "Overzicht" ? (
+              <>
+                <p className="detail-description">
+                  {item.description ||
+                    "Een eigen plek voor alle details van dit plan."}
                 </p>
-              </div>
-            )}
-            {entity === "ideas" && item.status !== "Uitgevoerd" && (
-              <div className="detail-actions">
-                <Button
-                  variant="outline"
-                  disabled={pending}
-                  onClick={() =>
-                    mutate(
-                      () => convertIdea(h, item.id, "tasks", item.version),
-                      "Idee omgezet naar taak.",
-                    )
-                  }
-                >
-                  Maak er een taak van <ArrowRight size={15} />
-                </Button>
-                <Button
-                  disabled={pending}
-                  onClick={() =>
-                    mutate(
-                      () => convertIdea(h, item.id, "projects", item.version),
-                      "Idee omgezet naar project.",
-                    )
-                  }
-                >
-                  Start een project <ArrowRight size={15} />
-                </Button>
-              </div>
-            )}
-            {entity === "wishlist_items" && !item.expense_id && (
-              <Button
-                onClick={() => {
-                  onClose();
-                  onAdd("expenses", { purchase: item });
-                }}
-              >
-                Aankoop registreren <Wallet size={16} />
-              </Button>
-            )}
-            {entity === "wishlist_items" && !item.expense_id && (
-              <form
-                className="inline-form"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  const f = new FormData(e.currentTarget);
-                  mutate(async () => {
-                    await linkPurchase(
-                      h,
-                      item.id,
-                      String(f.get("expense")),
-                      item.version,
-                    );
-                  }, "Aankoop gekoppeld.");
-                }}
-              >
-                <label className="field">
-                  Of koppel een bestaande uitgave
-                  <select name="expense" required>
-                    <option value="">Selecteer uitgave</option>
-                    {r.expenses
-                      .filter((e) => !e.reversed_at)
-                      .map((e) => (
-                        <option key={e.id} value={e.id}>
-                          {e.title} · {euro(e.amount_cents || 0)}
-                        </option>
-                      ))}
-                  </select>
-                </label>
-                <Button variant="outline" disabled={pending}>
-                  Koppelen
-                </Button>
-              </form>
-            )}
-            {childrenKind && (
-              <div className="form-section">
-                <h3>
-                  {entity === "tasks"
-                    ? "Subtaken"
-                    : entity === "projects"
-                      ? "Projectfases"
-                      : "Samen bespreken"}
-                </h3>
-                {children.map((c) => (
-                  <div className="child-row" key={c.id}>
-                    {childrenKind !== "idea_comments" ? (
-                      <button
-                        className={`check-button ${c.done ? "checked" : ""}`}
-                        aria-label={`${c.title} ${c.done ? "heropenen" : "afronden"}`}
+                <div className="detail-metrics">
+                  {entity === "rooms" && (
+                    <>
+                      <div>
+                        <small>Oppervlakte</small>
+                        <strong>
+                          {item.width_cm && item.length_cm
+                            ? `${((item.width_cm * item.length_cm) / 10000).toLocaleString("nl-NL")} m²`
+                            : "Nog niet ingevuld"}
+                        </strong>
+                      </div>
+                      <div>
+                        <small>Verfkleuren</small>
+                        <strong>{item.paint || "Nog te kiezen"}</strong>
+                      </div>
+                      <div>
+                        <small>Materialen</small>
+                        <strong>{item.materials || "Nog te kiezen"}</strong>
+                      </div>
+                      <div>
+                        <small>Open taken</small>
+                        <strong>
+                          {
+                            linked("tasks").filter(
+                              (t) => t.status !== "Afgerond",
+                            ).length
+                          }
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                  {entity === "projects" && (
+                    <>
+                      <div>
+                        <small>Voortgang</small>
+                        <strong>{progress}%</strong>
+                        <div className="progress-track">
+                          <span style={{ width: progress + "%" }} />
+                        </div>
+                      </div>
+                      <div>
+                        <small>Budget</small>
+                        <strong>{euro(item.budget_cents || 0)}</strong>
+                      </div>
+                      <div>
+                        <small>Werkelijke kosten</small>
+                        <strong>{euro(spent)}</strong>
+                      </div>
+                      <div>
+                        <small>Planning</small>
+                        <strong>
+                          {dateLabel(item.start_date)} –{" "}
+                          {dateLabel(item.due_date)}
+                        </strong>
+                      </div>
+                      {spent > (item.budget_cents || 0) && (
+                        <p className="error-message">
+                          Projectbudget overschreden met{" "}
+                          {euro(spent - (item.budget_cents || 0))}.
+                        </p>
+                      )}
+                    </>
+                  )}
+                  {entity === "tasks" && (
+                    <>
+                      <div>
+                        <small>Verantwoordelijke</small>
+                        <strong>
+                          {data.members.find(
+                            (m) => m.user_id === item.assignee_id,
+                          )?.profiles.display_name || "Samen"}
+                        </strong>
+                      </div>
+                      <div>
+                        <small>Deadline</small>
+                        <strong>{dateLabel(item.due_date)}</strong>
+                      </div>
+                      <div>
+                        <small>Prioriteit</small>
+                        <strong>{item.priority}</strong>
+                      </div>
+                      <div>
+                        <small>Geschatte duur</small>
+                        <strong>
+                          {item.duration_minutes
+                            ? `${item.duration_minutes} minuten`
+                            : "Nog niet ingevuld"}
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                  {entity === "ideas" && (
+                    <>
+                      <div>
+                        <small>Kostenindicatie</small>
+                        <strong>{euro(item.cost_cents || 0)}</strong>
+                      </div>
+                      <div>
+                        <small>Toegevoegd door</small>
+                        <strong>
+                          {data.members.find(
+                            (m) => m.user_id === item.created_by,
+                          )?.profiles.display_name || "Samen"}
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                  {entity === "expenses" && (
+                    <>
+                      <div>
+                        <small>Bedrag</small>
+                        <strong>{euro(item.amount_cents || 0)}</strong>
+                      </div>
+                      <div>
+                        <small>Datum</small>
+                        <strong>{dateLabel(item.expense_date)}</strong>
+                      </div>
+                      <div>
+                        <small>Categorie</small>
+                        <strong>{item.category}</strong>
+                      </div>
+                      <div>
+                        <small>Status</small>
+                        <strong>
+                          {item.reversed_at ? "Teruggedraaid" : "Geregistreerd"}
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                  {entity === "wishlist_items" && (
+                    <>
+                      <div>
+                        <small>Totaal</small>
+                        <strong>
+                          {euro((item.price_cents || 0) * (item.quantity || 1))}
+                        </strong>
+                      </div>
+                      <div>
+                        <small>Winkel · aantal</small>
+                        <strong>
+                          {item.store || "Nog te kiezen"} · {item.quantity}
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                  {entity === "calendar_events" && (
+                    <>
+                      <div>
+                        <small>Begint</small>
+                        <strong>
+                          {new Date(item.starts_at!).toLocaleString("nl-NL", {
+                            timeZone: "Europe/Amsterdam",
+                          })}
+                        </strong>
+                      </div>
+                      <div>
+                        <small>Eindigt</small>
+                        <strong>
+                          {new Date(item.ends_at!).toLocaleString("nl-NL", {
+                            timeZone: "Europe/Amsterdam",
+                          })}
+                        </strong>
+                      </div>
+                      <p className="muted">Tijdzone: Europe/Amsterdam</p>
+                    </>
+                  )}
+                  {entity === "maintenance_items" && (
+                    <>
+                      <div>
+                        <small>Herhaling</small>
+                        <strong>Elke {item.frequency_months} maanden</strong>
+                      </div>
+                      <div>
+                        <small>Volgende uitvoering</small>
+                        <strong>{dateLabel(item.due_date)}</strong>
+                      </div>
+                      <div>
+                        <small>Laatst uitgevoerd</small>
+                        <strong>{dateLabel(item.last_done)}</strong>
+                      </div>
+                    </>
+                  )}
+                  {(entity === "budgets" || entity === "savings_goals") && (
+                    <>
+                      <div>
+                        <small>Doelbedrag</small>
+                        <strong>{euro(item.amount_cents || 0)}</strong>
+                      </div>
+                      <div>
+                        <small>
+                          {entity === "budgets"
+                            ? "Werkelijke uitgaven"
+                            : "Al gespaard"}
+                        </small>
+                        <strong>
+                          {euro(
+                            entity === "savings_goals"
+                              ? item.saved_cents || 0
+                              : r.expenses
+                                  .filter(
+                                    (e) =>
+                                      !e.reversed_at &&
+                                      (item.project_id
+                                        ? e.project_id === item.project_id
+                                        : item.room_id
+                                          ? e.room_id === item.room_id
+                                          : true),
+                                  )
+                                  .reduce(
+                                    (n, e) => n + (e.amount_cents || 0),
+                                    0,
+                                  ),
+                          )}
+                        </strong>
+                      </div>
+                    </>
+                  )}
+                </div>
+                {item.url && (
+                  <a
+                    className="button button-outline"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Website bekijken <ExternalLink size={15} />
+                  </a>
+                )}
+                {item.room_id && (
+                  <button
+                    className="text-link"
+                    onClick={() => {
+                      const room = r.rooms.find((x) => x.id === item.room_id);
+                      if (room) onOpen("rooms", room);
+                    }}
+                  >
+                    Naar{" "}
+                    {r.rooms.find((x) => x.id === item.room_id)?.title ||
+                      "kamer"}{" "}
+                    <ArrowRight size={15} />
+                  </button>
+                )}
+                {item.project_id && (
+                  <button
+                    className="text-link"
+                    onClick={() => {
+                      const project = r.projects.find(
+                        (x) => x.id === item.project_id,
+                      );
+                      if (project) onOpen("projects", project);
+                    }}
+                  >
+                    Naar{" "}
+                    {r.projects.find((x) => x.id === item.project_id)?.title ||
+                      "project"}{" "}
+                    <ArrowRight size={15} />
+                  </button>
+                )}
+                {entity === "expenses" && (
+                  <div className="form-section">
+                    <h3>Betalingen en verdeling</h3>
+                    {data.members.map((m) => (
+                      <div className="list-row" key={m.user_id}>
+                        <strong>{m.profiles.display_name}</strong>
+                        <span>
+                          Betaald{" "}
+                          {euro(
+                            data.payments
+                              .filter(
+                                (p) =>
+                                  p.expense_id === item.id &&
+                                  p.user_id === m.user_id,
+                              )
+                              .reduce((n, p) => n + p.amount_cents, 0),
+                          )}{" "}
+                          · aandeel{" "}
+                          {euro(
+                            data.shares
+                              .filter(
+                                (p) =>
+                                  p.expense_id === item.id &&
+                                  p.user_id === m.user_id,
+                              )
+                              .reduce((n, p) => n + p.amount_cents, 0),
+                          )}
+                        </span>
+                      </div>
+                    ))}
+                    {!item.reversed_at && (
+                      <Button
+                        variant="outline"
                         disabled={pending}
                         onClick={() =>
-                          mutate(() =>
-                            toggleChild(
-                              h,
-                              childrenKind as
-                                "task_subtasks" | "project_phases",
-                              c.id,
-                              !c.done,
+                          window.confirm(
+                            copy(
+                              "Deze uitgave terugdraaien? De auditgeschiedenis blijft bewaard.",
                             ),
+                          ) &&
+                          mutate(
+                            () => reverseFinancial(h, item.id, "expenses"),
+                            "Uitgave teruggedraaid.",
                           )
                         }
                       >
-                        <Check size={14} />
-                      </button>
-                    ) : (
-                      <MessageCircle size={16} />
+                        Uitgave terugdraaien
+                      </Button>
                     )}
-                    <div>
-                      <span>{c.title || c.body}</span>
-                      {childrenKind === "idea_comments" && (
-                        <small>
-                          {data.members.find((m) => m.user_id === c.user_id)
-                            ?.profiles.display_name || "Samen"}{" "}
-                          · {dateLabel(c.created_at)}
-                        </small>
-                      )}
-                    </div>
+                    <p className="form-hint">
+                      Voor een correctie: draai de uitgave terug en registreer
+                      het juiste bedrag opnieuw. Bestaande verrekeningen blijven
+                      zichtbaar.
+                    </p>
                   </div>
-                ))}
-                <form
-                  className="inline-form"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const form = e.currentTarget;
-                    const f = new FormData(form);
-                    mutate(async () => {
-                      await addChild(
-                        h,
-                        childrenKind,
-                        item.id,
-                        String(f.get("text")),
-                      );
-                      form.reset();
-                    }, "Toegevoegd.");
-                  }}
-                >
-                  <input
-                    aria-label={
-                      entity === "ideas" ? "Nieuwe reactie" : "Nieuw onderdeel"
-                    }
-                    name="text"
-                    placeholder={
-                      entity === "ideas"
-                        ? "Wat vind jij?"
-                        : "Voeg een stap toe…"
-                    }
-                    required
-                    maxLength={4000}
-                  />
-                  <Button size="sm" variant="outline" disabled={pending}>
-                    <Plus size={16} />
-                    Toevoegen
-                  </Button>
-                </form>
-              </div>
-            )}
-            {entity === "tasks" && (
-              <TaskDiscussion
-                data={data}
-                item={item}
-                mutate={mutate}
-                pending={pending}
-              />
-            )}
-            {entity === "maintenance_items" && (
-              <div className="form-section">
-                <h3>Uitvoering vastleggen</h3>
-                <p>
-                  De volgende datum wordt automatisch berekend vanaf de
-                  uitvoerdatum.
-                </p>
-                <div className="form-grid">
-                  <label className="field">
-                    Uitgevoerd op
-                    <input
-                      type="date"
-                      value={performed}
-                      onChange={(e) => setPerformed(e.target.value)}
-                      max={today()}
-                    />
-                  </label>
-                  <label className="field">
-                    Werkelijke kosten (€)
-                    <input
-                      value={maintenanceCost}
-                      onChange={(e) => setMaintenanceCost(e.target.value)}
-                    />
-                  </label>
-                </div>
-                <Button
-                  disabled={pending}
-                  onClick={() =>
-                    mutate(
-                      () =>
-                        completeMaintenance(
-                          h,
-                          item.id,
-                          item.version,
-                          performed,
-                          cents(maintenanceCost),
-                        ),
-                      "Onderhoud vastgelegd en volgende datum gepland.",
-                    )
-                  }
-                >
-                  Uitvoering opslaan
-                </Button>
-                <h3>Geschiedenis</h3>
-                {(data.children.maintenance_history || [])
-                  .filter((c) => c.maintenance_id === item.id)
-                  .map((c) => (
-                    <div className="list-row" key={c.id}>
-                      <span>{dateLabel(c.performed_on)}</span>
-                      <span>{euro(c.cost_cents || 0)}</span>
-                    </div>
-                  ))}
-                <p className="form-hint">
-                  Kosten in de onderhoudshistorie worden niet automatisch een
-                  gezamenlijke uitgave. Registreer deze apart bij Financiën.
-                </p>
-              </div>
-            )}
-            {entity === "documents" && item.storage_path && files([item])}
-            {entity === "suppliers" && (
-              <div className="detail-actions">
-                {item.email && (
-                  <a
-                    className="button button-outline"
-                    href={`mailto:${item.email}`}
-                  >
-                    {item.email}
-                  </a>
                 )}
-                {item.phone && (
-                  <a
-                    className="button button-outline"
-                    href={`tel:${item.phone}`}
-                  >
-                    {item.phone}
-                  </a>
+                {entity === "ideas" && item.status !== "Uitgevoerd" && (
+                  <div className="detail-actions">
+                    <Button
+                      variant="outline"
+                      disabled={pending}
+                      onClick={() =>
+                        mutate(
+                          () => convertIdea(h, item.id, "tasks", item.version),
+                          "Idee omgezet naar taak.",
+                        )
+                      }
+                    >
+                      Maak er een taak van <ArrowRight size={15} />
+                    </Button>
+                    <Button
+                      disabled={pending}
+                      onClick={() =>
+                        mutate(
+                          () =>
+                            convertIdea(h, item.id, "projects", item.version),
+                          "Idee omgezet naar project.",
+                        )
+                      }
+                    >
+                      Start een project <ArrowRight size={15} />
+                    </Button>
+                  </div>
                 )}
-              </div>
-            )}
-            {["tasks", "expenses", "maintenance_items"].includes(entity) && (
-              <AttachedFiles
-                data={data}
-                entity={entity}
-                item={item}
-                mutate={mutate}
-                pending={pending}
-              />
-            )}
-            {(entity === "ideas" ||
-              entity === "rooms" ||
-              entity === "tasks") && (
-              <PhotoGallery
-                data={data}
-                entity={entity}
-                item={item}
-                mutate={mutate}
-                pending={pending}
-              />
-            )}
-          </>
-        ) : tab === "Foto’s" ? (
-          <PhotoGallery
-            data={data}
-            entity={entity as "rooms" | "projects"}
-            item={item}
-            mutate={mutate}
-            pending={pending}
-          />
-        ) : tabEntity[tab] ? (
-          <div className="linked-list">
-            <div className="section-heading">
-              <h3>{tab}</h3>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  onAdd(tabEntity[tab], linkedExtra);
-                }}
-              >
-                <Plus size={15} />
-                Toevoegen
-              </Button>
-            </div>
-            {linked(tabEntity[tab]).length ? (
-              tab === "Documenten" ? (
-                files(linked("documents"))
-              ) : (
-                linked(tabEntity[tab]).map((x) => (
-                  <button
-                    className="record-row"
-                    key={x.id}
+                {entity === "wishlist_items" && !item.expense_id && (
+                  <Button
                     onClick={() => {
-                      setTab("Overzicht");
-                      onOpen(tabEntity[tab], x);
+                      onClose();
+                      onAdd("expenses", { purchase: item });
                     }}
                   >
-                    <span className="record-name">
-                      <strong>{x.title}</strong>
-                      <small>{x.status || x.category || ""}</small>
-                    </span>
-                    <span>{x.amount_cents ? euro(x.amount_cents) : ""}</span>
-                    <ChevronRight size={16} />
-                  </button>
-                ))
-              )
-            ) : (
-              <p className="small-empty">
-                Nog geen {tab.toLowerCase()} gekoppeld.
-              </p>
-            )}
-          </div>
-        ) : null}
-        <div className="dialog-footer">
-          {entity === "documents" && (
-            <Button
-              variant="destructive"
-              disabled={pending}
-              onClick={() => {
-                if (
-                  window.confirm(
-                    "Dit document en de bijbehorende galerijfoto verwijderen?",
+                    Aankoop registreren <Wallet size={16} />
+                  </Button>
+                )}
+                {entity === "wishlist_items" && !item.expense_id && (
+                  <form
+                    className="inline-form"
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      const f = new FormData(e.currentTarget);
+                      mutate(async () => {
+                        await linkPurchase(
+                          h,
+                          item.id,
+                          String(f.get("expense")),
+                          item.version,
+                        );
+                      }, "Aankoop gekoppeld.");
+                    }}
+                  >
+                    <label className="field">
+                      Of koppel een bestaande uitgave
+                      <select name="expense" required>
+                        <option value="">Selecteer uitgave</option>
+                        {r.expenses
+                          .filter((e) => !e.reversed_at)
+                          .map((e) => (
+                            <option key={e.id} value={e.id}>
+                              {e.title} · {euro(e.amount_cents || 0)}
+                            </option>
+                          ))}
+                      </select>
+                    </label>
+                    <Button variant="outline" disabled={pending}>
+                      Koppelen
+                    </Button>
+                  </form>
+                )}
+                {childrenKind && (
+                  <div className="form-section">
+                    <h3>
+                      {entity === "tasks"
+                        ? "Subtaken"
+                        : entity === "projects"
+                          ? "Projectfases"
+                          : "Samen bespreken"}
+                    </h3>
+                    {children.map((c) => (
+                      <div className="child-row" key={c.id}>
+                        {childrenKind !== "idea_comments" ? (
+                          <button
+                            className={`check-button ${c.done ? "checked" : ""}`}
+                            aria-label={`${c.title} ${c.done ? "heropenen" : "afronden"}`}
+                            disabled={pending}
+                            onClick={() =>
+                              mutate(() =>
+                                toggleChild(
+                                  h,
+                                  childrenKind as
+                                    "task_subtasks" | "project_phases",
+                                  c.id,
+                                  !c.done,
+                                ),
+                              )
+                            }
+                          >
+                            <Check size={14} />
+                          </button>
+                        ) : (
+                          <MessageCircle size={16} />
+                        )}
+                        <div>
+                          <span>{c.title || c.body}</span>
+                          {childrenKind === "idea_comments" && (
+                            <small>
+                              {data.members.find((m) => m.user_id === c.user_id)
+                                ?.profiles.display_name || "Samen"}{" "}
+                              · {dateLabel(c.created_at)}
+                            </small>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    <form
+                      className="inline-form"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const form = e.currentTarget;
+                        const f = new FormData(form);
+                        mutate(async () => {
+                          await addChild(
+                            h,
+                            childrenKind,
+                            item.id,
+                            String(f.get("text")),
+                          );
+                          form.reset();
+                        }, "Toegevoegd.");
+                      }}
+                    >
+                      <input
+                        aria-label={
+                          entity === "ideas"
+                            ? "Nieuwe reactie"
+                            : "Nieuw onderdeel"
+                        }
+                        name="text"
+                        placeholder={
+                          entity === "ideas"
+                            ? "Wat vind jij?"
+                            : "Voeg een stap toe…"
+                        }
+                        required
+                        maxLength={4000}
+                      />
+                      <Button size="sm" variant="outline" disabled={pending}>
+                        <Plus size={16} />
+                        Toevoegen
+                      </Button>
+                    </form>
+                  </div>
+                )}
+                {entity === "tasks" && (
+                  <TaskDiscussion
+                    data={data}
+                    item={item}
+                    mutate={mutate}
+                    pending={pending}
+                  />
+                )}
+                {entity === "maintenance_items" && (
+                  <div className="form-section">
+                    <h3>Uitvoering vastleggen</h3>
+                    <p>
+                      De volgende datum wordt automatisch berekend vanaf de
+                      uitvoerdatum.
+                    </p>
+                    <div className="form-grid">
+                      <label className="field">
+                        Uitgevoerd op
+                        <input
+                          type="date"
+                          value={performed}
+                          onChange={(e) => setPerformed(e.target.value)}
+                          max={today()}
+                        />
+                      </label>
+                      <label className="field">
+                        Werkelijke kosten (€)
+                        <input
+                          value={maintenanceCost}
+                          onChange={(e) => setMaintenanceCost(e.target.value)}
+                        />
+                      </label>
+                    </div>
+                    <Button
+                      disabled={pending}
+                      onClick={() =>
+                        mutate(
+                          () =>
+                            completeMaintenance(
+                              h,
+                              item.id,
+                              item.version,
+                              performed,
+                              cents(maintenanceCost),
+                            ),
+                          "Onderhoud vastgelegd en volgende datum gepland.",
+                        )
+                      }
+                    >
+                      Uitvoering opslaan
+                    </Button>
+                    <h3>Geschiedenis</h3>
+                    {(data.children.maintenance_history || [])
+                      .filter((c) => c.maintenance_id === item.id)
+                      .map((c) => (
+                        <div className="list-row" key={c.id}>
+                          <span>{dateLabel(c.performed_on)}</span>
+                          <span>{euro(c.cost_cents || 0)}</span>
+                        </div>
+                      ))}
+                    <p className="form-hint">
+                      Kosten in de onderhoudshistorie worden niet automatisch
+                      een gezamenlijke uitgave. Registreer deze apart bij
+                      Financiën.
+                    </p>
+                  </div>
+                )}
+                {entity === "documents" && item.storage_path && files([item])}
+                {entity === "suppliers" && (
+                  <div className="detail-actions">
+                    {item.email && (
+                      <a
+                        className="button button-outline"
+                        href={`mailto:${item.email}`}
+                      >
+                        {item.email}
+                      </a>
+                    )}
+                    {item.phone && (
+                      <a
+                        className="button button-outline"
+                        href={`tel:${item.phone}`}
+                      >
+                        {item.phone}
+                      </a>
+                    )}
+                  </div>
+                )}
+                {["tasks", "expenses", "maintenance_items"].includes(
+                  entity,
+                ) && (
+                  <AttachedFiles
+                    data={data}
+                    entity={entity}
+                    item={item}
+                    mutate={mutate}
+                    pending={pending}
+                  />
+                )}
+                {(entity === "ideas" ||
+                  entity === "rooms" ||
+                  entity === "tasks") && (
+                  <PhotoGallery
+                    data={data}
+                    entity={entity}
+                    item={item}
+                    mutate={mutate}
+                    pending={pending}
+                  />
+                )}
+              </>
+            ) : tab === "Foto’s" ? (
+              <PhotoGallery
+                data={data}
+                entity={entity as "rooms" | "projects"}
+                item={item}
+                mutate={mutate}
+                pending={pending}
+              />
+            ) : tabEntity[tab] ? (
+              <div className="linked-list">
+                <div className="section-heading">
+                  <h3>{tab}</h3>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      onAdd(tabEntity[tab], linkedExtra);
+                    }}
+                  >
+                    <Plus size={15} />
+                    Toevoegen
+                  </Button>
+                </div>
+                {linked(tabEntity[tab]).length ? (
+                  tab === "Documenten" ? (
+                    files(linked("documents"))
+                  ) : (
+                    linked(tabEntity[tab]).map((x) => (
+                      <button
+                        className="record-row"
+                        key={x.id}
+                        onClick={() => {
+                          setTab("Overzicht");
+                          onOpen(tabEntity[tab], x);
+                        }}
+                      >
+                        <span className="record-name">
+                          <strong>{x.title}</strong>
+                          <small>{x.status || x.category || ""}</small>
+                        </span>
+                        <span>
+                          {x.amount_cents ? euro(x.amount_cents) : ""}
+                        </span>
+                        <ChevronRight size={16} />
+                      </button>
+                    ))
                   )
-                )
-                  mutate(async () => {
-                    await deleteDocument(h, item.id, item.version);
-                    onClose();
-                  }, "Document verwijderd.");
-              }}
-            >
-              <Trash2 size={15} />
-              Bestand verwijderen
-            </Button>
-          )}
-          {entity !== "expenses" && entity !== "documents" && (
-            <>
-              <Button
-                variant="ghost"
-                disabled={pending}
-                onClick={() => {
-                  if (
-                    window.confirm(
-                      `“${item.title}” verwijderen? Gekoppelde gegevens kunnen verwijderen blokkeren.`,
+                ) : (
+                  <p className="small-empty">
+                    Nog geen {tab.toLowerCase()} gekoppeld.
+                  </p>
+                )}
+              </div>
+            ) : null}
+            <div className="dialog-footer">
+              {entity === "documents" && (
+                <Button
+                  variant="destructive"
+                  disabled={pending}
+                  onClick={() => {
+                    if (
+                      window.confirm(
+                        copy(
+                          "Dit document en de bijbehorende galerijfoto verwijderen?",
+                        ),
+                      )
                     )
-                  )
-                    mutate(async () => {
-                      await removeRecord(entity, h, item.id, item.version);
-                      onClose();
-                    }, "Verwijderd.");
-                }}
-              >
-                <Trash2 size={15} />
-                Verwijderen
-              </Button>
-              <Button onClick={onEdit}>Bewerken</Button>
-            </>
-          )}
-        </div>
-      </div>
-    </Dialog>
+                      mutate(async () => {
+                        await deleteDocument(h, item.id, item.version);
+                        onClose();
+                      }, "Document verwijderd.");
+                  }}
+                >
+                  <Trash2 size={15} />
+                  Bestand verwijderen
+                </Button>
+              )}
+              {entity !== "expenses" && entity !== "documents" && (
+                <>
+                  <Button
+                    variant="ghost"
+                    disabled={pending}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          copy(
+                            `“${item.title}” verwijderen? Gekoppelde gegevens kunnen verwijderen blokkeren.`,
+                          ),
+                        )
+                      )
+                        mutate(async () => {
+                          await removeRecord(entity, h, item.id, item.version);
+                          onClose();
+                        }, "Verwijderd.");
+                    }}
+                  >
+                    <Trash2 size={15} />
+                    Verwijderen
+                  </Button>
+                  <Button onClick={onEdit}>Bewerken</Button>
+                </>
+              )}
+            </div>
+          </div>
+        </Dialog>
+      }
+    </CopyScope>
   );
 }
 function PhotoGallery({
@@ -2867,61 +2952,67 @@ function PhotoGallery({
           : p.idea_id === item.id,
   );
   return (
-    <div className="form-section">
-      <h3>Jullie fotogalerij</h3>
-      <div className="photo-grid">
-        {photos.map((p) => (
-          <PrivatePhoto key={p.id} photo={p} h={data.household!.id} />
-        ))}
-      </div>
-      <form
-        className="inline-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const form = e.currentTarget;
-          const f = new FormData(form);
-          f.set("photo_kind", kind);
-          f.set("parent_id", item.id);
-          f.set("title", item.title + " · foto");
-          if (entity === "rooms") f.set("room_id", item.id);
-          if (entity === "projects") f.set("project_id", item.id);
-          if (entity === "tasks") f.set("task_id", item.id);
-          mutate(async () => {
-            await uploadFile(data.household!.id, f);
-            form.reset();
-          }, "Foto privé opgeslagen.");
-        }}
-      >
-        {entity === "projects" && (
-          <label className="field">
-            Fase
-            <select name="caption">
-              <option>Voor</option>
-              <option>Tijdens</option>
-              <option>Na</option>
-            </select>
-          </label>
-        )}
-        <input
-          aria-label="Foto toevoegen"
-          type="file"
-          name="file"
-          required
-          accept="image/jpeg,image/png,image/webp"
-        />
-        <Button size="sm" variant="outline" disabled={pending}>
-          <Upload size={15} />
-          Foto bewaren
-        </Button>
-      </form>
-      <p className="form-hint">
-        JPG, PNG of WebP · maximaal 3 MB per foto. Voeg meerdere foto’s één voor
-        één toe.
-      </p>
-    </div>
+    <CopyScope>
+      {
+        <div className="form-section">
+          <h3>Jullie fotogalerij</h3>
+          <div className="photo-grid">
+            {photos.map((p) => (
+              <PrivatePhoto key={p.id} photo={p} h={data.household!.id} />
+            ))}
+          </div>
+          <form
+            className="inline-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const f = new FormData(form);
+              f.set("photo_kind", kind);
+              f.set("parent_id", item.id);
+              f.set("title", item.title + " · foto");
+              if (entity === "rooms") f.set("room_id", item.id);
+              if (entity === "projects") f.set("project_id", item.id);
+              if (entity === "tasks") f.set("task_id", item.id);
+              mutate(async () => {
+                await uploadFile(data.household!.id, f);
+                form.reset();
+              }, "Foto privé opgeslagen.");
+            }}
+          >
+            {entity === "projects" && (
+              <label className="field">
+                Fase
+                <select name="caption">
+                  <option>Voor</option>
+                  <option>Tijdens</option>
+                  <option>Na</option>
+                </select>
+              </label>
+            )}
+            <input
+              aria-label="Foto toevoegen"
+              type="file"
+              name="file"
+              required
+              accept="image/jpeg,image/png,image/webp"
+            />
+            <Button size="sm" variant="outline" disabled={pending}>
+              <Upload size={15} />
+              Foto bewaren
+            </Button>
+          </form>
+          <p className="form-hint">
+            JPG, PNG of WebP · maximaal 3 MB per foto. Voeg meerdere foto’s één
+            voor één toe.
+          </p>
+        </div>
+      }
+    </CopyScope>
   );
 }
 function PrivatePhoto({ photo, h }: { photo: Child; h: string }) {
+  const { text: copy } = useSiteContent();
+
   const [url, setUrl] = useState("");
   useEffect(() => {
     let active = true;
@@ -2934,30 +3025,36 @@ function PrivatePhoto({ photo, h }: { photo: Child; h: string }) {
       active = false;
     };
   }, [h, photo.storage_path]);
-  return url ? (
-    <a
-      title={photo.caption || "Privéfoto"}
-      className="private-photo"
-      href={url}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ backgroundImage: `url("${url}")` }}
-      onClick={(event) => {
-        event.preventDefault();
-        void openPrivateFile(h, photo.storage_path!).catch(() =>
-          window.alert("Foto openen mislukt. Vernieuw en probeer opnieuw."),
-        );
-      }}
-      aria-label={
-        photo.caption
-          ? `Foto ${photo.caption.toLowerCase()} openen`
-          : "Privéfoto openen"
-      }
-    >
-      {photo.caption && <span>{photo.caption}</span>}
-    </a>
-  ) : (
-    <div className="skeleton" />
+  return (
+    <CopyScope>
+      {url ? (
+        <a
+          title={photo.caption || "Privéfoto"}
+          className="private-photo"
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ backgroundImage: `url("${url}")` }}
+          onClick={(event) => {
+            event.preventDefault();
+            void openPrivateFile(h, photo.storage_path!).catch(() =>
+              window.alert(
+                copy("Foto openen mislukt. Vernieuw en probeer opnieuw."),
+              ),
+            );
+          }}
+          aria-label={
+            photo.caption
+              ? `Foto ${photo.caption.toLowerCase()} openen`
+              : "Privéfoto openen"
+          }
+        >
+          {photo.caption && <span>{photo.caption}</span>}
+        </a>
+      ) : (
+        <div className="skeleton" />
+      )}
+    </CopyScope>
   );
 }
 function AttachedFiles({
@@ -2980,58 +3077,63 @@ function AttachedFiles({
         ? "expense_id"
         : "maintenance_id";
   return (
-    <div className="form-section">
-      <h3>{entity === "expenses" ? "Bonnen en facturen" : "Documenten"}</h3>
-      {data.records.documents
-        .filter(
-          (d) => (d as unknown as Record<string, unknown>)[field] === item.id,
-        )
-        .map((d) => (
-          <button
-            className="record-row"
-            key={d.id}
-            onClick={() =>
+    <CopyScope>
+      {
+        <div className="form-section">
+          <h3>{entity === "expenses" ? "Bonnen en facturen" : "Documenten"}</h3>
+          {data.records.documents
+            .filter(
+              (d) =>
+                (d as unknown as Record<string, unknown>)[field] === item.id,
+            )
+            .map((d) => (
+              <button
+                className="record-row"
+                key={d.id}
+                onClick={() =>
+                  mutate(async () => {
+                    await openPrivateFile(data.household!.id, d.storage_path!);
+                  }, "Bestand geopend.")
+                }
+              >
+                <Files size={18} />
+                <span className="record-name">
+                  <strong>{d.title}</strong>
+                  <small>{d.filename}</small>
+                </span>
+                <Download size={16} />
+              </button>
+            ))}
+          <form
+            className="inline-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const f = new FormData(form);
+              f.set(field, item.id);
+              f.set("title", item.title + " · bijlage");
               mutate(async () => {
-                await openPrivateFile(data.household!.id, d.storage_path!);
-              }, "Bestand geopend.")
-            }
+                await uploadFile(data.household!.id, f);
+                form.reset();
+              }, "Bijlage privé opgeslagen.");
+            }}
           >
-            <Files size={18} />
-            <span className="record-name">
-              <strong>{d.title}</strong>
-              <small>{d.filename}</small>
-            </span>
-            <Download size={16} />
-          </button>
-        ))}
-      <form
-        className="inline-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const form = e.currentTarget;
-          const f = new FormData(form);
-          f.set(field, item.id);
-          f.set("title", item.title + " · bijlage");
-          mutate(async () => {
-            await uploadFile(data.household!.id, f);
-            form.reset();
-          }, "Bijlage privé opgeslagen.");
-        }}
-      >
-        <input
-          aria-label="Bijlage toevoegen"
-          type="file"
-          name="file"
-          required
-          accept="application/pdf,image/jpeg,image/png,image/webp"
-        />
-        <Button variant="outline" size="sm" disabled={pending}>
-          <Upload size={15} />
-          Bewaren
-        </Button>
-      </form>
-      <p className="form-hint">PDF of afbeelding · maximaal 3 MB.</p>
-    </div>
+            <input
+              aria-label="Bijlage toevoegen"
+              type="file"
+              name="file"
+              required
+              accept="application/pdf,image/jpeg,image/png,image/webp"
+            />
+            <Button variant="outline" size="sm" disabled={pending}>
+              <Upload size={15} />
+              Bewaren
+            </Button>
+          </form>
+          <p className="form-hint">PDF of afbeelding · maximaal 3 MB.</p>
+        </div>
+      }
+    </CopyScope>
   );
 }
 
@@ -3047,48 +3149,57 @@ function TaskDiscussion({
   pending: boolean;
 }) {
   return (
-    <div className="form-section">
-      <h3>Opmerkingen</h3>
-      {(data.children.task_comments || [])
-        .filter((c) => c.task_id === item.id)
-        .map((c) => (
-          <div className="child-row" key={c.id}>
-            <MessageCircle size={16} />
-            <div>
-              <p>{c.body}</p>
-              <small>
-                {
-                  data.members.find((m) => m.user_id === c.user_id)?.profiles
-                    .display_name
-                }{" "}
-                · {dateLabel(c.created_at)}
-              </small>
-            </div>
-          </div>
-        ))}
-      <form
-        className="inline-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          const form = e.currentTarget;
-          const text = String(new FormData(form).get("text"));
-          mutate(async () => {
-            await addChild(data.household!.id, "task_comments", item.id, text);
-            form.reset();
-          }, "Opmerking toegevoegd.");
-        }}
-      >
-        <input
-          aria-label="Nieuwe opmerking"
-          name="text"
-          required
-          maxLength={4000}
-          placeholder="Nog iets om aan te denken?"
-        />
-        <Button disabled={pending} variant="outline" size="sm">
-          Plaatsen
-        </Button>
-      </form>
-    </div>
+    <CopyScope>
+      {
+        <div className="form-section">
+          <h3>Opmerkingen</h3>
+          {(data.children.task_comments || [])
+            .filter((c) => c.task_id === item.id)
+            .map((c) => (
+              <div className="child-row" key={c.id}>
+                <MessageCircle size={16} />
+                <div>
+                  <p>{c.body}</p>
+                  <small>
+                    {
+                      data.members.find((m) => m.user_id === c.user_id)
+                        ?.profiles.display_name
+                    }{" "}
+                    · {dateLabel(c.created_at)}
+                  </small>
+                </div>
+              </div>
+            ))}
+          <form
+            className="inline-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.currentTarget;
+              const text = String(new FormData(form).get("text"));
+              mutate(async () => {
+                await addChild(
+                  data.household!.id,
+                  "task_comments",
+                  item.id,
+                  text,
+                );
+                form.reset();
+              }, "Opmerking toegevoegd.");
+            }}
+          >
+            <input
+              aria-label="Nieuwe opmerking"
+              name="text"
+              required
+              maxLength={4000}
+              placeholder="Nog iets om aan te denken?"
+            />
+            <Button disabled={pending} variant="outline" size="sm">
+              Plaatsen
+            </Button>
+          </form>
+        </div>
+      }
+    </CopyScope>
   );
 }

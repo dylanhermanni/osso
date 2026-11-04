@@ -1,3 +1,4 @@
+import { CopyScope } from "@/components/content-provider";
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
@@ -25,9 +26,13 @@ export function Button({
   VariantProps<typeof variants> & { asChild?: boolean }) {
   const Component = asChild ? Slot : "button";
   return (
-    <Component
-      className={twMerge(clsx(variants({ variant, size }), className))}
-      {...props}
-    />
+    <CopyScope>
+      {
+        <Component
+          className={twMerge(clsx(variants({ variant, size }), className))}
+          {...props}
+        />
+      }
+    </CopyScope>
   );
 }

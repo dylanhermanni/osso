@@ -1,4 +1,6 @@
 "use client";
+import { CopyScope } from "@/components/content-provider";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -248,541 +250,558 @@ export function Editor({
     }
   });
   return (
-    <Dialog
-      open
-      onOpenChange={(v) => {
-        if (!v && !busy) onClose();
-      }}
-      title={
-        purchase
-          ? "Aankoop registreren"
-          : `${record ? "Bewerk" : "Nieuw"} ${labels[entity].toLowerCase()}`
-      }
-      description={
-        purchase
-          ? "De aankoop en uitgave worden samen opgeslagen."
-          : "Een klein stapje dichter bij jullie thuis."
-      }
-    >
-      <form id="entity-form" onSubmit={submit} className="editor-form">
-        <label className="field">
-          Naam
-          <input
-            {...register("title")}
-            placeholder={
-              entity === "rooms"
-                ? "Bijvoorbeeld: Woonkamer"
-                : "Wat gaan we doen?"
-            }
-            autoFocus
-          />
-          {errors.title && (
-            <span className="field-error">{errors.title.message}</span>
-          )}
-        </label>
-        {entity !== "documents" && (
-          <label className="field">
-            Omschrijving
-            <textarea
-              {...register("description")}
-              rows={3}
-              placeholder="Een paar details, een gedachte of een plan…"
-            />
-          </label>
-        )}
-        <div className="form-grid">
-          {canLink && (
+    <CopyScope>
+      {
+        <Dialog
+          open
+          onOpenChange={(v) => {
+            if (!v && !busy) onClose();
+          }}
+          title={
+            purchase
+              ? "Aankoop registreren"
+              : `${record ? "Bewerk" : "Nieuw"} ${labels[entity].toLowerCase()}`
+          }
+          description={
+            purchase
+              ? "De aankoop en uitgave worden samen opgeslagen."
+              : "Een klein stapje dichter bij jullie thuis."
+          }
+        >
+          <form id="entity-form" onSubmit={submit} className="editor-form">
             <label className="field">
-              Kamer
-              <select
-                name="room_id"
-                defaultValue={
-                  record?.room_id || linkedRoom || purchase?.room_id || ""
+              Naam
+              <input
+                {...register("title")}
+                placeholder={
+                  entity === "rooms"
+                    ? "Bijvoorbeeld: Woonkamer"
+                    : "Wat gaan we doen?"
                 }
-              >
-                <option value="">Hele huis</option>
-                {data.records.rooms.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.title}
-                  </option>
-                ))}
-              </select>
+                autoFocus
+              />
+              {errors.title && (
+                <span className="field-error">{errors.title.message}</span>
+              )}
             </label>
-          )}
-          {canLink && !["maintenance_items", "projects"].includes(entity) && (
-            <label className="field">
-              Project
-              <select
-                name="project_id"
-                defaultValue={
-                  record?.project_id ||
-                  linkedProject ||
-                  purchase?.project_id ||
-                  ""
-                }
-              >
-                <option value="">Geen project</option>
-                {data.records.projects.map((r) => (
-                  <option key={r.id} value={r.id}>
-                    {r.title}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
-          {statuses[entity] && (
-            <label className="field">
-              Status
-              <select
-                name="status"
-                disabled={
-                  entity === "wishlist_items" && Boolean(record?.expense_id)
-                }
-                defaultValue={record?.status || statuses[entity]![0]}
-              >
-                {entity === "wishlist_items" && record?.expense_id && (
-                  <option>Gekocht</option>
-                )}
-                {statuses[entity]!.map((s) => (
-                  <option key={s}>{s}</option>
-                ))}
-              </select>
-            </label>
-          )}
-          {["tasks", "maintenance_items"].includes(entity) && (
-            <label className="field">
-              Verantwoordelijke
-              <select
-                name="assignee_id"
-                defaultValue={record?.assignee_id || ""}
-              >
-                <option value="">Samen</option>
-                {data.members.map((m) => (
-                  <option value={m.user_id} key={m.user_id}>
-                    {m.profiles.display_name}
-                  </option>
-                ))}
-              </select>
-            </label>
-          )}
-          {["tasks", "wishlist_items"].includes(entity) && (
-            <label className="field">
-              Prioriteit
-              <select
-                name="priority"
-                defaultValue={record?.priority || "Normaal"}
-              >
-                {["Laag", "Normaal", "Hoog", "Urgent"].map((p) => (
-                  <option key={p}>{p}</option>
-                ))}
-              </select>
-            </label>
-          )}
-          {[
-            "tasks",
-            "projects",
-            "wishlist_items",
-            "maintenance_items",
-          ].includes(entity) && (
-            <DateField
-              name="due_date"
-              label={
-                entity === "maintenance_items"
-                  ? "Volgende uitvoering"
-                  : "Streefdatum"
-              }
-              value={
-                record?.due_date ||
-                (entity === "maintenance_items" ? today() : null)
-              }
-              required={entity === "maintenance_items"}
-            />
-          )}
-          {entity === "projects" && (
-            <>
-              <DateField
-                name="start_date"
-                label="Startdatum"
-                value={record?.start_date}
-              />
-              <Field
-                name="budget"
-                label="Budget (€)"
-                value={(record?.budget_cents || 0) / 100}
-              />
-            </>
-          )}
-          {entity === "tasks" && (
-            <Field
-              name="duration_minutes"
-              label="Geschatte tijd (minuten)"
-              type="number"
-              value={record?.duration_minutes}
-            />
-          )}
-          {entity === "rooms" && (
-            <>
-              <Field
-                name="width_cm"
-                label="Breedte (cm)"
-                type="number"
-                value={record?.width_cm}
-              />
-              <Field
-                name="length_cm"
-                label="Lengte (cm)"
-                type="number"
-                value={record?.length_cm}
-              />
-              <Field name="paint" label="Verfkleuren" value={record?.paint} />
-              <Field
-                name="materials"
-                label="Materialen"
-                value={record?.materials}
-              />
-              <Field
-                name="sort_order"
-                label="Volgorde"
-                type="number"
-                value={record?.sort_order || 0}
-              />
-            </>
-          )}
-          {entity === "ideas" && (
-            <>
-              <Field
-                name="cost"
-                label="Kostenindicatie (€)"
-                value={(record?.cost_cents || 0) / 100}
-              />
-              <Field
-                name="tags"
-                label="Tags (gescheiden door komma's)"
-                value={record?.tags?.join(", ")}
-              />
-            </>
-          )}
-          {entity === "suppliers" && (
-            <>
-              <Field
-                name="email"
-                label="E-mailadres"
-                type="email"
-                value={record?.email}
-              />
-              <Field
-                name="phone"
-                label="Telefoon"
-                type="tel"
-                value={record?.phone}
-              />
-            </>
-          )}
-          {["ideas", "wishlist_items", "suppliers"].includes(entity) && (
-            <Field
-              name="url"
-              label="Website of productlink"
-              type="url"
-              value={record?.url}
-            />
-          )}
-          {entity === "wishlist_items" && (
-            <>
-              <Field name="store" label="Winkel" value={record?.store} />
-              <Field
-                name="price"
-                label="Prijs per stuk (€)"
-                value={(record?.price_cents || 0) / 100}
-              />
-              <Field
-                name="quantity"
-                label="Aantal"
-                type="number"
-                value={record?.quantity || 1}
-              />
-            </>
-          )}
-          {entity === "maintenance_items" && (
-            <>
-              <Field
-                name="frequency_months"
-                label="Herhalen iedere … maanden"
-                type="number"
-                value={record?.frequency_months || 12}
-                required
-              />
-              <Field
-                name="cost"
-                label="Geschatte kosten (€)"
-                value={(record?.cost_cents || 0) / 100}
-              />
-              <Field
-                name="category"
-                label="Categorie"
-                value={record?.category || "Algemeen"}
-              />
-            </>
-          )}
-          {entity === "calendar_events" && (
-            <>
-              <Field
-                name="starts_at"
-                label="Begint (Amsterdam)"
-                type="datetime-local"
-                value={
-                  record?.starts_at
-                    ? DateTime.fromISO(record.starts_at)
-                        .setZone(ZONE)
-                        .toFormat("yyyy-MM-dd'T'HH:mm")
-                    : today() + "T10:00"
-                }
-                required
-              />
-              <Field
-                name="ends_at"
-                label="Eindigt (Amsterdam)"
-                type="datetime-local"
-                value={
-                  record?.ends_at
-                    ? DateTime.fromISO(record.ends_at)
-                        .setZone(ZONE)
-                        .toFormat("yyyy-MM-dd'T'HH:mm")
-                    : today() + "T12:00"
-                }
-                required
-              />
+            {entity !== "documents" && (
               <label className="field">
-                Soort afspraak
-                <select
-                  name="category"
-                  defaultValue={record?.category || "Klusdag"}
-                >
-                  {[
-                    "Klusdag",
-                    "Levering",
-                    "Afspraak",
-                    "Deadline",
-                    "Onderhoud",
-                    "Mijlpaal",
-                    "Herinnering",
-                  ].map((s) => (
-                    <option key={s}>{s}</option>
-                  ))}
-                </select>
-              </label>
-              <label className="field">
-                Taak
-                <select name="task_id" defaultValue={record?.task_id || ""}>
-                  <option value="">Geen taak</option>
-                  {data.records.tasks.map((t) => (
-                    <option value={t.id} key={t.id}>
-                      {t.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            </>
-          )}
-          {["budgets", "savings_goals"].includes(entity) && (
-            <Field
-              name="amount"
-              label="Doelbedrag (€)"
-              value={(record?.amount_cents || 0) / 100}
-            />
-          )}
-          {entity === "savings_goals" && (
-            <Field
-              name="saved"
-              label="Al gespaard (€)"
-              value={(record?.saved_cents || 0) / 100}
-            />
-          )}
-        </div>
-        {["rooms", "ideas", "projects", "wishlist_items"].includes(entity) && (
-          <Field
-            name="image_url"
-            label="Omslagfoto (https-link, optioneel)"
-            type="url"
-            value={record?.image_url || ""}
-          />
-        )}
-        {entity === "expenses" && (
-          <>
-            {!purchase && (
-              <label className="field">
-                Soort registratie
-                <select
-                  value={expenseKind}
-                  onChange={(e) => setExpenseKind(e.target.value)}
-                >
-                  <option value="expense">Uitgave</option>
-                  <option value="refund">Terugbetaling van een winkel</option>
-                </select>
-              </label>
-            )}
-            {expenseKind === "refund" && (
-              <label className="field">
-                Oorspronkelijke uitgave
-                <select name="refund_of" required>
-                  <option value="">Kies de uitgave</option>
-                  {data.records.expenses
-                    .filter((e) => !e.reversed_at && !e.refund_of)
-                    .map((e) => (
-                      <option key={e.id} value={e.id}>
-                        {e.title} · {euro(e.amount_cents || 0)}
-                      </option>
-                    ))}
-                </select>
+                Omschrijving
+                <textarea
+                  {...register("description")}
+                  rows={3}
+                  placeholder="Een paar details, een gedachte of een plan…"
+                />
               </label>
             )}
             <div className="form-grid">
-              <label className="field">
-                Totaalbedrag (€)
-                <input
-                  name="total"
-                  value={total}
-                  onChange={(e) => setTotal(e.target.value)}
-                  required
-                  inputMode="decimal"
-                  placeholder="0,00"
-                />
-              </label>
-              <DateField
-                name="expense_date"
-                label="Datum"
-                value={today()}
-                required
-              />
-              <Field
-                name="category"
-                label="Categorie"
-                value="Inrichting"
-                required
-              />
-            </div>
-            <div className="form-section">
-              <h3>
-                {expenseKind === "refund"
-                  ? "Wie heeft het geld teruggekregen?"
-                  : "Wie heeft betaald?"}
-              </h3>
-              <p>Meerdere betalers? Vul per persoon het betaalde bedrag in.</p>
-              <div className="form-grid">
-                {data.members.map((m, i) => (
-                  <Field
-                    key={m.user_id}
-                    name={`paid_${m.user_id}`}
-                    label={`${m.profiles.display_name} (€)`}
-                    value={i === 0 ? total : "0"}
-                  />
-                ))}
-              </div>
-            </div>
-            <label className="field">
-              Hoe verdelen jullie de kosten?
-              <select
-                value={weights}
-                onChange={(e) => setWeights(e.target.value)}
-              >
-                <option value="50/50">Gelijk verdelen</option>
-                {data.members.length === 2 && (
-                  <>
-                    <option value="60/40">
-                      60 / 40 — in onderstaande volgorde
-                    </option>
-                    <option value="70/30">
-                      70 / 30 — in onderstaande volgorde
-                    </option>
-                  </>
+              {canLink && (
+                <label className="field">
+                  Kamer
+                  <select
+                    name="room_id"
+                    defaultValue={
+                      record?.room_id || linkedRoom || purchase?.room_id || ""
+                    }
+                  >
+                    <option value="">Hele huis</option>
+                    {data.records.rooms.map((r) => (
+                      <option key={r.id} value={r.id}>
+                        {r.title}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {canLink &&
+                !["maintenance_items", "projects"].includes(entity) && (
+                  <label className="field">
+                    Project
+                    <select
+                      name="project_id"
+                      defaultValue={
+                        record?.project_id ||
+                        linkedProject ||
+                        purchase?.project_id ||
+                        ""
+                      }
+                    >
+                      <option value="">Geen project</option>
+                      {data.records.projects.map((r) => (
+                        <option key={r.id} value={r.id}>
+                          {r.title}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
                 )}
-                <option value="custom">Eigen percentages</option>
-                <option value="fixed">Vaste bedragen</option>
-                <option value="personal">Persoonlijke uitgave</option>
-              </select>
-            </label>
-            <p className="form-hint">
-              Volgorde:{" "}
-              {data.members.map((m) => m.profiles.display_name).join(" / ")}.
-              Afronding wordt exact in centen verdeeld.
-            </p>
-            {["fixed", "custom"].includes(weights) && (
-              <div className="form-grid">
-                {data.members.map((m) => (
-                  <Field
-                    key={m.user_id}
-                    name={`${weights === "fixed" ? "share" : "weight"}_${m.user_id}`}
-                    label={`${m.profiles.display_name} (${weights === "fixed" ? "€" : "%"})`}
-                    value={weights === "custom" ? 100 / data.members.length : 0}
+              {statuses[entity] && (
+                <label className="field">
+                  Status
+                  <select
+                    name="status"
+                    disabled={
+                      entity === "wishlist_items" && Boolean(record?.expense_id)
+                    }
+                    defaultValue={record?.status || statuses[entity]![0]}
+                  >
+                    {entity === "wishlist_items" && record?.expense_id && (
+                      <option>Gekocht</option>
+                    )}
+                    {statuses[entity]!.map((s) => (
+                      <option key={s}>{s}</option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {["tasks", "maintenance_items"].includes(entity) && (
+                <label className="field">
+                  Verantwoordelijke
+                  <select
+                    name="assignee_id"
+                    defaultValue={record?.assignee_id || ""}
+                  >
+                    <option value="">Samen</option>
+                    {data.members.map((m) => (
+                      <option value={m.user_id} key={m.user_id}>
+                        {m.profiles.display_name}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {["tasks", "wishlist_items"].includes(entity) && (
+                <label className="field">
+                  Prioriteit
+                  <select
+                    name="priority"
+                    defaultValue={record?.priority || "Normaal"}
+                  >
+                    {["Laag", "Normaal", "Hoog", "Urgent"].map((p) => (
+                      <option key={p}>{p}</option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {[
+                "tasks",
+                "projects",
+                "wishlist_items",
+                "maintenance_items",
+              ].includes(entity) && (
+                <DateField
+                  name="due_date"
+                  label={
+                    entity === "maintenance_items"
+                      ? "Volgende uitvoering"
+                      : "Streefdatum"
+                  }
+                  value={
+                    record?.due_date ||
+                    (entity === "maintenance_items" ? today() : null)
+                  }
+                  required={entity === "maintenance_items"}
+                />
+              )}
+              {entity === "projects" && (
+                <>
+                  <DateField
+                    name="start_date"
+                    label="Startdatum"
+                    value={record?.start_date}
                   />
-                ))}
-              </div>
-            )}
-            {weights === "personal" && (
-              <label className="field">
-                Voor wie?
-                <select name="personal_user">
-                  {data.members.map((m) => (
-                    <option key={m.user_id} value={m.user_id}>
-                      {m.profiles.display_name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            )}
-          </>
-        )}
-        {entity === "documents" && (
-          <>
-            <label className="field">
-              Bestand
-              <input
-                type="file"
-                name="file"
-                accept="image/jpeg,image/png,image/webp,application/pdf"
-                required
+                  <Field
+                    name="budget"
+                    label="Budget (€)"
+                    value={(record?.budget_cents || 0) / 100}
+                  />
+                </>
+              )}
+              {entity === "tasks" && (
+                <Field
+                  name="duration_minutes"
+                  label="Geschatte tijd (minuten)"
+                  type="number"
+                  value={record?.duration_minutes}
+                />
+              )}
+              {entity === "rooms" && (
+                <>
+                  <Field
+                    name="width_cm"
+                    label="Breedte (cm)"
+                    type="number"
+                    value={record?.width_cm}
+                  />
+                  <Field
+                    name="length_cm"
+                    label="Lengte (cm)"
+                    type="number"
+                    value={record?.length_cm}
+                  />
+                  <Field
+                    name="paint"
+                    label="Verfkleuren"
+                    value={record?.paint}
+                  />
+                  <Field
+                    name="materials"
+                    label="Materialen"
+                    value={record?.materials}
+                  />
+                  <Field
+                    name="sort_order"
+                    label="Volgorde"
+                    type="number"
+                    value={record?.sort_order || 0}
+                  />
+                </>
+              )}
+              {entity === "ideas" && (
+                <>
+                  <Field
+                    name="cost"
+                    label="Kostenindicatie (€)"
+                    value={(record?.cost_cents || 0) / 100}
+                  />
+                  <Field
+                    name="tags"
+                    label="Tags (gescheiden door komma's)"
+                    value={record?.tags?.join(", ")}
+                  />
+                </>
+              )}
+              {entity === "suppliers" && (
+                <>
+                  <Field
+                    name="email"
+                    label="E-mailadres"
+                    type="email"
+                    value={record?.email}
+                  />
+                  <Field
+                    name="phone"
+                    label="Telefoon"
+                    type="tel"
+                    value={record?.phone}
+                  />
+                </>
+              )}
+              {["ideas", "wishlist_items", "suppliers"].includes(entity) && (
+                <Field
+                  name="url"
+                  label="Website of productlink"
+                  type="url"
+                  value={record?.url}
+                />
+              )}
+              {entity === "wishlist_items" && (
+                <>
+                  <Field name="store" label="Winkel" value={record?.store} />
+                  <Field
+                    name="price"
+                    label="Prijs per stuk (€)"
+                    value={(record?.price_cents || 0) / 100}
+                  />
+                  <Field
+                    name="quantity"
+                    label="Aantal"
+                    type="number"
+                    value={record?.quantity || 1}
+                  />
+                </>
+              )}
+              {entity === "maintenance_items" && (
+                <>
+                  <Field
+                    name="frequency_months"
+                    label="Herhalen iedere … maanden"
+                    type="number"
+                    value={record?.frequency_months || 12}
+                    required
+                  />
+                  <Field
+                    name="cost"
+                    label="Geschatte kosten (€)"
+                    value={(record?.cost_cents || 0) / 100}
+                  />
+                  <Field
+                    name="category"
+                    label="Categorie"
+                    value={record?.category || "Algemeen"}
+                  />
+                </>
+              )}
+              {entity === "calendar_events" && (
+                <>
+                  <Field
+                    name="starts_at"
+                    label="Begint (Amsterdam)"
+                    type="datetime-local"
+                    value={
+                      record?.starts_at
+                        ? DateTime.fromISO(record.starts_at)
+                            .setZone(ZONE)
+                            .toFormat("yyyy-MM-dd'T'HH:mm")
+                        : today() + "T10:00"
+                    }
+                    required
+                  />
+                  <Field
+                    name="ends_at"
+                    label="Eindigt (Amsterdam)"
+                    type="datetime-local"
+                    value={
+                      record?.ends_at
+                        ? DateTime.fromISO(record.ends_at)
+                            .setZone(ZONE)
+                            .toFormat("yyyy-MM-dd'T'HH:mm")
+                        : today() + "T12:00"
+                    }
+                    required
+                  />
+                  <label className="field">
+                    Soort afspraak
+                    <select
+                      name="category"
+                      defaultValue={record?.category || "Klusdag"}
+                    >
+                      {[
+                        "Klusdag",
+                        "Levering",
+                        "Afspraak",
+                        "Deadline",
+                        "Onderhoud",
+                        "Mijlpaal",
+                        "Herinnering",
+                      ].map((s) => (
+                        <option key={s}>{s}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="field">
+                    Taak
+                    <select name="task_id" defaultValue={record?.task_id || ""}>
+                      <option value="">Geen taak</option>
+                      {data.records.tasks.map((t) => (
+                        <option value={t.id} key={t.id}>
+                          {t.title}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </>
+              )}
+              {["budgets", "savings_goals"].includes(entity) && (
+                <Field
+                  name="amount"
+                  label="Doelbedrag (€)"
+                  value={(record?.amount_cents || 0) / 100}
+                />
+              )}
+              {entity === "savings_goals" && (
+                <Field
+                  name="saved"
+                  label="Al gespaard (€)"
+                  value={(record?.saved_cents || 0) / 100}
+                />
+              )}
+            </div>
+            {["rooms", "ideas", "projects", "wishlist_items"].includes(
+              entity,
+            ) && (
+              <Field
+                name="image_url"
+                label="Omslagfoto (https-link, optioneel)"
+                type="url"
+                value={record?.image_url || ""}
               />
-            </label>
-            <Field name="category" label="Categorie" value="Document" />
-            <p className="form-hint">
-              JPG, PNG, WebP of PDF · maximaal 3 MB · privé opgeslagen.
-            </p>
-          </>
-        )}
-        {error && (
-          <p className="error-message" role="alert">
-            {error}
-          </p>
-        )}
-        <div className="dialog-footer">
-          <Button
-            variant="ghost"
-            type="button"
-            onClick={onClose}
-            disabled={busy}
-          >
-            Annuleren
-          </Button>
-          <Button type="submit" disabled={busy}>
-            {busy
-              ? "Opslaan…"
-              : purchase
-                ? `Aankoop opslaan${
-                    total
-                      ? " · " +
-                        (() => {
-                          try {
-                            return euro(cents(total));
-                          } catch {
-                            return "";
-                          }
-                        })()
-                      : ""
-                  }`
-                : "Opslaan"}
-          </Button>
-        </div>
-      </form>
-    </Dialog>
+            )}
+            {entity === "expenses" && (
+              <>
+                {!purchase && (
+                  <label className="field">
+                    Soort registratie
+                    <select
+                      value={expenseKind}
+                      onChange={(e) => setExpenseKind(e.target.value)}
+                    >
+                      <option value="expense">Uitgave</option>
+                      <option value="refund">
+                        Terugbetaling van een winkel
+                      </option>
+                    </select>
+                  </label>
+                )}
+                {expenseKind === "refund" && (
+                  <label className="field">
+                    Oorspronkelijke uitgave
+                    <select name="refund_of" required>
+                      <option value="">Kies de uitgave</option>
+                      {data.records.expenses
+                        .filter((e) => !e.reversed_at && !e.refund_of)
+                        .map((e) => (
+                          <option key={e.id} value={e.id}>
+                            {e.title} · {euro(e.amount_cents || 0)}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                )}
+                <div className="form-grid">
+                  <label className="field">
+                    Totaalbedrag (€)
+                    <input
+                      name="total"
+                      value={total}
+                      onChange={(e) => setTotal(e.target.value)}
+                      required
+                      inputMode="decimal"
+                      placeholder="0,00"
+                    />
+                  </label>
+                  <DateField
+                    name="expense_date"
+                    label="Datum"
+                    value={today()}
+                    required
+                  />
+                  <Field
+                    name="category"
+                    label="Categorie"
+                    value="Inrichting"
+                    required
+                  />
+                </div>
+                <div className="form-section">
+                  <h3>
+                    {expenseKind === "refund"
+                      ? "Wie heeft het geld teruggekregen?"
+                      : "Wie heeft betaald?"}
+                  </h3>
+                  <p>
+                    Meerdere betalers? Vul per persoon het betaalde bedrag in.
+                  </p>
+                  <div className="form-grid">
+                    {data.members.map((m, i) => (
+                      <Field
+                        key={m.user_id}
+                        name={`paid_${m.user_id}`}
+                        label={`${m.profiles.display_name} (€)`}
+                        value={i === 0 ? total : "0"}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <label className="field">
+                  Hoe verdelen jullie de kosten?
+                  <select
+                    value={weights}
+                    onChange={(e) => setWeights(e.target.value)}
+                  >
+                    <option value="50/50">Gelijk verdelen</option>
+                    {data.members.length === 2 && (
+                      <>
+                        <option value="60/40">
+                          60 / 40 — in onderstaande volgorde
+                        </option>
+                        <option value="70/30">
+                          70 / 30 — in onderstaande volgorde
+                        </option>
+                      </>
+                    )}
+                    <option value="custom">Eigen percentages</option>
+                    <option value="fixed">Vaste bedragen</option>
+                    <option value="personal">Persoonlijke uitgave</option>
+                  </select>
+                </label>
+                <p className="form-hint">
+                  Volgorde:{" "}
+                  {data.members.map((m) => m.profiles.display_name).join(" / ")}
+                  . Afronding wordt exact in centen verdeeld.
+                </p>
+                {["fixed", "custom"].includes(weights) && (
+                  <div className="form-grid">
+                    {data.members.map((m) => (
+                      <Field
+                        key={m.user_id}
+                        name={`${weights === "fixed" ? "share" : "weight"}_${m.user_id}`}
+                        label={`${m.profiles.display_name} (${weights === "fixed" ? "€" : "%"})`}
+                        value={
+                          weights === "custom" ? 100 / data.members.length : 0
+                        }
+                      />
+                    ))}
+                  </div>
+                )}
+                {weights === "personal" && (
+                  <label className="field">
+                    Voor wie?
+                    <select name="personal_user">
+                      {data.members.map((m) => (
+                        <option key={m.user_id} value={m.user_id}>
+                          {m.profiles.display_name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )}
+              </>
+            )}
+            {entity === "documents" && (
+              <>
+                <label className="field">
+                  Bestand
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/jpeg,image/png,image/webp,application/pdf"
+                    required
+                  />
+                </label>
+                <Field name="category" label="Categorie" value="Document" />
+                <p className="form-hint">
+                  JPG, PNG, WebP of PDF · maximaal 3 MB · privé opgeslagen.
+                </p>
+              </>
+            )}
+            {error && (
+              <p className="error-message" role="alert">
+                {error}
+              </p>
+            )}
+            <div className="dialog-footer">
+              <Button
+                variant="ghost"
+                type="button"
+                onClick={onClose}
+                disabled={busy}
+              >
+                Annuleren
+              </Button>
+              <Button type="submit" disabled={busy}>
+                {busy
+                  ? "Opslaan…"
+                  : purchase
+                    ? `Aankoop opslaan${
+                        total
+                          ? " · " +
+                            (() => {
+                              try {
+                                return euro(cents(total));
+                              } catch {
+                                return "";
+                              }
+                            })()
+                          : ""
+                      }`
+                    : "Opslaan"}
+              </Button>
+            </div>
+          </form>
+        </Dialog>
+      }
+    </CopyScope>
   );
 }
 
