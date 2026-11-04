@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { ContentTools } from "./content-tools";
 import {
   House,
   LayoutGrid,
@@ -708,6 +709,7 @@ export function App({
                 </strong>
               </div>
               <div className="topbar-actions">
+                <ContentTools />
                 {h && (
                   <span
                     className="live-status"

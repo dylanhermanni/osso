@@ -16,6 +16,7 @@ import {
 import {
   copyOverrides,
   translateCopy,
+  findCopy,
   type CopyRecord,
 } from "@/lib/site-copy/core";
 type ContentState = {
@@ -24,6 +25,10 @@ type ContentState = {
   ready: boolean;
   text: (source: string) => string;
   replaceRecords: Dispatch<SetStateAction<CopyRecord[]>>;
+  editing: boolean;
+  setEditing: Dispatch<SetStateAction<boolean>>;
+  selectedKey: string | null;
+  selectKey: Dispatch<SetStateAction<string | null>>;
 };
 const ContentContext = createContext<ContentState>({
   records: [],
@@ -31,6 +36,10 @@ const ContentContext = createContext<ContentState>({
   ready: false,
   text: (source) => source,
   replaceRecords: () => {},
+  editing: false,
+  setEditing: () => {},
+  selectedKey: null,
+  selectKey: () => {},
 });
 export function ContentProvider({
   records: initial,
@@ -44,6 +53,8 @@ export function ContentProvider({
   children: ReactNode;
 }) {
   const [records, setRecords] = useState(initial);
+  const [editing, setEditing] = useState(false);
+  const [selectedKey, selectKey] = useState<string | null>(null);
   const [previousInitial, setPreviousInitial] = useState(initial);
   if (previousInitial !== initial) {
     setPreviousInitial(initial);
@@ -107,15 +118,45 @@ export function ContentProvider({
       ready,
       text: (source: string) => translateCopy(source, overrides),
       replaceRecords: setRecords,
+      editing: editing && canEdit,
+      setEditing,
+      selectedKey,
+      selectKey,
     };
-  }, [records, canEdit, ready]);
+  }, [records, canEdit, ready, editing, selectedKey]);
   return (
     <ContentContext.Provider value={value}>{children}</ContentContext.Provider>
   );
 }
 export const useSiteContent = () => useContext(ContentContext);
 function ContentText({ source }: { source: string }) {
-  return useSiteContent().text(source);
+  const content = useSiteContent();
+  const shown = content.text(source);
+  const match = content.editing ? findCopy(source) : undefined;
+  if (!match) return shown;
+  return (
+    <span
+      className="copy-inline-target"
+      role="button"
+      tabIndex={0}
+      aria-label={`Tekst aanpassen: ${shown}`}
+      data-copy-key={match.entry.key}
+      onClickCapture={(event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        content.selectKey(match.entry.key);
+      }}
+      onKeyDownCapture={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          event.stopPropagation();
+          content.selectKey(match.entry.key);
+        }
+      }}
+    >
+      {shown}
+    </span>
+  );
 }
 const originalAttributes = new WeakMap<object, Record<string, string>>();
 const originalOptions = new WeakMap<object, string>();

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { loadSiteCopy } from "@/lib/site-copy/server";
 import { ContentAdmin } from "@/components/content-admin";
+import { ContentLogin } from "@/components/content-tools";
 export const dynamic = "force-dynamic";
 export default async function TextAdminPage() {
   const data = await loadSiteCopy();
@@ -15,6 +16,7 @@ export default async function TextAdminPage() {
               ? "Dit account heeft geen toegang tot tekstbeheer."
               : "Log in met je beheerdersaccount om de websiteteksten aan te passen."}
         </p>
+        {data.ready && !data.signedIn && <ContentLogin />}
         <Link className="button button-primary" href="/">
           Naar de website
         </Link>

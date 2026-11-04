@@ -4,6 +4,8 @@ Open `/admin/teksten`, of kies **Alle websiteteksten aanpassen** in de profielin
 
 ## Gebruik
 
+- Kies bovenaan de website **Teksten aanpassen**. Na inloggen als beheerder schakelt die knop bewerken op de pagina in. Klik op een omlijnde tekst, pas hem aan en kies **Opslaan**. De gewone klikactie van die tekst wordt tijdens het bewerken tegengehouden.
+- Kies in de bewerkbalk **Alle teksten, knoppen en meldingen** voor teksten die nu niet in beeld staan, zoals placeholders, foutmeldingen en browserlabels.
 - Zoek op de bestaande of aangepaste tekst en filter op onderdeel.
 - Selecteer een tekst en wijzig het veld **Jouw tekst**. Het voorbeeld is een concept; **Opslaan** publiceert de wijziging voor alle bezoekers.
 - Dezelfde standaardtekst wordt overal tegelijk vervangen. Bewaar invulvelden zoals `{1}` en `{2}` precies één keer; de app vult hier de actuele naam of waarde in.
@@ -21,3 +23,7 @@ Tekstbeheer omvat de vaste interface, velden, knoppen, menu's, meldingen, kalend
 - `.env.local` bevat uitsluitend de bestaande publieke projectconfiguratie en blijft buiten Git.
 
 Verificatie: `npm test`, `npm run lint`, `npm run typecheck`, `npm run build`. `tests/database/site-copy.sql` controleert anonieme toegang, niet-beheerders, eigenaar, versies, herstel en geschiedenis binnen één teruggedraaide transactie. Die databasecontrole simuleert gebruikersclaims; zij vervangt geen browsercontrole van het echte inloggen.
+
+## Wachtwoord vergeten
+
+Het inlogscherm bevat een link naar `/wachtwoord-vergeten`. De resetmail gebruikt PKCE en keert terug via `/auth/herstel` naar `/wachtwoord-herstellen`. Het nieuwe wachtwoord wordt alleen door de gebruiker ingevuld. Voeg de exacte productiecallback toe in Supabase Redirect URLs. Versturen naar gewone appgebruikers vereist een eigen SMTP-provider; die is nog niet ingesteld. Een succesvol gebouwd herstelscherm bewijst geen e-mailbezorging.
