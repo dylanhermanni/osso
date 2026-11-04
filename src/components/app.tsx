@@ -104,27 +104,27 @@ const navigation: {
   { key: "documents", label: "Woningdossier", icon: Files },
 ];
 const titles: Record<View, string> = {
-  home: "Een fijne plek om thuis te komen.",
-  rooms: "Ruimte voor jullie plannen.",
-  ideas: "Hier begint iets moois.",
-  tasks: "Kleine stappen. Groot verschil.",
-  projects: "Van eerste idee tot helemaal af.",
-  expenses: "Samen helder over geld.",
-  wishlist_items: "Op ons verlanglijstje.",
-  calendar_events: "Tijd voor ons huis.",
-  maintenance_items: "Een huis om voor te zorgen.",
-  documents: "Alles netjes bewaard.",
+  home: "Hé, wat pakken we aan?",
+  rooms: "Jullie kamers",
+  ideas: "Inspiratie",
+  tasks: "Jullie taken",
+  projects: "Projecten",
+  expenses: "Financiën",
+  wishlist_items: "Verlanglijst",
+  calendar_events: "Planning",
+  maintenance_items: "Onderhoud",
+  documents: "Woningdossier",
   budgets: "Ruimte in jullie budget.",
   savings_goals: "Samen ergens naartoe.",
   activity: "Wat er thuis gebeurt.",
   suppliers: "Fijne mensen voor jullie plannen.",
 };
 const descriptions: Record<View, string> = {
-  home: "Al jullie ideeën, plannen en kleine geluksmomenten. Op één plek.",
+  home: "Taken, plannen en geldzaken. Samen geregeld.",
   rooms: "Ontdek, organiseer en maak elke kamer een beetje meer van jullie.",
   ideas:
     "Verzamel wat jullie raakt. Droom, bespreek en maak het werkelijkheid.",
-  tasks: "Alles wat nog mag gebeuren, met ruimte om het samen te doen.",
+  tasks: "Zie wat er moet gebeuren, voor wie en wanneer.",
   projects: "Een overzicht van jullie grotere plannen en de stappen ernaartoe.",
   expenses: "Jullie uitgaven, budgetten en verrekeningen. Eerlijk verdeeld.",
   wishlist_items: "Mooie vondsten voor later. Of voor binnenkort.",
@@ -594,8 +594,18 @@ export function App({
   return (
     <div className="app-shell">
       <aside className={`sidebar ${showMenu ? "sidebar-open" : ""}`}>
-        <button className="brand" aria-label="Cheese the Rooster — naar overzicht" onClick={() => go("home")}>
-          <Image className="brand-logo" src="/cheese-the-rooster-logo.webp" width={48} height={48} alt="" />
+        <button
+          className="brand"
+          aria-label="Cheese the Rooster — naar overzicht"
+          onClick={() => go("home")}
+        >
+          <Image
+            className="brand-logo"
+            src="/cheese-the-rooster-logo.webp"
+            width={48}
+            height={48}
+            alt=""
+          />
           <span className="brand-wordmark">
             <span>Cheese</span>
             <small>the Rooster</small>
@@ -675,7 +685,13 @@ export function App({
             >
               <Menu size={22} />
             </button>
-            <Image className="breadcrumb-logo" src="/cheese-the-rooster-logo.webp" width={24} height={24} alt="" />
+            <Image
+              className="breadcrumb-logo"
+              src="/cheese-the-rooster-logo.webp"
+              width={24}
+              height={24}
+              alt=""
+            />
             <span>Cheese the Rooster</span>
             <ChevronRight size={12} />
             <strong>
@@ -746,6 +762,11 @@ export function App({
             </div>
             <Button
               className="heading-add"
+              aria-label={
+                view === "home" || view === "activity"
+                  ? "Nieuw toevoegen"
+                  : `${labels[view]} toevoegen`
+              }
               onClick={() =>
                 view === "home" || view === "activity"
                   ? setQuick(true)
@@ -753,9 +774,11 @@ export function App({
               }
             >
               <Plus size={17} />
-              {view === "home" || view === "activity"
-                ? "Nieuw toevoegen"
-                : `${labels[view]} toevoegen`}
+              <span className="heading-add-label">
+                {view === "home" || view === "activity"
+                  ? "Nieuw toevoegen"
+                  : `${labels[view]} toevoegen`}
+              </span>
             </Button>
           </div>
           {!data.configured && (
@@ -786,29 +809,6 @@ export function App({
           {view === "home" ? (
             <>
               <div className="dashboard-top">
-                <section className="hero-card">
-                  <div className="hero-art" />
-                  <div className="hero-shade" />
-                  <div className="hero-content">
-                    <span className="hero-kicker">
-                      <span /> DIT IS ONZE PLEK
-                    </span>
-                    <h2>
-                      Grote dromen.
-                      <br />
-                      Kleine stappen.
-                      <br />
-                      <em>Samen thuis.</em>
-                    </h2>
-                    <p>Van een eerste idee tot het laatste likje verf.</p>
-                    <button onClick={() => go("rooms")}>
-                      Ontdek jullie kamers <ArrowUpRight size={17} />
-                    </button>
-                  </div>
-                  <span className="hero-caption">
-                    Een thuis om samen te maken
-                  </span>
-                </section>
                 <section className="week-card">
                   <div className="section-heading">
                     <h2>Deze week</h2>
@@ -816,7 +816,9 @@ export function App({
                       <CalendarDays size={20} />
                     </span>
                   </div>
-                  <p className="muted">Een beetje aandacht voor ons huis.</p>
+                  <p className="muted">
+                    Dit staat er voor jullie op de planning.
+                  </p>
                   <div className="week-tasks">
                     {tasks
                       .filter(
@@ -837,11 +839,11 @@ export function App({
                         <span>
                           <CheckCheck size={26} strokeWidth={1.3} />
                         </span>
-                        <h3>Alle ruimte voor nieuwe plannen</h3>
+                        <h3>Geen taken voor deze week</h3>
                         <p>
-                          Er staan nog geen taken voor deze week.
+                          Voeg een taak met een datum toe.
                           <br />
-                          Wat willen jullie samen aanpakken?
+                          Dan vinden jullie hem hier terug.
                         </p>
                       </div>
                     )}
@@ -852,6 +854,41 @@ export function App({
                   >
                     Bekijk alle taken <ArrowRight size={16} />
                   </button>
+                </section>
+                <section
+                  className="quick-start-card"
+                  aria-labelledby="quick-start-heading"
+                >
+                  <div className="section-heading">
+                    <div>
+                      <p className="eyebrow">KLEINE MOEITE, FIJN GEREGELD</p>
+                      <h2 id="quick-start-heading">Even snel toevoegen</h2>
+                    </div>
+                    <Plus size={22} aria-hidden="true" />
+                  </div>
+                  <p>Een klus, een aankoop of dat ene goede idee.</p>
+                  <div className="quick-start-actions">
+                    <button onClick={() => create("tasks")}>
+                      <CheckCheck size={19} />
+                      <span>Taak toevoegen</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                    <button onClick={() => create("expenses")}>
+                      <Wallet size={19} />
+                      <span>Uitgave invoeren</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                    <button onClick={() => create("ideas")}>
+                      <Lightbulb size={19} />
+                      <span>Idee bewaren</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                    <button onClick={() => create("calendar_events")}>
+                      <CalendarDays size={19} />
+                      <span>Afspraak plannen</span>
+                      <ArrowUpRight size={16} />
+                    </button>
+                  </div>
                 </section>
               </div>
               <div className="stats-grid">
@@ -912,8 +949,8 @@ export function App({
               <section className="dashboard-section">
                 <div className="section-heading">
                   <div>
-                    <p className="eyebrow">ELKE RUIMTE EEN EIGEN VERHAAL</p>
-                    <h2>Rondje door ons huis</h2>
+                    <p className="eyebrow">ALLES PER KAMER</p>
+                    <h2>Jullie kamers</h2>
                   </div>
                   <button className="text-link" onClick={() => go("rooms")}>
                     Alle kamers <ArrowRight size={16} />

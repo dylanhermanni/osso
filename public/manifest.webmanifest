@@ -7,8 +7,8 @@
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#F7F5F0",
-  "theme_color": "#343D32",
+  "background_color": "#faf9f6",
+  "theme_color": "#66539d",
   "icons": [
     {
       "src": "/rooster-icon-192.png",

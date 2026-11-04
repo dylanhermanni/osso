@@ -10,7 +10,7 @@ test("dashboard is transparant over configuratie en werkt zonder fouten", async 
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto("/");
   await expect(
-    page.getByRole("heading", { name: "Een fijne plek om thuis te komen." }),
+    page.getByRole("heading", { name: "Hé, wat pakken we aan?" }),
   ).toBeVisible();
   await expect(
     page.getByText("Koppel Supabase", { exact: false }),
@@ -30,15 +30,15 @@ test("dashboard is transparant over configuratie en werkt zonder fouten", async 
 });
 test("alle modules openen via deep links", async ({ page }) => {
   for (const [view, title] of [
-    ["rooms", "Ruimte voor jullie plannen."],
-    ["ideas", "Hier begint iets moois."],
-    ["tasks", "Kleine stappen. Groot verschil."],
-    ["projects", "Van eerste idee tot helemaal af."],
-    ["expenses", "Samen helder over geld."],
-    ["wishlist_items", "Op ons verlanglijstje."],
-    ["calendar_events", "Tijd voor ons huis."],
-    ["maintenance_items", "Een huis om voor te zorgen."],
-    ["documents", "Alles netjes bewaard."],
+    ["rooms", "Jullie kamers"],
+    ["ideas", "Inspiratie"],
+    ["tasks", "Jullie taken"],
+    ["projects", "Projecten"],
+    ["expenses", "Financiën"],
+    ["wishlist_items", "Verlanglijst"],
+    ["calendar_events", "Planning"],
+    ["maintenance_items", "Onderhoud"],
+    ["documents", "Woningdossier"],
   ]) {
     await page.goto("/?view=" + view);
     await expect(page.getByRole("heading", { name: title })).toBeVisible();
