@@ -202,16 +202,34 @@ svg {
   letter-spacing: -1.5px;
   white-space: nowrap;
 }
-.brand-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--forest);
-  width: 33px;
-  height: 35px;
+.brand-logo {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
-.brand-dot {
-  color: var(--clay);
+.brand-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.05;
+  letter-spacing: -0.8px;
+}
+.brand-wordmark > span {
+  font-size: 29px;
+}
+.brand-wordmark small {
+  margin-top: 4px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+.breadcrumb-logo {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .home-switch {
   display: flex;

@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Ons Huis",
-  "short_name": "Ons Huis",
+  "name": "Cheese the Rooster",
+  "short_name": "Cheese",
   "description": "Alles voor ons thuis, op één plek.",
   "lang": "nl",
   "start_url": "/",
@@ -11,19 +11,19 @@
   "theme_color": "#343D32",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/rooster-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/rooster-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-maskable.png",
+      "src": "/rooster-icon-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

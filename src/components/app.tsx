@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import {
   House,
   LayoutGrid,
@@ -593,12 +594,11 @@ export function App({
   return (
     <div className="app-shell">
       <aside className={`sidebar ${showMenu ? "sidebar-open" : ""}`}>
-        <button className="brand" onClick={() => go("home")}>
-          <span className="brand-icon">
-            <House size={25} strokeWidth={1.5} />
-          </span>
-          <span>
-            ons huis<span className="brand-dot">.</span>
+        <button className="brand" aria-label="Cheese the Rooster — naar overzicht" onClick={() => go("home")}>
+          <Image className="brand-logo" src="/cheese-the-rooster-logo.webp" width={48} height={48} alt="" />
+          <span className="brand-wordmark">
+            <span>Cheese</span>
+            <small>the Rooster</small>
           </span>
         </button>
         <div className="home-switch">
@@ -675,8 +675,8 @@ export function App({
             >
               <Menu size={22} />
             </button>
-            <House size={15} />
-            <span>Ons Huis</span>
+            <Image className="breadcrumb-logo" src="/cheese-the-rooster-logo.webp" width={24} height={24} alt="" />
+            <span>Cheese the Rooster</span>
             <ChevronRight size={12} />
             <strong>
               {navigation.find((n) => n.key === view)?.label || "Overzicht"}
@@ -736,7 +736,7 @@ export function App({
               <p className="eyebrow">
                 {view === "home"
                   ? `WELKOM THUIS${name ? ", " + name.toUpperCase() : ""}`
-                  : "ONS HUIS · " +
+                  : "CHEESE THE ROOSTER · " +
                     (
                       navigation.find((n) => n.key === view)?.label || "SAMEN"
                     ).toUpperCase()}
@@ -1048,7 +1048,7 @@ export function App({
               <div className="home-footer">
                 <Leaf size={17} />
                 <p>Het hoeft niet in één dag af. Het is al van jullie.</p>
-                <span>ONS HUIS</span>
+                <span>CHEESE THE ROOSTER</span>
               </div>
             </>
           ) : view === "activity" ? (
@@ -1327,7 +1327,7 @@ export function App({
                       );
                       const a = document.createElement("a");
                       a.href = url;
-                      a.download = "ons-huis-uitgaven.csv";
+                      a.download = "cheese-the-rooster-uitgaven.csv";
                       a.click();
                       URL.revokeObjectURL(url);
                     }}
@@ -1813,7 +1813,7 @@ function Auth({
             }
           } else
             await setupHousehold(
-              String(f.get("house") || "Ons Huis"),
+              String(f.get("house") || "Cheese the Rooster"),
               String(f.get("person")),
               localToken || undefined,
             );
@@ -1879,7 +1879,7 @@ function Auth({
             Naam van jullie huis
             <input
               name="house"
-              defaultValue="Ons Huis"
+              defaultValue="Cheese the Rooster"
               maxLength={120}
               required
             />

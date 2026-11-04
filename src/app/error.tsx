@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export default function ErrorPage({ reset }: { reset: () => void }) {
   return (
     <main className="fatal">
-      <p className="eyebrow">ONS HUIS</p>
+      <p className="eyebrow">CHEESE THE ROOSTER</p>
       <h1>Even geen verbinding.</h1>
       <p>
         We kunnen je huisgegevens niet laden. Controleer de

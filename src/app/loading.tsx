@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <main className="loading-state" aria-label="Ons Huis laden">
+    <main className="loading-state" aria-label="Cheese the Rooster laden">
       <div className="skeleton" />
       <div className="skeleton" />
       <div className="skeleton" />
