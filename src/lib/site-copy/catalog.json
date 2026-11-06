@@ -104,6 +104,14 @@
     "template": false
   },
   {
+    "key": "copy_cea3659f",
+    "source": "Aangepast",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_35acb247",
     "source": "Aankoop gekoppeld.",
     "groups": [
@@ -502,14 +510,6 @@
     "groups": [
       "Formulieren en velden",
       "Meldingen en validatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_7c53166f",
-    "source": "Bijgewerkt",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -1011,6 +1011,14 @@
     "template": false
   },
   {
+    "key": "copy_21f5b729",
+    "source": "door",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_4ca5e2f3",
     "source": "Doorzoek jullie kamers, ideeën, taken, projecten en meer.",
     "groups": [
@@ -1464,6 +1472,14 @@
     "template": false
   },
   {
+    "key": "copy_f5f1b65b",
+    "source": "Gecorrigeerd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_86452f38",
     "source": "Geef dit een naam.",
     "groups": [
@@ -1786,6 +1802,14 @@
     "template": false
   },
   {
+    "key": "copy_96f4e358",
+    "source": "Heropend",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_9698c162",
     "source": "Het bedrag moet groter zijn dan nul.",
     "groups": [
@@ -1810,8 +1834,8 @@
     "template": true
   },
   {
-    "key": "copy_71fa20a3",
-    "source": "Hier komen jullie recente activiteiten.",
+    "key": "copy_1fc2e301",
+    "source": "Hier zie je straks wat jullie hebben toegevoegd, aangepast of afgerond.",
     "groups": [
       "Website en navigatie"
     ],
@@ -1862,6 +1886,14 @@
   {
     "key": "copy_def6434d",
     "source": "Houd het eerlijk verdeeld",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_39787d19",
+    "source": "Huishouden",
     "groups": [
       "Website en navigatie"
     ],
@@ -2080,14 +2112,6 @@
   {
     "key": "copy_9c1b0610",
     "source": "Jullie aankomende afspraken, deadlines en onderhoud.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_e2ed1c93",
-    "source": "Jullie eerste stap is het begin van iets moois.",
     "groups": [
       "Website en navigatie"
     ],
@@ -2829,14 +2853,6 @@
     "template": false
   },
   {
-    "key": "copy_e9608589",
-    "source": "Nog geen activiteiten.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_575b6ea4",
     "source": "Nog geen winkel",
     "groups": [
@@ -2922,6 +2938,14 @@
     "source": "Omslagfoto (https-link, optioneel)",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_26e4380a",
+    "source": "Onbekende gebruiker",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -3285,8 +3309,24 @@
     "template": false
   },
   {
+    "key": "copy_3b9197d7",
+    "source": "Projectfase",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_6a31b72c",
     "source": "Projectfases",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5e17e67c",
+    "source": "Recente activiteiten",
     "groups": [
       "Website en navigatie"
     ],
@@ -3311,14 +3351,6 @@
   {
     "key": "copy_b2ff048e",
     "source": "Ruimte in jullie budget.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_d60c1322",
-    "source": "S",
     "groups": [
       "Website en navigatie"
     ],
@@ -3360,14 +3392,6 @@
   {
     "key": "copy_ba9e6a82",
     "source": "Samen geïnvesteerd",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_ccde0d28",
-    "source": "Samen in beweging",
     "groups": [
       "Website en navigatie"
     ],
@@ -3532,6 +3556,14 @@
     "source": "Streefdatum",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2c857dba",
+    "source": "Subtaak",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -4003,6 +4035,14 @@
   {
     "key": "copy_0f5cd2a2",
     "source": "Verlanglijst",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0ab9df99",
+    "source": "Verrekening",
     "groups": [
       "Website en navigatie"
     ],

@@ -102,8 +102,9 @@ export type Snapshot = {
     title: string;
     action: string;
     entity: string;
+    entity_id: string | null;
     created_at: string;
-    user_id: string;
+    user_id: string | null;
   }[];
   children: Record<string, Child[]>;
 };

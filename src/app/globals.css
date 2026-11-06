@@ -1007,6 +1007,19 @@ main {
 .agenda-row > svg {
   color: #a1a996;
 }
+.activity-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.activity-panel {
+  margin-bottom: 22px;
+}
+.record-attribution {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 12px 0;
+}
 .activity-row {
   display: flex;
   align-items: center;
@@ -1027,7 +1040,7 @@ main {
 }
 .activity-row p > span {
   display: block;
-  color: #a0a394;
+  color: var(--muted);
   font-size: 12px;
   margin-top: 4px;
 }

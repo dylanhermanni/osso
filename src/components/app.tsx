@@ -316,6 +316,11 @@ export function App({
           setToast("Live sessie kon niet worden geopend. Log opnieuw in.");
         }
       });
+    const refreshVisible = () => {
+      if (document.visibilityState === "visible") router.refresh();
+    };
+    document.addEventListener("visibilitychange", refreshVisible);
+    const snapshotTimer = setInterval(refreshVisible, 45_000);
     const authTimer = setInterval(
       () => {
         void refreshAuth().catch(() => {
@@ -327,6 +332,8 @@ export function App({
     return () => {
       cancelled = true;
       clearInterval(authTimer);
+      clearInterval(snapshotTimer);
+      document.removeEventListener("visibilitychange", refreshVisible);
       clearTimeout(refreshTimer);
       void db.removeChannel(channel);
     };
@@ -966,6 +973,20 @@ export function App({
                       </small>
                     </button>
                   </div>
+                  {h && (
+                    <section className="panel activity-panel">
+                      <div className="section-heading">
+                        <h2>Recente activiteiten</h2>
+                        <button
+                          className="text-link"
+                          onClick={() => go("activity")}
+                        >
+                          Alle activiteiten <ArrowUpRight size={16} />
+                        </button>
+                      </div>
+                      <ActivityFeed data={data} limit={5} />
+                    </section>
+                  )}
                   <section className="dashboard-section">
                     <div className="section-heading">
                       <div>
@@ -1062,47 +1083,6 @@ export function App({
                         </div>
                       )}
                     </section>
-                    <section className="panel activity-panel">
-                      <div className="section-heading">
-                        <h2>Samen in beweging</h2>
-                        <button
-                          className="icon-button"
-                          onClick={() => go("activity")}
-                          aria-label="Alle activiteiten"
-                        >
-                          <ArrowUpRight size={18} />
-                        </button>
-                      </div>
-                      {data.activity.length ? (
-                        data.activity.slice(0, 3).map((a) => (
-                          <div className="activity-row" key={a.id}>
-                            <span className="avatar avatar-small">
-                              {data.members.find((m) => m.user_id === a.user_id)
-                                ?.profiles.display_name[0] || "S"}
-                            </span>
-                            <p>
-                              <strong>{a.title || "Ons huis"}</strong>
-                              <span>
-                                {a.action === "INSERT"
-                                  ? "Toegevoegd"
-                                  : a.action === "DELETE"
-                                    ? "Verwijderd"
-                                    : "Bijgewerkt"}{" "}
-                                · {dateLabel(a.created_at)}
-                              </span>
-                            </p>
-                          </div>
-                        ))
-                      ) : (
-                        <div className="small-empty">
-                          <Users size={25} />
-                          <p>Jullie eerste stap is het begin van iets moois.</p>
-                          <span className="muted">
-                            Hier komen jullie recente activiteiten.
-                          </span>
-                        </div>
-                      )}
-                    </section>
                   </div>
                   <div className="home-footer">
                     <Leaf size={17} />
@@ -1112,27 +1092,7 @@ export function App({
                 </>
               ) : view === "activity" ? (
                 <section className="panel">
-                  {data.activity.length ? (
-                    data.activity.map((a) => (
-                      <div className="activity-row" key={a.id}>
-                        <span className="avatar avatar-small">
-                          {data.members.find((m) => m.user_id === a.user_id)
-                            ?.profiles.display_name[0] || "S"}
-                        </span>
-                        <p>
-                          <strong>{a.title || a.entity}</strong>
-                          <span>
-                            {a.action} ·{" "}
-                            {new Date(a.created_at).toLocaleString("nl-NL", {
-                              timeZone: "Europe/Amsterdam",
-                            })}
-                          </span>
-                        </p>
-                      </div>
-                    ))
-                  ) : (
-                    <p>Nog geen activiteiten.</p>
-                  )}
+                  <ActivityFeed data={data} />
                 </section>
               ) : (
                 <>
@@ -1852,6 +1812,73 @@ export function App({
     </CopyScope>
   );
 }
+const activityActions: Record<string, string> = {
+  INSERT: "Toegevoegd",
+  UPDATE: "Aangepast",
+  COMPLETE: "Afgerond",
+  REOPEN: "Heropend",
+  DELETE: "Verwijderd",
+  REVERSE: "Gecorrigeerd",
+};
+const activityEntities: Record<string, string> = {
+  ...labels,
+  task_subtasks: "Subtaak",
+  project_phases: "Projectfase",
+  settlements: "Verrekening",
+};
+
+function activityName(data: Snapshot, userId: string | null | undefined) {
+  return (
+    data.members.find((member) => member.user_id === userId)?.profiles
+      .display_name || "Onbekende gebruiker"
+  );
+}
+
+function ActivityFeed({ data, limit }: { data: Snapshot; limit?: number }) {
+  const activity = data.activity.slice(0, limit);
+  return (
+    <CopyScope>
+      {activity.length ? (
+        <ul className="activity-list">
+          {activity.map((entry) => {
+            const name = activityName(data, entry.user_id);
+            return (
+              <li className="activity-row" key={entry.id}>
+                <span className="avatar avatar-small" aria-hidden="true">
+                  {name[0]}
+                </span>
+                <p>
+                  <strong>
+                    {entry.title ||
+                      activityEntities[entry.entity] ||
+                      "Huishouden"}
+                  </strong>
+                  <span>
+                    <b>{name}</b> ·{" "}
+                    {activityActions[entry.action] || "Aangepast"} ·{" "}
+                    <time dateTime={entry.created_at}>
+                      {new Intl.DateTimeFormat("nl-NL", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        timeZone: "Europe/Amsterdam",
+                      }).format(new Date(entry.created_at))}
+                    </time>
+                  </span>
+                </p>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p className="small-empty">
+          Hier zie je straks wat jullie hebben toegevoegd, aangepast of
+          afgerond.
+        </p>
+      )}
+    </CopyScope>
+  );
+}
+
 function Auth({
   data,
   token,
@@ -2106,6 +2133,12 @@ function Detail({
     String((item.cost_cents || 0) / 100),
   );
   const [performed, setPerformed] = useState(today());
+  const latestChange = data.activity.find(
+    (entry) =>
+      entry.entity === entity &&
+      entry.entity_id === item.id &&
+      entry.action !== "INSERT",
+  );
   const h = data.household!.id;
   const r = data.records;
   const isContainer = entity === "rooms" || entity === "projects";
@@ -2232,6 +2265,21 @@ function Detail({
                 <p className="detail-description">
                   {item.description ||
                     "Een eigen plek voor alle details van dit plan."}
+                </p>
+                <p className="record-attribution">
+                  Toegevoegd door{" "}
+                  <strong>{activityName(data, item.created_by)}</strong>
+                  {latestChange && (
+                    <>
+                      {" "}
+                      · {activityActions[latestChange.action] ||
+                        "Aangepast"}{" "}
+                      door{" "}
+                      <strong>
+                        {activityName(data, latestChange.user_id)}
+                      </strong>
+                    </>
+                  )}
                 </p>
                 <div className="detail-metrics">
                   {entity === "rooms" && (
