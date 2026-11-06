@@ -44,7 +44,9 @@ async function add(page: Page, view: string, label: string, title: string) {
     .getByRole("button", { name: label + " toevoegen", exact: true })
     .first()
     .click();
-  await page.getByLabel("Naam", { exact: true }).fill(title);
+  await page
+    .getByLabel(view === "expenses" ? "Waarvoor?" : "Naam", { exact: true })
+    .fill(title);
 }
 async function save(page: Page) {
   await page
@@ -131,8 +133,9 @@ test("twee echte accounts delen kamers, taken, geld en privébestanden", async (
   ).toBeVisible();
   await add(page, "expenses", "Uitgave", "Verf en kwasten");
   await page.getByLabel("Totaalbedrag (€)").fill("10,01");
-  await page.getByLabel("Dylan (€)", { exact: true }).fill("10,01");
-  await page.getByLabel("Floor (€)", { exact: true }).fill("0");
+  await page
+    .getByLabel("Wie heeft betaald?", { exact: true })
+    .selectOption({ label: "Dylan" });
   await save(page);
   await expect(
     page.getByText("€ 10,01", { exact: true }).first(),
@@ -271,16 +274,19 @@ test("aankopen, projectfases, onderhoud, agenda en galerij zijn verbonden", asyn
   await expect(page.locator(".private-photo")).toBeVisible();
   await page.getByRole("button", { name: "Sluiten", exact: true }).click();
   await add(page, "wishlist_items", "Product", "Linnen gordijnen");
-  await page.getByLabel("Prijs per stuk (€)").fill("35");
+  await page.getByLabel("Geschatte prijs per stuk (€)").fill("35");
   await page.getByLabel("Aantal", { exact: true }).fill("2");
   await save(page);
+  await expect(page.locator(".wishlist-subtotal")).toContainText(/70,00/);
   await page
     .getByRole("heading", { name: "Linnen gordijnen", exact: true })
     .click();
   await page
     .getByRole("button", { name: "Aankoop registreren", exact: true })
     .click();
-  await page.getByLabel("Floor (€)", { exact: true }).fill("70");
+  await page
+    .getByLabel("Wie heeft betaald?", { exact: true })
+    .selectOption({ label: "Floor" });
   await page
     .getByRole("dialog")
     .getByRole("button", { name: /Aankoop opslaan/ })

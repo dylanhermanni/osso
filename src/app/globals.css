@@ -3615,3 +3615,16 @@ main {
     flex: 1;
   }
 }
+
+.wishlist-subtotal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+.wishlist-subtotal strong {
+  color: var(--forest);
+  font-size: 20px;
+}

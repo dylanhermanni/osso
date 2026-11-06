@@ -151,6 +151,8 @@ const descriptions: Record<View, string> = {
   activity: "De laatste stappen die jullie samen hebben gezet.",
   suppliers: "Contactgegevens en afspraken, bij het juiste project.",
 };
+const runningProjectsFirst = (a: RecordData, b: RecordData) =>
+  Number(b.status === "In uitvoering") - Number(a.status === "In uitvoering");
 const dateLabel = (d?: string | null) =>
   d
     ? new Intl.DateTimeFormat("nl-NL", {
@@ -1451,6 +1453,21 @@ export function App({
                       ))}
                     </div>
                   )}
+                  {view === "wishlist_items" && (
+                    <div className="panel wishlist-subtotal">
+                      <span>Geschat subtotaal van de getoonde producten</span>
+                      <strong>
+                        {euro(
+                          visible.reduce(
+                            (sum, item) =>
+                              sum +
+                              (item.price_cents || 0) * (item.quantity ?? 1),
+                            0,
+                          ),
+                        )}
+                      </strong>
+                    </div>
+                  )}
                   {["rooms", "ideas", "projects", "wishlist_items"].includes(
                     view,
                   ) ? (
@@ -1459,7 +1476,9 @@ export function App({
                       visible.sort((a, b) =>
                         view === "rooms"
                           ? (a.sort_order || 0) - (b.sort_order || 0)
-                          : 0,
+                          : view === "projects"
+                            ? runningProjectsFirst(a, b)
+                            : 0,
                       ),
                     )
                   ) : view === "calendar_events" ||
@@ -2229,14 +2248,16 @@ function Detail({
         "Foto’s",
       ]
     : ["Overzicht"];
-  const linked = (e: Entity) =>
-    r[e].filter((x) =>
+  const linked = (e: Entity) => {
+    const items = r[e].filter((x) =>
       entity === "rooms"
         ? x.room_id === item.id
         : entity === "projects"
           ? x.project_id === item.id
           : false,
     );
+    return e === "projects" ? items.sort(runningProjectsFirst) : items;
+  };
   const spent = (
     entity === "expenses"
       ? item.reversed_at

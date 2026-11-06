@@ -1718,6 +1718,14 @@
     "template": false
   },
   {
+    "key": "copy_b3e440ca",
+    "source": "Geschat subtotaal van de getoonde producten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_571b4859",
     "source": "Geschatte duur",
     "groups": [
@@ -1728,6 +1736,14 @@
   {
     "key": "copy_d17c26c0",
     "source": "Geschatte kosten (€)",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0ea3425a",
+    "source": "Geschatte prijs per stuk (€)",
     "groups": [
       "Formulieren en velden"
     ],
@@ -2041,6 +2057,7 @@
     "key": "copy_8a101384",
     "source": "In uitvoering",
     "groups": [
+      "Website en navigatie",
       "Formulieren en velden",
       "Meldingen en validatie"
     ],
@@ -2724,8 +2741,8 @@
     "template": false
   },
   {
-    "key": "copy_9662aae4",
-    "source": "Meerdere betalers? Vul per persoon het betaalde bedrag in.",
+    "key": "copy_a3d95d28",
+    "source": "Meerdere personen",
     "groups": [
       "Formulieren en velden"
     ],
@@ -3345,14 +3362,6 @@
     "source": "Planning",
     "groups": [
       "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_5107bece",
-    "source": "Prijs per stuk (€)",
-    "groups": [
-      "Formulieren en velden"
     ],
     "template": false
   },
@@ -4450,6 +4459,14 @@
     "source": "Waar ben je naar op zoek?",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ef71b3f5",
+    "source": "Waarvoor?",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },

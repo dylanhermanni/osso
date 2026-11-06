@@ -81,6 +81,13 @@ export function Editor({
         ? String(((purchase.price_cents || 0) * (purchase.quantity || 1)) / 100)
         : "",
   );
+  const [payer, setPayer] = useState(
+    () =>
+      data.members.find((member) => member.user_id === data.user?.id)
+        ?.user_id ||
+      data.members[0]?.user_id ||
+      "",
+  );
   const [weights, setWeights] = useState("50/50");
   const [expenseKind, setExpenseKind] = useState("expense");
   const [requestId] = useState(() => crypto.randomUUID());
@@ -201,7 +208,12 @@ export function Editor({
         const users = data.members.map((m) => m.user_id);
         const paid = users.map((user_id) => ({
           user_id,
-          amount_cents: money(`paid_${user_id}`),
+          amount_cents:
+            payer === "multiple"
+              ? money(`paid_${user_id}`)
+              : user_id === payer
+                ? amount
+                : 0,
         }));
         let shares: number[];
         if (weights === "fixed") shares = users.map((u) => money(`share_${u}`));
@@ -360,7 +372,7 @@ export function Editor({
         >
           <form id="entity-form" onSubmit={submit} className="editor-form">
             <label className="field">
-              Naam
+              {entity === "expenses" ? "Waarvoor?" : "Naam"}
               <input
                 {...register("title")}
                 placeholder={
@@ -396,7 +408,7 @@ export function Editor({
             ) : (
               entity !== "documents" && descriptionField
             )}
-            {!appointment && (
+            {!appointment && entity !== "expenses" && (
               <div className="form-grid">
                 {links}
                 {statuses[entity] && (
@@ -448,6 +460,13 @@ export function Editor({
                     </select>
                   </label>
                 )}
+                {entity === "projects" && (
+                  <DateField
+                    name="start_date"
+                    label="Startdatum"
+                    value={record?.start_date}
+                  />
+                )}
                 {[
                   "tasks",
                   "projects",
@@ -470,11 +489,6 @@ export function Editor({
                 )}
                 {entity === "projects" && (
                   <>
-                    <DateField
-                      name="start_date"
-                      label="Startdatum"
-                      value={record?.start_date}
-                    />
                     <Field
                       name="budget"
                       label="Budget (€)"
@@ -565,8 +579,12 @@ export function Editor({
                     <Field name="store" label="Winkel" value={record?.store} />
                     <Field
                       name="price"
-                      label="Prijs per stuk (€)"
-                      value={(record?.price_cents || 0) / 100}
+                      label="Geschatte prijs per stuk (€)"
+                      value={
+                        record?.price_cents
+                          ? record.price_cents / 100
+                          : undefined
+                      }
                     />
                     <Field
                       name="quantity"
@@ -625,80 +643,47 @@ export function Editor({
             )}
             {entity === "expenses" && (
               <>
-                {!purchase && (
-                  <label className="field">
-                    Soort registratie
-                    <select
-                      value={expenseKind}
-                      onChange={(e) => setExpenseKind(e.target.value)}
-                    >
-                      <option value="expense">Uitgave</option>
-                      <option value="refund">
-                        Terugbetaling van een winkel
+                <label className="field">
+                  Totaalbedrag (€)
+                  <input
+                    name="total"
+                    value={total}
+                    onChange={(e) => setTotal(e.target.value)}
+                    required
+                    inputMode="decimal"
+                    placeholder="0,00"
+                  />
+                </label>
+                <label className="field">
+                  {expenseKind === "refund"
+                    ? "Wie heeft het geld teruggekregen?"
+                    : "Wie heeft betaald?"}
+                  <select
+                    value={payer}
+                    onChange={(event) => setPayer(event.target.value)}
+                  >
+                    {data.members.map((member) => (
+                      <option key={member.user_id} value={member.user_id}>
+                        {member.profiles.display_name}
                       </option>
-                    </select>
-                  </label>
-                )}
-                {expenseKind === "refund" && (
-                  <label className="field">
-                    Oorspronkelijke uitgave
-                    <select name="refund_of" required>
-                      <option value="">Kies de uitgave</option>
-                      {data.records.expenses
-                        .filter((e) => !e.reversed_at && !e.refund_of)
-                        .map((e) => (
-                          <option key={e.id} value={e.id}>
-                            {e.title} · {euro(e.amount_cents || 0)}
-                          </option>
-                        ))}
-                    </select>
-                  </label>
-                )}
-                <div className="form-grid">
-                  <label className="field">
-                    Totaalbedrag (€)
-                    <input
-                      name="total"
-                      value={total}
-                      onChange={(e) => setTotal(e.target.value)}
-                      required
-                      inputMode="decimal"
-                      placeholder="0,00"
-                    />
-                  </label>
-                  <DateField
-                    name="expense_date"
-                    label="Datum"
-                    value={today()}
-                    required
-                  />
-                  <Field
-                    name="category"
-                    label="Categorie"
-                    value="Inrichting"
-                    required
-                  />
-                </div>
-                <div className="form-section">
-                  <h3>
-                    {expenseKind === "refund"
-                      ? "Wie heeft het geld teruggekregen?"
-                      : "Wie heeft betaald?"}
-                  </h3>
-                  <p>
-                    Meerdere betalers? Vul per persoon het betaalde bedrag in.
-                  </p>
+                    ))}
+                    {data.members.length > 1 && (
+                      <option value="multiple">Meerdere personen</option>
+                    )}
+                  </select>
+                </label>
+                {payer === "multiple" && (
                   <div className="form-grid">
-                    {data.members.map((m, i) => (
+                    {data.members.map((member) => (
                       <Field
-                        key={m.user_id}
-                        name={`paid_${m.user_id}`}
-                        label={`${m.profiles.display_name} (€)`}
-                        value={i === 0 ? total : "0"}
+                        key={member.user_id}
+                        name={`paid_${member.user_id}`}
+                        label={`${member.profiles.display_name} (€)`}
+                        value="0"
                       />
                     ))}
                   </div>
-                </div>
+                )}
                 <label className="field">
                   Hoe verdelen jullie de kosten?
                   <select
@@ -721,11 +706,15 @@ export function Editor({
                     <option value="personal">Persoonlijke uitgave</option>
                   </select>
                 </label>
-                <p className="form-hint">
-                  Volgorde:{" "}
-                  {data.members.map((m) => m.profiles.display_name).join(" / ")}
-                  . Afronding wordt exact in centen verdeeld.
-                </p>
+                {(weights === "60/40" || weights === "70/30") && (
+                  <p className="form-hint">
+                    Volgorde:{" "}
+                    {data.members
+                      .map((m) => m.profiles.display_name)
+                      .join(" / ")}
+                    . Afronding wordt exact in centen verdeeld.
+                  </p>
+                )}
                 {["fixed", "custom"].includes(weights) && (
                   <div className="form-grid">
                     {data.members.map((m) => (
@@ -752,6 +741,59 @@ export function Editor({
                     </select>
                   </label>
                 )}
+                {expenseKind === "refund" && (
+                  <label className="field">
+                    Oorspronkelijke uitgave
+                    <select name="refund_of" required>
+                      <option value="">Kies de uitgave</option>
+                      {data.records.expenses
+                        .filter((e) => !e.reversed_at && !e.refund_of)
+                        .map((e) => (
+                          <option key={e.id} value={e.id}>
+                            {e.title} · {euro(e.amount_cents || 0)}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                )}
+                <details className="editor-options">
+                  <summary>
+                    <SlidersHorizontal size={17} /> Extra details{" "}
+                    <ChevronDown size={17} />
+                  </summary>
+                  <div className="editor-options-body">
+                    {descriptionField}
+                    <div className="form-grid">
+                      {links}
+                      {!purchase && (
+                        <label className="field">
+                          Soort registratie
+                          <select
+                            value={expenseKind}
+                            onChange={(e) => setExpenseKind(e.target.value)}
+                          >
+                            <option value="expense">Uitgave</option>
+                            <option value="refund">
+                              Terugbetaling van een winkel
+                            </option>
+                          </select>
+                        </label>
+                      )}
+                      <DateField
+                        name="expense_date"
+                        label="Datum"
+                        value={today()}
+                        required
+                      />
+                      <Field
+                        name="category"
+                        label="Categorie"
+                        value="Inrichting"
+                        required
+                      />
+                    </div>
+                  </div>
+                </details>
               </>
             )}
             {entity === "documents" && (
