@@ -3,6 +3,7 @@ import { cache } from "react";
 import { configured } from "@/lib/supabase/config";
 import { supabase } from "@/lib/supabase/server";
 import { type CopyRecord, copyOverrides, translateCopy } from "./core";
+import { decodeCopyRecord } from "./storage";
 export const loadSiteCopy = cache(async () => {
   const empty = {
     records: [] as CopyRecord[],
@@ -19,7 +20,7 @@ export const loadSiteCopy = cache(async () => {
       db.auth.getUser(),
     ]);
     return {
-      records: (texts.data || []) as CopyRecord[],
+      records: ((texts.data || []) as CopyRecord[]).map(decodeCopyRecord),
       canEdit: permission.data === true,
       ready: !texts.error && !permission.error,
       signedIn: Boolean(session.data.user),

@@ -139,7 +139,7 @@ function ContentText({ source }: { source: string }) {
       className="copy-inline-target"
       role="button"
       tabIndex={0}
-      aria-label={`Tekst aanpassen: ${shown}`}
+      aria-label={`Tekst aanpassen: ${shown || source}`}
       data-copy-key={match.entry.key}
       onClickCapture={(event) => {
         event.preventDefault();
@@ -154,7 +154,7 @@ function ContentText({ source }: { source: string }) {
         }
       }}
     >
-      {shown}
+      {shown || "Tekst verborgen"}
     </span>
   );
 }
@@ -213,7 +213,12 @@ export function CopyScope({ children }: { children: ReactNode }) {
           .map((name) => [name, props[name] as string]),
       );
     const updated: Record<string, unknown> = Object.fromEntries(
-      Object.entries(originals).map(([name, source]) => [name, text(source)]),
+      Object.entries(originals).map(([name, source]) => [
+        name,
+        name === "aria-label" || name === "alt"
+          ? text(source) || source
+          : text(source),
+      ]),
     );
     if (props.children !== undefined)
       updated.children = Children.map(props.children as ReactNode, visit);

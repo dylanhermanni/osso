@@ -858,6 +858,14 @@
     "template": false
   },
   {
+    "key": "copy_dca9f6d0",
+    "source": "Deze tekst overal op de website verwijderen?",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_82c6c12d",
     "source": "Deze week",
     "groups": [
@@ -3447,6 +3455,14 @@
     "template": false
   },
   {
+    "key": "copy_ce481985",
+    "source": "Standaard herstellen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_96bbc37b",
     "source": "Standaard:",
     "groups": [
@@ -3595,6 +3611,14 @@
   {
     "key": "copy_501d2672",
     "source": "Tekst aanpassen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_f39150df",
+    "source": "Tekst verwijderen",
     "groups": [
       "Website en navigatie"
     ],

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Pencil, Check, X } from "lucide-react";
+import { Pencil, Check, X, Trash2, RotateCcw } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useSiteContent } from "./content-provider";
 import { catalogByKey } from "@/lib/site-copy/core";
@@ -73,40 +73,39 @@ function InlineTextEditor({ copyKey }: { copyKey: string }) {
   const { records, replaceRecords, selectKey } = useSiteContent();
   const entry = catalogByKey.get(copyKey)!;
   const stored = records.find((record) => record.key === copyKey);
-  const [version, setVersion] = useState(stored?.version || 0);
+  const [version] = useState(stored?.version || 0);
   const [draft, setDraft] = useState(stored?.value ?? entry.source);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  async function save(value: string | null) {
+    if (busy) return;
+    setBusy(true);
+    setMessage("");
+    try {
+      const result = await saveSiteCopy(copyKey, value, version);
+      if (!result.ok) {
+        setMessage(result.message);
+        return;
+      }
+      replaceRecords((previous) => [
+        ...previous.filter((record) => record.key !== copyKey),
+        result.record,
+      ]);
+      selectKey(null);
+    } catch {
+      setMessage(
+        "Opslaan mislukt. Je tekst staat nog in het veld. Probeer opnieuw.",
+      );
+    } finally {
+      setBusy(false);
+    }
+  }
   return (
     <form
       className="editor-form"
-      onSubmit={async (event) => {
+      onSubmit={(event) => {
         event.preventDefault();
-        setBusy(true);
-        setMessage("");
-        try {
-          const result = await saveSiteCopy(
-            copyKey,
-            draft === entry.source ? null : draft,
-            version,
-          );
-          if (!result.ok) {
-            setMessage(result.message);
-            return;
-          }
-          replaceRecords((previous) => [
-            ...previous.filter((record) => record.key !== copyKey),
-            result.record,
-          ]);
-          setVersion(result.record.version);
-          selectKey(null);
-        } catch {
-          setMessage(
-            "Opslaan mislukt. Je tekst staat nog in het veld. Probeer opnieuw.",
-          );
-        } finally {
-          setBusy(false);
-        }
+        void save(draft === entry.source ? null : draft);
       }}
     >
       <label className="field">
@@ -128,13 +127,36 @@ function InlineTextEditor({ copyKey }: { copyKey: string }) {
       )}
       <p className="form-hint">Standaard: {entry.source}</p>
       {message && <p role="alert">{message}</p>}
-      <button
-        className="button button-primary"
-        type="submit"
-        disabled={busy || !draft.trim()}
-      >
-        {busy ? "Opslaan…" : "Opslaan"}
-      </button>
+      <div className="copy-actions">
+        <button
+          className="button button-primary"
+          type="submit"
+          disabled={busy || !draft.trim()}
+        >
+          {busy ? "Opslaan…" : "Opslaan"}
+        </button>
+        <button
+          className="button button-danger"
+          type="button"
+          disabled={busy || stored?.value === ""}
+          onClick={() => {
+            if (window.confirm("Deze tekst overal op de website verwijderen?"))
+              void save("");
+          }}
+        >
+          <Trash2 size={15} /> Tekst verwijderen
+        </button>
+        {stored?.value === "" && (
+          <button
+            className="button button-outline"
+            type="button"
+            disabled={busy}
+            onClick={() => void save(null)}
+          >
+            <RotateCcw size={15} /> Standaard herstellen
+          </button>
+        )}
+      </div>
     </form>
   );
 }

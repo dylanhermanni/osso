@@ -48,6 +48,7 @@ export function translateCopy(
 ): string {
   const match = findCopy(text);
   if (!match || overrides[match.entry.key] === undefined) return text;
+  if (overrides[match.entry.key] === "") return "";
   const prefix = text.match(/^\s*/)?.[0] || "";
   const suffix = text.match(/\s*$/)?.[0] || "";
   const value = overrides[match.entry.key].replace(
@@ -63,7 +64,7 @@ export function validateCopyValue(
   const entry = catalogByKey.get(key);
   if (!entry)
     throw new Error("Deze tekst bestaat niet meer. Vernieuw de pagina.");
-  if (value === null) return null;
+  if (value === null || value === "") return value;
   if (!value.trim() || value.length > 5000)
     throw new Error("Gebruik tussen 1 en 5.000 tekens.");
   const tokens = (text: string) =>

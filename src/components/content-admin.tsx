@@ -10,6 +10,7 @@ import {
   RotateCcw,
   History,
   Check,
+  Trash2,
 } from "lucide-react";
 import { useSiteContent } from "./content-provider";
 import { catalog, type CopyEntry } from "@/lib/site-copy/core";
@@ -94,17 +95,27 @@ export function ContentAdmin() {
     );
     setMessage("");
   }
-  function save(reset = false) {
+  function save(mode: "save" | "reset" | "remove" = "save") {
     if (pending) return;
     if (
-      reset &&
+      mode === "reset" &&
       !window.confirm(
         "Deze tekst terugzetten naar de standaardtekst? Je kunt je vorige versie later terughalen.",
       )
     )
       return;
+    if (
+      mode === "remove" &&
+      !window.confirm("Deze tekst overal op de website verwijderen?")
+    )
+      return;
     const key = selected.key;
-    const value = reset || draft === selected.source ? null : draft;
+    const value =
+      mode === "remove"
+        ? ""
+        : mode === "reset" || draft === selected.source
+          ? null
+          : draft;
     setMessage("");
     startTransition(async () => {
       const result = await saveSiteCopy(key, value, baseVersion).catch(() => ({
@@ -127,9 +138,11 @@ export function ContentAdmin() {
       setDraft(result.record.value ?? selected.source);
       setFailed(false);
       setMessage(
-        reset
-          ? "Standaardtekst hersteld."
-          : "Opgeslagen. Deze tekst staat nu op de website.",
+        value === ""
+          ? "Tekst verwijderd van de website."
+          : mode === "reset"
+            ? "Standaardtekst hersteld."
+            : "Opgeslagen. Deze tekst staat nu op de website.",
       );
     });
   }
@@ -234,12 +247,13 @@ export function ContentAdmin() {
                     disabled={pending}
                     aria-pressed={selected.key === entry.key}
                   >
-                    <span>{record?.value ?? entry.source}</span>
+                    <span>{record?.value || entry.source}</span>
                     <small>
                       {entry.groups.join(" · ")}
                       {record?.value !== undefined && record.value !== null && (
                         <span className="copy-edited">
-                          <Check size={11} /> Aangepast
+                          <Check size={11} />{" "}
+                          {record.value === "" ? "Verborgen" : "Aangepast"}
                         </span>
                       )}
                     </small>
@@ -301,17 +315,24 @@ export function ContentAdmin() {
             <div className="copy-actions">
               <button
                 className="button button-primary"
-                disabled={pending || !dirty || !draft.trim()}
+                disabled={pending || !dirty || (draft !== "" && !draft.trim())}
                 onClick={() => save()}
               >
                 <Save size={16} /> Opslaan
               </button>
               <button
                 className="button button-outline"
-                disabled={pending || (!dirty && !stored?.value)}
-                onClick={() => save(true)}
+                disabled={pending || (!dirty && stored?.value == null)}
+                onClick={() => save("reset")}
               >
                 <RotateCcw size={15} /> Standaard herstellen
+              </button>
+              <button
+                className="button button-danger"
+                disabled={pending || stored?.value === ""}
+                onClick={() => save("remove")}
+              >
+                <Trash2 size={15} /> Tekst verwijderen
               </button>
             </div>
             <p
@@ -341,7 +362,11 @@ export function ContentAdmin() {
                           timeZone: "Europe/Amsterdam",
                         }).format(new Date(row.created_at))}
                       </small>
-                      <p>{row.value ?? "Standaardtekst hersteld"}</p>
+                      <p>
+                        {row.value === ""
+                          ? "Tekst verwijderd"
+                          : (row.value ?? "Standaardtekst hersteld")}
+                      </p>
                     </div>
                     <button
                       className="button button-outline button-sm"

@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { supabase } from "@/lib/supabase/server";
 import { validateCopyValue, type CopyRecord } from "@/lib/site-copy/core";
+import { decodeCopyRecord, hiddenCopyValue } from "@/lib/site-copy/storage";
 export async function saveSiteCopy(
   key: string,
   value: string | null,
@@ -10,6 +11,8 @@ export async function saveSiteCopy(
 ): Promise<{ ok: true; record: CopyRecord } | { ok: false; message: string }> {
   try {
     z.number().int().min(0).parse(expectedVersion);
+    if (value === hiddenCopyValue)
+      throw new Error("Gebruik de knop Tekst verwijderen.");
     value = validateCopyValue(key, value);
     const db = await supabase();
     const {
@@ -21,7 +24,7 @@ export async function saveSiteCopy(
       throw new Error("Je hebt geen toegang tot tekstbeheer.");
     const { data, error } = await db.rpc("save_site_copy", {
       copy_key: key,
-      copy_value: value,
+      copy_value: value === "" ? hiddenCopyValue : value,
       expected_version: expectedVersion,
     });
     if (error)
@@ -31,7 +34,7 @@ export async function saveSiteCopy(
           : "Opslaan is niet gelukt. Je wijziging staat nog in het tekstveld.",
       );
     revalidatePath("/", "layout");
-    return { ok: true, record: data as CopyRecord };
+    return { ok: true, record: decodeCopyRecord(data as CopyRecord) };
   } catch (error) {
     return {
       ok: false,
@@ -50,9 +53,11 @@ export async function loadCopyHistory(key: string) {
     .eq("key", key)
     .order("created_at", { ascending: false })
     .limit(15);
-  return (data || []) as {
-    id: number;
-    value: string | null;
-    created_at: string;
-  }[];
+  return (
+    (data || []) as {
+      id: number;
+      value: string | null;
+      created_at: string;
+    }[]
+  ).map(decodeCopyRecord);
 }

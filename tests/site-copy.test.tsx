@@ -60,10 +60,13 @@ describe("editable site copy", () => {
       /invulvelden/,
     );
   });
-  it("rejects unknown keys and empty content, but supports reset", () => {
+  it("distinguishes hidden copy, invalid whitespace, and restoring defaults", () => {
     expect(() => validateCopyValue("arbitrary", "text")).toThrow();
     expect(() => validateCopyValue(key("Taken"), "  ")).toThrow();
     expect(validateCopyValue(key("Taken"), null)).toBe(null);
+    expect(validateCopyValue(key("Taken"), "")).toBe("");
+    expect(translateCopy(" Taken ", { [key("Taken")]: "" })).toBe("");
+    expect(translateCopy("Taken", {})).toBe("Taken");
   });
   it("renders plain text safely and never translates input or enum values", () => {
     const html = renderToStaticMarkup(
