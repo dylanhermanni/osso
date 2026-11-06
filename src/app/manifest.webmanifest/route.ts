@@ -12,7 +12,7 @@ export async function GET() {
       scope: "/",
       display: "standalone",
       background_color: "#faf9f6",
-      theme_color: "#66539d",
+      theme_color: "#356148",
       icons: [
         {
           src: "/rooster-icon-192.png",

@@ -102,8 +102,8 @@ export default function Calendar({
               start: tasks ? r.due_date! : r.starts_at,
               end: tasks ? undefined : r.ends_at,
               allDay: tasks,
-              backgroundColor: "#66539d",
-              borderColor: "#66539d",
+              backgroundColor: "#356148",
+              borderColor: "#356148",
             }))}
           eventClick={(e) => {
             const r = records.find((r) => r.id === e.event.id);

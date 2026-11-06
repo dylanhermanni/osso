@@ -18,7 +18,7 @@ export async function GET() {
     serverCopy("Opnieuw proberen"),
   ]);
   return new Response(
-    `<!doctype html><html lang="nl"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(title)}</title><style>body{font:18px system-ui;background:#faf9f6;color:#292735;max-width:500px;margin:20vh auto;padding:24px}a{color:#66539d}</style><h1>${escape(heading)}</h1><p>${escape(description)}</p><a href="/">${escape(retry)}</a></html>`,
+    `<!doctype html><html lang="nl"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${escape(title)}</title><style>body{font:18px system-ui;background:#faf9f6;color:#253129;max-width:500px;margin:20vh auto;padding:24px}a{color:#356148}</style><h1>${escape(heading)}</h1><p>${escape(description)}</p><a href="/">${escape(retry)}</a></html>`,
     {
       headers: {
         "Content-Type": "text/html; charset=utf-8",
