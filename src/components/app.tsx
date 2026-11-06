@@ -671,11 +671,21 @@ export function App({
                 <small>the Rooster</small>
               </span>
             </button>
-            <div className="home-switch">
+            <button
+              className="home-switch"
+              type="button"
+              aria-label="Huishouden openen"
+              aria-haspopup="dialog"
+              onClick={() => {
+                setShowMenu(false);
+                if (h) setSettings(true);
+                else setAuth(true);
+              }}
+            >
               <span className="house-mark">
-                <House size={17} />
+                <House size={17} aria-hidden="true" />
               </span>
-              <div>
+              <span className="home-switch-label">
                 <strong>{data.household?.name || "Ons fijne thuis"}</strong>
                 <small>
                   {data.members.length
@@ -684,9 +694,9 @@ export function App({
                         .join(" & ")
                     : "Jullie huishouden"}
                 </small>
-              </div>
-              <ChevronRight size={15} />
-            </div>
+              </span>
+              <ChevronRight size={15} aria-hidden="true" />
+            </button>
             <nav aria-label="Hoofdnavigatie">
               {navigation.map((n) => (
                 <div key={n.key}>
@@ -1784,8 +1794,8 @@ export function App({
           <Dialog
             open={settings}
             onOpenChange={setSettings}
-            title="Een fijne basis"
-            description="Jullie huis, jullie instellingen."
+            title="Jullie huishouden"
+            description="Bekijk wie er bij jullie huis hoort en nodig je partner uit."
           >
             <div className="settings-content">
               {!data.configured ? (
@@ -1826,6 +1836,7 @@ export function App({
                 </>
               ) : (
                 <>
+                  {h && <h3>Leden van jullie huishouden</h3>}
                   <div className="settings-members">
                     {data.members.map((m) => (
                       <div key={m.user_id}>

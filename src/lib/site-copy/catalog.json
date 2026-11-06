@@ -408,6 +408,14 @@
     "template": false
   },
   {
+    "key": "copy_f51d6137",
+    "source": "Bekijk wie er bij jullie huis hoort en nodig je partner uit.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_f6f1ea58",
     "source": "Beschikbaar",
     "groups": [
@@ -1151,14 +1159,6 @@
   {
     "key": "copy_f8d987a0",
     "source": "Een eigen plek voor alle details van dit plan.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_e2015de9",
-    "source": "Een fijne basis",
     "groups": [
       "Website en navigatie"
     ],
@@ -1989,6 +1989,14 @@
     "template": false
   },
   {
+    "key": "copy_eefb06f8",
+    "source": "Huishouden openen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_79978d6e",
     "source": "Idee",
     "groups": [
@@ -2210,14 +2218,6 @@
   {
     "key": "copy_15003de4",
     "source": "Jullie fotogalerij",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_b0c5ef4e",
-    "source": "Jullie huis, jullie instellingen.",
     "groups": [
       "Website en navigatie"
     ],
@@ -2468,6 +2468,14 @@
   {
     "key": "copy_38e80692",
     "source": "Laatst uitgevoerd",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_81a7a98d",
+    "source": "Leden van jullie huishouden",
     "groups": [
       "Website en navigatie"
     ],

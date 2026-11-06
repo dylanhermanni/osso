@@ -232,6 +232,8 @@ svg {
   flex-shrink: 0;
 }
 .home-switch {
+  width: 100%;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 11px;
@@ -240,7 +242,7 @@ svg {
   padding: 13px 10px;
   margin: 0 0 26px;
 }
-.home-switch > div {
+.home-switch-label {
   flex: 1;
   min-width: 0;
 }
@@ -268,6 +270,7 @@ svg {
   place-items: center;
 }
 .home-switch > svg {
+  flex-shrink: 0;
   color: #a6a79e;
 }
 .nav-item {
@@ -2542,6 +2545,10 @@ h3 {
 .home-switch {
   background: #fafbfa;
   border-color: var(--line);
+}
+.home-switch:hover {
+  background: #eef5ef;
+  border-color: #b5c5b9;
 }
 .house-mark {
   background: #ebf4ee;
