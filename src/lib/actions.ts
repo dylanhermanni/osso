@@ -49,3 +49,10 @@ export const deleteDocument = (
 export const realtimeToken = (
   ...args: Parameters<typeof server.realtimeToken>
 ) => unwrap(server.realtimeToken(...args));
+
+export const addShoppingItem = (
+  ...args: Parameters<typeof server.addShoppingItem>
+) => unwrap(server.addShoppingItem(...args));
+export const changeShoppingItem = (
+  ...args: Parameters<typeof server.changeShoppingItem>
+) => unwrap(server.changeShoppingItem(...args));

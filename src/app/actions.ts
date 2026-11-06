@@ -567,3 +567,50 @@ export async function realtimeToken(
 ) {
   return actionResult(() => realtimeTokenImpl(...args));
 }
+
+export async function addShoppingItem(
+  householdId: string,
+  title: string,
+  quantity: string,
+  store: string,
+) {
+  return actionResult(async () => {
+    const item = z
+      .object({
+        title: z.string().trim().min(1, "Vul een product in.").max(120),
+        quantity: z.string().trim().max(40),
+        store: z.string().trim().max(80),
+      })
+      .parse({ title, quantity, store });
+    const { db } = await member(householdId);
+    const { error } = await db
+      .from("shopping_items")
+      .insert({ household_id: householdId, ...item });
+    checked(error);
+  });
+}
+
+export async function changeShoppingItem(
+  householdId: string,
+  itemId: string,
+  version: number,
+  done: boolean | null,
+) {
+  return actionResult(async () => {
+    id.parse(itemId);
+    z.number().int().positive().parse(version);
+    z.boolean().nullable().parse(done);
+    const { db } = await member(householdId);
+    const table = db.from("shopping_items");
+    const write = done === null ? table.delete() : table.update({ done });
+    const { data, error } = await write
+      .eq("household_id", householdId)
+      .eq("id", itemId)
+      .eq("version", version)
+      .select("id")
+      .maybeSingle();
+    if (!error && !data)
+      throw new Error("Dit product is ondertussen gewijzigd. Probeer opnieuw.");
+    checked(error);
+  });
+}

@@ -88,7 +88,17 @@ export type Settlement = {
   created_at: string;
   reversed_at: string | null;
 };
+export type ShoppingItem = {
+  id: string;
+  title: string;
+  quantity: string;
+  store: string;
+  done: boolean;
+  version: number;
+};
+
 export type Snapshot = {
+  shopping: ShoppingItem[];
   configured: boolean;
   user: { id: string; email?: string } | null;
   household: { id: string; name: string } | null;

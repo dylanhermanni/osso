@@ -9,6 +9,7 @@ import { ContentTools } from "./content-tools";
 import {
   House,
   LayoutGrid,
+  ShoppingBasket,
   Lightbulb,
   CheckCheck,
   FolderKanban,
@@ -72,14 +73,16 @@ import {
 import { openPrivateFile } from "@/lib/open-file";
 import { expensesCSV } from "@/lib/domain/export";
 import { euro, balance, cents } from "@/lib/domain/finance";
-import { today } from "@/lib/domain/dates";
+import { DateTime } from "luxon";
+import { today, ZONE } from "@/lib/domain/dates";
+import { Shopping } from "./shopping";
 import { FinanceChart } from "./finance-chart";
 import dynamic from "next/dynamic";
 const CalendarView = dynamic(() => import("./calendar"), {
   ssr: false,
   loading: () => <div className="skeleton calendar-skeleton" />,
 });
-type View = "home" | Entity | "activity";
+type View = "home" | Entity | "activity" | "shopping";
 const navigation: {
   key: View;
   label: string;
@@ -87,6 +90,7 @@ const navigation: {
   section?: string;
 }[] = [
   { key: "home", label: "Overzicht", icon: House },
+  { key: "shopping", label: "Boodschappen", icon: ShoppingBasket },
   { key: "rooms", label: "Kamers", icon: LayoutGrid },
   { key: "ideas", label: "Inspiratie", icon: Lightbulb },
   {
@@ -109,6 +113,7 @@ const navigation: {
 ];
 const titles: Record<View, string> = {
   home: "Hé, wat pakken we aan?",
+  shopping: "Boodschappen",
   rooms: "Jullie kamers",
   ideas: "Inspiratie",
   tasks: "Jullie taken",
@@ -124,7 +129,9 @@ const titles: Record<View, string> = {
   suppliers: "Fijne mensen voor jullie plannen.",
 };
 const descriptions: Record<View, string> = {
-  home: "Taken, plannen en geldzaken. Samen geregeld.",
+  home: "Boodschappen, afspraken en alles wat thuis aandacht vraagt.",
+  shopping:
+    "Zet op de lijst wat jullie nodig hebben en vink het af in de winkel.",
   rooms: "Ontdek, organiseer en maak elke kamer een beetje meer van jullie.",
   ideas:
     "Verzamel wat jullie raakt. Droom, bespreek en maak het werkelijkheid.",
@@ -159,12 +166,10 @@ export function App({
   data,
   initialView = "home",
   initialToken = "",
-  weekEnd,
 }: {
   data: Snapshot;
   initialView?: string;
   initialToken?: string;
-  weekEnd: string;
 }) {
   const { canEdit: canEditCopy, text: copy } = useSiteContent();
 
@@ -267,6 +272,7 @@ export function App({
     for (const table of [
       ...entities,
       "activity_log",
+      "shopping_items",
       "idea_comments",
       "task_comments",
       "task_subtasks",
@@ -351,7 +357,7 @@ export function App({
     (p) => p.status !== "Afgerond" && p.status !== "Gepauzeerd",
   );
   const visible =
-    view !== "home" && view !== "activity"
+    view !== "home" && view !== "activity" && view !== "shopping"
       ? r[view].filter(
           (item) =>
             (!search ||
@@ -392,7 +398,9 @@ export function App({
           detail.record,
       }
     : null;
-  const upcoming = [
+  const date = today();
+  const openShoppingCount = data.shopping.filter((item) => !item.done).length;
+  const scheduled = [
     ...r.calendar_events.map((e) => ({
       ...e,
       when: e.starts_at || "",
@@ -407,8 +415,21 @@ export function App({
       .filter((t) => t.due_date)
       .map((e) => ({ ...e, when: e.due_date || "", kind: "tasks" as Entity })),
   ]
-    .filter((e) => e.when.slice(0, 10) >= today())
-    .sort((a, b) => a.when.localeCompare(b.when));
+    .filter((entry) => entry.when)
+    .map((entry) => ({
+      ...entry,
+      day:
+        entry.kind === "calendar_events"
+          ? DateTime.fromISO(entry.when).setZone(ZONE).toISODate()!
+          : entry.when,
+    }))
+    .sort((a, b) => a.day.localeCompare(b.day) || a.when.localeCompare(b.when));
+  const attention = scheduled.filter(
+    (entry) =>
+      entry.day <= date &&
+      (entry.kind !== "calendar_events" || entry.day === date),
+  );
+  const upcoming = scheduled.filter((entry) => entry.day >= date);
   const quickOptions: { entity: Entity; icon: LucideIcon; sub: string }[] = [
     { entity: "ideas", icon: Lightbulb, sub: "Bewaar een mooie gedachte" },
     { entity: "tasks", icon: CheckCheck, sub: "Een stapje dichterbij" },
@@ -752,7 +773,7 @@ export function App({
                   aria-label="Herinneringen"
                 >
                   <Bell size={19} />
-                  {upcoming.length > 0 && <i />}
+                  {(upcoming.length > 0 || attention.length > 0) && <i />}
                 </button>
                 <div className="couple-avatars">
                   <span className="avatar avatar-small">
@@ -779,26 +800,28 @@ export function App({
                   <h1>{titles[view]}</h1>
                   <p className="page-description">{descriptions[view]}</p>
                 </div>
-                <Button
-                  className="heading-add"
-                  aria-label={
-                    view === "home" || view === "activity"
-                      ? "Nieuw toevoegen"
-                      : `${labels[view]} toevoegen`
-                  }
-                  onClick={() =>
-                    view === "home" || view === "activity"
-                      ? setQuick(true)
-                      : create(view)
-                  }
-                >
-                  <Plus size={17} />
-                  <span className="heading-add-label">
-                    {view === "home" || view === "activity"
-                      ? "Nieuw toevoegen"
-                      : `${labels[view]} toevoegen`}
-                  </span>
-                </Button>
+                {view !== "shopping" && (
+                  <Button
+                    className="heading-add"
+                    aria-label={
+                      view === "home" || view === "activity"
+                        ? "Nieuw toevoegen"
+                        : `${labels[view]} toevoegen`
+                    }
+                    onClick={() =>
+                      view === "home" || view === "activity"
+                        ? setQuick(true)
+                        : create(view)
+                    }
+                  >
+                    <Plus size={17} />
+                    <span className="heading-add-label">
+                      {view === "home" || view === "activity"
+                        ? "Nieuw toevoegen"
+                        : `${labels[view]} toevoegen`}
+                    </span>
+                  </Button>
+                )}
               </div>
               {!data.configured && (
                 <div className="setup-notice">
@@ -830,48 +853,60 @@ export function App({
                   <div className="dashboard-top">
                     <section className="week-card">
                       <div className="section-heading">
-                        <h2>Deze week</h2>
+                        <h2>Vandaag en te laat</h2>
                         <span className="subtle-icon">
                           <CalendarDays size={20} />
                         </span>
                       </div>
-                      <p className="muted">
-                        Dit staat er voor jullie op de planning.
-                      </p>
-                      <div className="week-tasks">
-                        {tasks
-                          .filter(
-                            (t) =>
-                              t.due_date &&
-                              t.due_date >= today() &&
-                              t.due_date <= weekEnd,
-                          )
-                          .slice(0, 3)
-                          .map(taskRow)}
-                        {!tasks.some(
-                          (t) =>
-                            t.due_date &&
-                            t.due_date >= today() &&
-                            t.due_date <= weekEnd,
-                        ) && (
-                          <div className="calm-empty">
-                            <span>
-                              <CheckCheck size={26} strokeWidth={1.3} />
-                            </span>
-                            <h3>Geen taken voor deze week</h3>
-                            <p>
-                              Voeg een taak met een datum toe.
-                              <br />
-                              Dan vinden jullie hem hier terug.
-                            </p>
-                          </div>
-                        )}
-                      </div>
+                      {attention.length ? (
+                        <div className="home-attention">
+                          {attention.map((entry) => {
+                            const assignee = data.members.find(
+                              (member) => member.user_id === entry.assignee_id,
+                            )?.profiles.display_name;
+                            return (
+                              <button
+                                className="record-row"
+                                key={entry.id}
+                                onClick={() => open(entry.kind, entry)}
+                              >
+                                <span className="record-name">
+                                  <strong>{entry.title}</strong>
+                                  <small>
+                                    {entry.day < date ? "Te laat" : "Vandaag"} ·{" "}
+                                    {labels[entry.kind]}
+                                    {assignee && <> · {assignee}</>}
+                                  </small>
+                                </span>
+                                <span>
+                                  {entry.kind === "calendar_events"
+                                    ? DateTime.fromISO(entry.when)
+                                        .setZone(ZONE)
+                                        .toFormat("HH:mm")
+                                    : dateLabel(entry.day)}
+                                </span>
+                                <ChevronRight size={16} />
+                              </button>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div className="calm-empty">
+                          <span>
+                            <CheckCheck size={26} strokeWidth={1.3} />
+                          </span>
+                          <h3>Vandaag geen openstaande deadlines</h3>
+                          <p>
+                            Hier verschijnen afspraken, taken en onderhoud die
+                            aandacht vragen.
+                          </p>
+                        </div>
+                      )}
                       <button
                         className="text-link card-bottom-link"
-                        onClick={() => go("tasks")}
+                        onClick={() => go("calendar_events")}
                       >
-                        Bekijk alle taken <ArrowRight size={16} />
+                        Bekijk de planning <ArrowRight size={16} />
                       </button>
                     </section>
                     <section
@@ -889,6 +924,13 @@ export function App({
                       </div>
                       <p>Een klus, een aankoop of dat ene goede idee.</p>
                       <div className="quick-start-actions">
+                        <button onClick={() => go("shopping")}>
+                          <ShoppingBasket size={19} />
+                          <span>Boodschappen</span>
+                          <span className="shopping-count">
+                            {openShoppingCount}
+                          </span>
+                        </button>
                         <button onClick={() => create("tasks")}>
                           <CheckCheck size={19} />
                           <span>Taak toevoegen</span>
@@ -1090,6 +1132,10 @@ export function App({
                     <span>CHEESE THE ROOSTER</span>
                   </div>
                 </>
+              ) : view === "shopping" ? (
+                h ? (
+                  <Shopping householdId={h} items={data.shopping} />
+                ) : null
               ) : view === "activity" ? (
                 <section className="panel">
                   <ActivityFeed data={data} />
@@ -1526,11 +1572,11 @@ export function App({
               Home
             </button>
             <button
-              className={view === "rooms" ? "active" : ""}
-              onClick={() => go("rooms")}
+              className={view === "shopping" ? "active" : ""}
+              onClick={() => go("shopping")}
             >
-              <LayoutGrid size={20} />
-              Kamers
+              <ShoppingBasket size={20} />
+              Boodschappen
             </button>
             <button
               className="mobile-add"
@@ -1775,8 +1821,11 @@ export function App({
             description="Jullie aankomende afspraken, deadlines en onderhoud."
           >
             <div className="settings-content">
-              {upcoming.length ? (
-                upcoming.map((e) => (
+              {attention.length > 0 || upcoming.length > 0 ? (
+                [
+                  ...attention.filter((entry) => entry.day < date),
+                  ...upcoming,
+                ].map((e) => (
                   <button
                     className="record-row"
                     key={e.id}
@@ -1825,6 +1874,7 @@ const activityEntities: Record<string, string> = {
   task_subtasks: "Subtaak",
   project_phases: "Projectfase",
   settlements: "Verrekening",
+  shopping_items: "Boodschappen",
 };
 
 function activityName(data: Snapshot, userId: string | null | undefined) {

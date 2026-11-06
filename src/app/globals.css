@@ -3420,3 +3420,81 @@ main {
     padding: 7px 9px;
   }
 }
+
+.home-attention {
+  max-height: 340px;
+  overflow-y: auto;
+}
+.home-attention .record-row {
+  width: 100%;
+  text-align: left;
+}
+.shopping-panel {
+  max-width: 760px;
+}
+.shopping-form {
+  margin-bottom: 24px;
+}
+.shopping-add,
+.shopping-extra {
+  display: flex;
+  gap: 10px;
+}
+.shopping-add input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+}
+.shopping-add button {
+  flex-shrink: 0;
+}
+.shopping-form summary,
+.shopping-checked summary {
+  cursor: pointer;
+  margin: 12px 0;
+  color: var(--forest);
+}
+.shopping-extra > label {
+  min-width: 0;
+  flex: 1;
+}
+.shopping-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.shopping-row,
+.shopping-row label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.shopping-row {
+  border-bottom: 1px solid var(--line);
+}
+.shopping-row label {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.shopping-row input {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  accent-color: var(--forest);
+}
+.shopping-row small {
+  display: block;
+  color: var(--muted);
+}
+.shopping-checked strong {
+  text-decoration: line-through;
+}
+.quick-start-actions .shopping-count {
+  color: var(--forest);
+}

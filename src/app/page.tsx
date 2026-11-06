@@ -1,5 +1,4 @@
 import { loadSnapshot } from "@/lib/data";
-import { DateTime } from "luxon";
 import { App } from "@/components/app";
 export const dynamic = "force-dynamic";
 export default async function Page({
@@ -13,10 +12,6 @@ export default async function Page({
       data={data}
       initialView={typeof params.view === "string" ? params.view : "home"}
       initialToken={typeof params.invite === "string" ? params.invite : ""}
-      weekEnd={DateTime.now()
-        .setZone("Europe/Amsterdam")
-        .plus({ days: 7 })
-        .toISODate()!}
     />
   );
 }
