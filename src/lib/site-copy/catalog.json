@@ -595,6 +595,14 @@
     "template": false
   },
   {
+    "key": "copy_c83aae2b",
+    "source": "Boodschappen opslaan…",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_e53c815c",
     "source": "Boodschappen, afspraken en alles wat thuis aandacht vraagt.",
     "groups": [
@@ -4352,6 +4360,7 @@
     "key": "copy_3be88f20",
     "source": "Vul een product in.",
     "groups": [
+      "Website en navigatie",
       "Meldingen en validatie"
     ],
     "template": false

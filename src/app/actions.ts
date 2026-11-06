@@ -582,7 +582,9 @@ export async function addShoppingItem(
         store: z.string().trim().max(80),
       })
       .parse({ title, quantity, store });
-    const { db } = await member(householdId);
+    id.parse(householdId);
+    // Shopping policies enforce household membership and attribution on the write.
+    const db = await supabase();
     const { error } = await db
       .from("shopping_items")
       .insert({ household_id: householdId, ...item });
@@ -600,7 +602,9 @@ export async function changeShoppingItem(
     id.parse(itemId);
     z.number().int().positive().parse(version);
     z.boolean().nullable().parse(done);
-    const { db } = await member(householdId);
+    id.parse(householdId);
+    // Shopping policies enforce household membership and attribution on the write.
+    const db = await supabase();
     const table = db.from("shopping_items");
     const write = done === null ? table.delete() : table.update({ done });
     const { data, error } = await write

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
+import { useOptimistic, useRef, useState, useTransition } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { addShoppingItem, changeShoppingItem } from "@/lib/actions";
 import type { ShoppingItem } from "@/lib/types";
@@ -17,12 +17,32 @@ export function Shopping({
   const titleInput = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState("");
-  const openItems = items.filter((item) => !item.done);
-  const checkedItems = items.filter((item) => item.done);
+  const [visibleItems, showChange] = useOptimistic(
+    items,
+    (current, change: { item: ShoppingItem; done: boolean | null }) => {
+      if (change.item.version === 0) return [change.item, ...current];
+      if (change.done === null)
+        return current.filter((item) => item.id !== change.item.id);
+      return current.map((item) =>
+        item.id === change.item.id
+          ? { ...item, done: change.done ?? item.done }
+          : item,
+      );
+    },
+  );
+  const openItems = visibleItems.filter((item) => !item.done);
+  const checkedItems = visibleItems.filter((item) => item.done);
 
-  function run(work: () => Promise<void>, after?: () => void) {
+  function run(
+    item: ShoppingItem,
+    done: boolean | null,
+    work: () => Promise<void>,
+    after?: () => void,
+  ) {
+    if (pending) return;
     setError("");
     startTransition(async () => {
+      showChange({ item, done });
       try {
         await work();
         after?.();
@@ -47,7 +67,7 @@ export function Shopping({
                 checked={item.done}
                 disabled={pending}
                 onChange={() =>
-                  run(() =>
+                  run(item, !item.done, () =>
                     changeShoppingItem(
                       householdId,
                       item.id,
@@ -71,7 +91,7 @@ export function Shopping({
                 className="button button-outline button-sm"
                 disabled={pending}
                 onClick={() =>
-                  run(() =>
+                  run(item, false, () =>
                     changeShoppingItem(
                       householdId,
                       item.id,
@@ -89,7 +109,7 @@ export function Shopping({
               disabled={pending}
               aria-label={`Verwijder ${item.title}`}
               onClick={() =>
-                run(() =>
+                run(item, null, () =>
                   changeShoppingItem(householdId, item.id, item.version, null),
                 )
               }
@@ -112,14 +132,24 @@ export function Shopping({
             event.preventDefault();
             if (pending) return;
             const values = new FormData(event.currentTarget);
+            const title = String(values.get("title") ?? "").trim();
+            const quantity = String(values.get("quantity") ?? "").trim();
+            const store = String(values.get("store") ?? "").trim();
+            if (!title) {
+              setError("Vul een product in.");
+              return;
+            }
             run(
-              () =>
-                addShoppingItem(
-                  householdId,
-                  String(values.get("title") ?? ""),
-                  String(values.get("quantity") ?? ""),
-                  String(values.get("store") ?? ""),
-                ),
+              {
+                id: crypto.randomUUID(),
+                title,
+                quantity,
+                store,
+                done: false,
+                version: 0,
+              },
+              false,
+              () => addShoppingItem(householdId, title, quantity, store),
               () => {
                 form.current?.reset();
                 requestAnimationFrame(() => titleInput.current?.focus());
@@ -164,6 +194,11 @@ export function Shopping({
             </div>
           </details>
         </form>
+        {pending && (
+          <p className="form-hint" role="status">
+            Boodschappen opslaan…
+          </p>
+        )}
         {error && (
           <p className="form-error" role="alert">
             {error}
