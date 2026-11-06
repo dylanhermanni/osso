@@ -13,10 +13,12 @@ export function Shopping({
   householdId: string;
   items: ShoppingItem[];
 }) {
-  const form = useRef<HTMLFormElement>(null);
   const titleInput = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState("");
+  const [failedAdds, setFailedAdds] = useState<
+    { item: ShoppingItem; message: string }[]
+  >([]);
   const [visibleItems, showChange] = useOptimistic(
     items,
     (current, change: { item: ShoppingItem; done: boolean | null }) => {
@@ -37,7 +39,6 @@ export function Shopping({
     item: ShoppingItem,
     done: boolean | null,
     work: () => Promise<void>,
-    after?: () => void,
   ) {
     if (pending) return;
     setError("");
@@ -45,13 +46,34 @@ export function Shopping({
       showChange({ item, done });
       try {
         await work();
-        after?.();
       } catch (error) {
         setError(
           error instanceof Error
             ? error.message
             : "Wijziging opslaan lukt niet.",
         );
+      }
+    });
+  }
+
+  function add(item: ShoppingItem) {
+    setError("");
+    setFailedAdds((current) =>
+      current.filter((failure) => failure.item.id !== item.id),
+    );
+    startTransition(async () => {
+      showChange({ item, done: false });
+      try {
+        await addShoppingItem(
+          householdId,
+          item.title,
+          item.quantity,
+          item.store,
+        );
+      } catch (error) {
+        const message =
+          error instanceof Error ? error.message : "Toevoegen lukt niet.";
+        setFailedAdds((current) => [...current, { item, message }]);
       }
     });
   }
@@ -126,11 +148,9 @@ export function Shopping({
     <CopyScope>
       <section className="panel shopping-panel">
         <form
-          ref={form}
           className="shopping-form"
           onSubmit={(event) => {
             event.preventDefault();
-            if (pending) return;
             const values = new FormData(event.currentTarget);
             const title = String(values.get("title") ?? "").trim();
             const quantity = String(values.get("quantity") ?? "").trim();
@@ -139,22 +159,16 @@ export function Shopping({
               setError("Vul een product in.");
               return;
             }
-            run(
-              {
-                id: crypto.randomUUID(),
-                title,
-                quantity,
-                store,
-                done: false,
-                version: 0,
-              },
-              false,
-              () => addShoppingItem(householdId, title, quantity, store),
-              () => {
-                form.current?.reset();
-                requestAnimationFrame(() => titleInput.current?.focus());
-              },
-            );
+            add({
+              id: crypto.randomUUID(),
+              title,
+              quantity,
+              store,
+              done: false,
+              version: 0,
+            });
+            event.currentTarget.reset();
+            titleInput.current?.focus();
           }}
         >
           <div className="shopping-add">
@@ -163,15 +177,10 @@ export function Shopping({
               name="title"
               required
               maxLength={120}
-              readOnly={pending}
               aria-label="Product voor de boodschappenlijst"
               placeholder="Bijv. melk"
             />
-            <button
-              className="button button-primary"
-              type="submit"
-              disabled={pending}
-            >
+            <button className="button button-primary" type="submit">
               <Plus size={17} /> Toevoegen
             </button>
           </div>
@@ -183,13 +192,12 @@ export function Shopping({
                 <input
                   name="quantity"
                   maxLength={40}
-                  readOnly={pending}
                   placeholder="Bijv. 2 pakken"
                 />
               </label>
               <label className="field">
                 Winkel
-                <input name="store" maxLength={80} readOnly={pending} />
+                <input name="store" maxLength={80} />
               </label>
             </div>
           </details>
@@ -204,6 +212,21 @@ export function Shopping({
             {error}
           </p>
         )}
+        {failedAdds.map(({ item, message }) => (
+          <div key={item.id} className="form-error">
+            <p role="alert">
+              <strong>{item.title}</strong> · {message}
+            </p>
+            <button
+              type="button"
+              className="button button-outline button-sm"
+              disabled={pending}
+              onClick={() => add(item)}
+            >
+              Opnieuw proberen
+            </button>
+          </div>
+        ))}
         <h2>Nog te halen</h2>
         {openItems.length ? (
           rows(openItems)
