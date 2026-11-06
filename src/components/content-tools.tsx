@@ -12,26 +12,17 @@ import { authenticate } from "@/app/actions";
 export function ContentTools() {
   const { canEdit, editing, setEditing, selectedKey, selectKey } =
     useSiteContent();
+  if (!canEdit) return null;
   return (
     <>
-      {canEdit ? (
-        <button
-          className="button button-outline button-sm copy-mode-button"
-          onClick={() => setEditing(!editing)}
-          aria-pressed={editing}
-        >
-          {editing ? <Check size={15} /> : <Pencil size={15} />}
-          {editing ? "Klaar met bewerken" : "Teksten aanpassen"}
-        </button>
-      ) : (
-        <Link
-          className="button button-outline button-sm copy-mode-button"
-          href="/admin/teksten"
-        >
-          <Pencil size={15} />
-          Teksten aanpassen
-        </Link>
-      )}
+      <button
+        className="button button-outline button-sm copy-mode-button"
+        onClick={() => setEditing(!editing)}
+        aria-pressed={editing}
+      >
+        {editing ? <Check size={15} /> : <Pencil size={15} />}
+        {editing ? "Klaar met bewerken" : "Teksten aanpassen"}
+      </button>
       {editing && (
         <aside className="copy-edit-bar" aria-label="Tekstbewerking">
           <span>Klik op een tekst op deze pagina om hem aan te passen.</span>
@@ -39,7 +30,7 @@ export function ContentTools() {
           <button onClick={() => setEditing(false)}>Klaar</button>
         </aside>
       )}
-      {canEdit && selectedKey && (
+      {selectedKey && (
         <Dialog.Root
           open
           onOpenChange={(open) => {
