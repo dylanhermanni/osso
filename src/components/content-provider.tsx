@@ -23,6 +23,7 @@ type ContentState = {
   records: CopyRecord[];
   canEdit: boolean;
   ready: boolean;
+  hasOverrides: boolean;
   text: (source: string) => string;
   replaceRecords: Dispatch<SetStateAction<CopyRecord[]>>;
   editing: boolean;
@@ -34,6 +35,7 @@ const ContentContext = createContext<ContentState>({
   records: [],
   canEdit: false,
   ready: false,
+  hasOverrides: false,
   text: (source) => source,
   replaceRecords: () => {},
   editing: false,
@@ -64,6 +66,7 @@ export function ContentProvider({
     if (!ready) return;
     let active = true;
     async function refresh() {
+      if (document.visibilityState !== "visible") return;
       try {
         const response = await fetch("/api/site-copy", { cache: "no-store" });
         const result = await response.json();
@@ -112,11 +115,14 @@ export function ContentProvider({
   }, [records]);
   const value = useMemo(() => {
     const overrides = copyOverrides(records);
+    const hasOverrides = Object.keys(overrides).length > 0;
     return {
       records,
       canEdit,
       ready,
-      text: (source: string) => translateCopy(source, overrides),
+      hasOverrides,
+      text: (source: string) =>
+        hasOverrides ? translateCopy(source, overrides) : source,
       replaceRecords: setRecords,
       editing: editing && canEdit,
       setEditing,
@@ -170,7 +176,8 @@ const attributes = [
 // Translate React text before rendering. Never mutate the DOM or replace user input,
 // URLs, IDs, numeric values, status values, or HTML with text from the database.
 export function CopyScope({ children }: { children: ReactNode }) {
-  const { text } = useSiteContent();
+  const { text, editing, hasOverrides } = useSiteContent();
+  if (!editing && !hasOverrides) return children;
   function visit(node: ReactNode): ReactNode {
     if (typeof node === "string") return <ContentText source={node} />;
     if (!isValidElement(node)) return node;

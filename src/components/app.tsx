@@ -76,8 +76,11 @@ import { euro, balance, cents } from "@/lib/domain/finance";
 import { DateTime } from "luxon";
 import { today, ZONE } from "@/lib/domain/dates";
 import { Shopping } from "./shopping";
-import { FinanceChart } from "./finance-chart";
 import dynamic from "next/dynamic";
+const FinanceChart = dynamic(
+  () => import("./finance-chart").then((module) => module.FinanceChart),
+  { loading: () => <div className="skeleton calendar-skeleton" /> },
+);
 const CalendarView = dynamic(() => import("./calendar"), {
   ssr: false,
   loading: () => <div className="skeleton calendar-skeleton" />,
@@ -269,6 +272,12 @@ export function App({
     const db = browserClient();
     const channel = db.channel(`home:${h}`);
     let refreshTimer: ReturnType<typeof setTimeout>;
+    let lastRefresh = Date.now();
+    let liveConnected = false;
+    const refreshSnapshot = () => {
+      lastRefresh = Date.now();
+      router.refresh();
+    };
     for (const table of [
       ...entities,
       "activity_log",
@@ -289,12 +298,13 @@ export function App({
         { event: "*", schema: "public", table, filter: `household_id=eq.${h}` },
         () => {
           clearTimeout(refreshTimer);
-          refreshTimer = setTimeout(() => router.refresh(), 120);
+          refreshTimer = setTimeout(refreshSnapshot, 120);
         },
       );
     }
     const subscribe = () =>
       channel.subscribe((status) => {
+        liveConnected = status === "SUBSCRIBED";
         setLiveStatus(
           status === "SUBSCRIBED"
             ? "Live"
@@ -323,14 +333,26 @@ export function App({
         }
       });
     const refreshVisible = () => {
-      if (document.visibilityState === "visible") router.refresh();
+      if (
+        document.visibilityState === "visible" &&
+        Date.now() - lastRefresh >= 5000
+      ) {
+        refreshSnapshot();
+      }
     };
     document.addEventListener("visibilitychange", refreshVisible);
-    const snapshotTimer = setInterval(refreshVisible, 45_000);
+    const snapshotTimer = setInterval(() => {
+      // Realtime handles normal updates. Poll more often only if it is down.
+      if (!liveConnected || Date.now() - lastRefresh >= 180_000)
+        refreshVisible();
+    }, 45_000);
     const authTimer = setInterval(
       () => {
         void refreshAuth().catch(() => {
-          if (!cancelled) setLiveStatus("Offline");
+          if (!cancelled) {
+            liveConnected = false;
+            setLiveStatus("Offline");
+          }
         });
       },
       10 * 60 * 1000,
