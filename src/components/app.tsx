@@ -682,7 +682,7 @@ export function App({
                     ? data.members
                         .map((m) => m.profiles.display_name)
                         .join(" & ")
-                    : "Dylan & Floor"}
+                    : "Jullie huishouden"}
                 </small>
               </div>
               <ChevronRight size={15} />
@@ -721,9 +721,13 @@ export function App({
                   else setAuth(true);
                 }}
               >
-                <span className="avatar">{name?.[0] || "D"}</span>
+                <span className="avatar">
+                  {name ? name[0] : <Users size={17} />}
+                </span>
                 <span>
-                  <strong>{name || "Dylan & Floor"}</strong>
+                  <strong>
+                    {name || (data.user ? "Mijn account" : "Inloggen")}
+                  </strong>
                   <small>{data.user ? "Ons huishouden" : "Welkom thuis"}</small>
                 </span>
                 <Settings size={17} />
@@ -799,14 +803,19 @@ export function App({
                   <Bell size={19} />
                   {(upcoming.length > 0 || attention.length > 0) && <i />}
                 </button>
-                <div className="couple-avatars">
-                  <span className="avatar avatar-small">
-                    {data.members[0]?.profiles.display_name[0] || "D"}
-                  </span>
-                  <span className="avatar avatar-small avatar-clay">
-                    {data.members[1]?.profiles.display_name[0] || "F"}
-                  </span>
-                </div>
+                {data.members.length > 0 && (
+                  <div className="couple-avatars">
+                    {data.members.map((member, index) => (
+                      <span
+                        key={member.user_id}
+                        className={`avatar avatar-small${index % 2 ? " avatar-clay" : ""}`}
+                        title={member.profiles.display_name}
+                      >
+                        {member.profiles.display_name[0]}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             </header>
             <main id="main-content">

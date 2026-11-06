@@ -776,14 +776,6 @@
     "template": false
   },
   {
-    "key": "copy_c10bf213",
-    "source": "D",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_4b5425c3",
     "source": "Dag",
     "groups": [
@@ -1108,14 +1100,6 @@
     "template": false
   },
   {
-    "key": "copy_8e830575",
-    "source": "Dylan & Floor",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_adb823ac",
     "source": "Dylan of Floor",
     "groups": [
@@ -1369,14 +1353,6 @@
     "source": "Extra details",
     "groups": [
       "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_c30bf539",
-    "source": "F",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -2256,6 +2232,14 @@
     "template": false
   },
   {
+    "key": "copy_3ba7475e",
+    "source": "Jullie huishouden",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_a25fe34f",
     "source": "Jullie kamers",
     "groups": [
@@ -2786,6 +2770,14 @@
     "groups": [
       "Formulieren en velden",
       "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_98d86374",
+    "source": "Mijn account",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
