@@ -15,6 +15,7 @@ export function Shopping({
 }) {
   const titleInput = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
+  const [busyRows, setBusyRows] = useState<Set<string>>(() => new Set());
   const [error, setError] = useState("");
   const [failedAdds, setFailedAdds] = useState<
     { item: ShoppingItem; message: string }[]
@@ -40,18 +41,25 @@ export function Shopping({
     done: boolean | null,
     work: () => Promise<void>,
   ) {
-    if (pending) return;
+    if (item.version === 0 || busyRows.has(item.id)) return;
+    setBusyRows((current) => new Set(current).add(item.id));
     setError("");
     startTransition(async () => {
       showChange({ item, done });
       try {
         await work();
       } catch (error) {
-        setError(
+        const message =
           error instanceof Error
             ? error.message
-            : "Wijziging opslaan lukt niet.",
-        );
+            : "Wijziging opslaan lukt niet.";
+        setError(`${item.title} · ${message}`);
+      } finally {
+        setBusyRows((current) => {
+          const next = new Set(current);
+          next.delete(item.id);
+          return next;
+        });
       }
     });
   }
@@ -87,7 +95,7 @@ export function Shopping({
               <input
                 type="checkbox"
                 checked={item.done}
-                disabled={pending}
+                disabled={item.version === 0 || busyRows.has(item.id)}
                 onChange={() =>
                   run(item, !item.done, () =>
                     changeShoppingItem(
@@ -111,7 +119,7 @@ export function Shopping({
             {item.done && (
               <button
                 className="button button-outline button-sm"
-                disabled={pending}
+                disabled={item.version === 0 || busyRows.has(item.id)}
                 onClick={() =>
                   run(item, false, () =>
                     changeShoppingItem(
@@ -128,7 +136,7 @@ export function Shopping({
             )}
             <button
               className="icon-button"
-              disabled={pending}
+              disabled={item.version === 0 || busyRows.has(item.id)}
               aria-label={`Verwijder ${item.title}`}
               onClick={() =>
                 run(item, null, () =>
