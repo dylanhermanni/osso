@@ -223,6 +223,14 @@
     "template": false
   },
   {
+    "key": "copy_71270fb5",
+    "source": "Afspraak bewerken",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_125ce274",
     "source": "Afspraak plannen",
     "groups": [
@@ -571,6 +579,14 @@
     "template": false
   },
   {
+    "key": "copy_8825cef0",
+    "source": "Bijvoorbeeld: Samen eten",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_cbdd77bb",
     "source": "Bijvoorbeeld: Woonkamer",
     "groups": [
@@ -780,6 +796,14 @@
     "source": "Datum",
     "groups": [
       "Website en navigatie",
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_83717d08",
+    "source": "Datum en tijd",
+    "groups": [
       "Formulieren en velden"
     ],
     "template": false
@@ -1181,14 +1205,6 @@
     "template": false
   },
   {
-    "key": "copy_8b916759",
-    "source": "Een klein stapje dichter bij jullie thuis.",
-    "groups": [
-      "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_5253bd9e",
     "source": "Een klus, een aankoop of dat ene goede idee.",
     "groups": [
@@ -1345,6 +1361,14 @@
     "source": "Even snel toevoegen",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_fecc3ccb",
+    "source": "Extra details",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },
@@ -1541,6 +1565,14 @@
     "source": "Geef een groot plan de ruimte",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d75a8b58",
+    "source": "Geef je afspraak een naam en kies het tijdstip.",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },
@@ -2858,6 +2890,14 @@
     "source": "Nieuw wachtwoord",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_30e5e45f",
+    "source": "Nieuwe afspraak",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },
@@ -4357,6 +4397,14 @@
     "template": false
   },
   {
+    "key": "copy_8ae9a680",
+    "source": "Vul de gegevens in en sla op.",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_2b2780c5",
     "source": "Vul een geldig e-mailadres in.",
     "groups": [
@@ -4627,6 +4675,14 @@
     "source": "Woningdossier",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a6345dd5",
+    "source": "yyyy-MM-dd'T'HH:mm",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },

@@ -3498,3 +3498,120 @@ main {
 .quick-start-actions .shopping-count {
   color: var(--forest);
 }
+
+.dialog-editor {
+  --editor-gutter: 24px;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 20px 65px #233b2b35;
+}
+.dialog-editor .dialog-header {
+  padding: 20px var(--editor-gutter) 16px;
+  align-items: center;
+}
+.dialog-editor .dialog-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+.dialog-editor .dialog-header p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 4px;
+}
+.dialog-editor .editor-form {
+  padding: 20px var(--editor-gutter) 0;
+  gap: 16px;
+}
+.dialog-editor .field {
+  font-weight: 600;
+}
+.dialog-editor .field input,
+.dialog-editor .field select,
+.dialog-editor .field textarea {
+  min-height: 44px;
+  background-color: #f8faf8;
+  font-size: 16px;
+}
+.dialog-editor .field select {
+  appearance: none;
+  padding-inline-end: 36px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' stroke='%23356148' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+.dialog-editor .field input:focus,
+.dialog-editor .field select:focus,
+.dialog-editor .field textarea:focus {
+  outline: 2px solid #79a58b;
+  outline-offset: 1px;
+}
+.dialog-editor .dialog-footer {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  margin: 0 calc(-1 * var(--editor-gutter));
+  padding: 12px var(--editor-gutter) max(12px, env(safe-area-inset-bottom));
+  z-index: 1;
+}
+.appointment-time {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 14px 14px;
+}
+.appointment-time legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--forest);
+}
+.editor-options {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.editor-options summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.editor-options summary::-webkit-details-marker {
+  display: none;
+}
+.editor-options summary svg:last-child {
+  margin-inline-start: auto;
+}
+.editor-options[open] summary svg:last-child {
+  transform: rotate(180deg);
+}
+.editor-options-body {
+  display: grid;
+  gap: 14px;
+  padding: 0 14px 14px;
+}
+@media (max-width: 600px) {
+  .dialog-editor {
+    --editor-gutter: 16px;
+    top: auto;
+    bottom: 0;
+    width: 100%;
+    max-height: 92dvh;
+    transform: translateX(-50%);
+    border-radius: 20px 20px 0 0;
+  }
+  .appointment-time .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .dialog-editor .dialog-footer .button-primary {
+    flex: 1;
+  }
+}
