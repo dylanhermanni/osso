@@ -3635,3 +3635,82 @@ main {
   color: var(--forest);
   font-size: 20px;
 }
+
+/* Keep the home screen focused on daily actions and shared updates. */
+.home-overview {
+  max-width: 1120px;
+  margin-inline: auto;
+}
+.home-overview .page-heading {
+  margin-bottom: 32px;
+}
+.home-overview .page-heading .eyebrow,
+.home-overview .page-description {
+  display: none;
+}
+.home-overview .dashboard-top {
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+  gap: 24px;
+  margin-bottom: 28px;
+}
+.home-overview .quick-start-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+.home-overview .quick-start-actions {
+  grid-template-columns: 1fr;
+  margin-top: 18px;
+  gap: 8px;
+}
+.home-overview .quick-start-actions button {
+  background: #f6f8f6;
+  border-color: transparent;
+  min-height: 48px;
+  font-size: 14px;
+}
+.home-overview .quick-start-actions button:hover {
+  background: #edf3ee;
+}
+.home-overview .quick-start-actions button > svg:first-child {
+  color: #52705b;
+}
+.home-overview .activity-panel {
+  margin-bottom: 28px;
+}
+.home-more {
+  border-top: 1px solid var(--line);
+  margin-top: 12px;
+}
+.home-more > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 0;
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #526057;
+}
+.home-more > summary::-webkit-details-marker {
+  display: none;
+}
+.home-more[open] > summary > svg {
+  transform: rotate(180deg);
+}
+.home-more .stat-card {
+  background: #fff;
+}
+.home-more .dashboard-section .eyebrow {
+  display: none;
+}
+@media (max-width: 700px) {
+  .home-overview .dashboard-top {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .home-overview .page-heading {
+    margin-bottom: 24px;
+  }
+}

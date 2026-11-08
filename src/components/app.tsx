@@ -23,6 +23,7 @@ import {
   ArrowUpRight,
   ArrowRight,
   ChevronRight,
+  ChevronDown,
   Bell,
   Settings,
   LogOut,
@@ -828,7 +829,10 @@ export function App({
                 )}
               </div>
             </header>
-            <main id="main-content">
+            <main
+              id="main-content"
+              className={view === "home" ? "home-overview" : undefined}
+            >
               <div className="page-heading">
                 <div>
                   <p className="eyebrow">
@@ -958,14 +962,10 @@ export function App({
                     >
                       <div className="section-heading">
                         <div>
-                          <p className="eyebrow">
-                            KLEINE MOEITE, FIJN GEREGELD
-                          </p>
                           <h2 id="quick-start-heading">Even snel toevoegen</h2>
                         </div>
                         <Plus size={22} aria-hidden="true" />
                       </div>
-                      <p>Een klus, een aankoop of dat ene goede idee.</p>
                       <div className="quick-start-actions">
                         <button onClick={() => go("shopping")}>
                           <ShoppingBasket size={19} />
@@ -979,16 +979,6 @@ export function App({
                           <span>Taak toevoegen</span>
                           <ArrowUpRight size={16} />
                         </button>
-                        <button onClick={() => create("expenses")}>
-                          <Wallet size={19} />
-                          <span>Uitgave invoeren</span>
-                          <ArrowUpRight size={16} />
-                        </button>
-                        <button onClick={() => create("ideas")}>
-                          <Lightbulb size={19} />
-                          <span>Idee bewaren</span>
-                          <ArrowUpRight size={16} />
-                        </button>
                         <button onClick={() => create("calendar_events")}>
                           <CalendarDays size={19} />
                           <span>Afspraak plannen</span>
@@ -996,67 +986,6 @@ export function App({
                         </button>
                       </div>
                     </section>
-                  </div>
-                  <div className="stats-grid">
-                    <button className="stat-card" onClick={() => go("tasks")}>
-                      <div>
-                        <span className="stat-icon sage">
-                          <CheckCheck size={20} />
-                        </span>
-                        <ArrowUpRight size={16} />
-                      </div>
-                      <strong>{tasks.length}</strong>
-                      <span>Openstaande taken</span>
-                      <small>
-                        {r.tasks.filter((t) => t.status === "Afgerond").length}{" "}
-                        afgerond · goed bezig
-                      </small>
-                    </button>
-                    <button
-                      className="stat-card"
-                      onClick={() => go("projects")}
-                    >
-                      <div>
-                        <span className="stat-icon clay">
-                          <FolderKanban size={20} />
-                        </span>
-                        <ArrowUpRight size={16} />
-                      </div>
-                      <strong>{activeProjects.length}</strong>
-                      <span>Actieve projecten</span>
-                      <small>Van plannen naar werkelijkheid</small>
-                    </button>
-                    <button
-                      className="stat-card"
-                      onClick={() => go("expenses")}
-                    >
-                      <div>
-                        <span className="stat-icon sand">
-                          <Wallet size={20} />
-                        </span>
-                        <ArrowUpRight size={16} />
-                      </div>
-                      <strong>{euro(total)}</strong>
-                      <span>Samen geïnvesteerd</span>
-                      <small>In een plek die van jullie is</small>
-                    </button>
-                    <button className="stat-card" onClick={() => go("budgets")}>
-                      <div>
-                        <span className="stat-icon sage">
-                          <Leaf size={20} />
-                        </span>
-                        <ArrowUpRight size={16} />
-                      </div>
-                      <strong>
-                        {householdBudget ? euro(householdBudget - total) : "—"}
-                      </strong>
-                      <span>Beschikbaar huisbudget</span>
-                      <small>
-                        {householdBudget
-                          ? "Totaalbudget min jullie uitgaven"
-                          : "Stel jullie eerste budget in"}
-                      </small>
-                    </button>
                   </div>
                   {h && (
                     <section className="panel activity-panel">
@@ -1069,111 +998,184 @@ export function App({
                           Alle activiteiten <ArrowUpRight size={16} />
                         </button>
                       </div>
-                      <ActivityFeed data={data} limit={5} />
+                      <ActivityFeed data={data} limit={3} />
                     </section>
                   )}
-                  <section className="dashboard-section">
-                    <div className="section-heading">
-                      <div>
-                        <p className="eyebrow">ALLES PER KAMER</p>
-                        <h2>Jullie kamers</h2>
-                      </div>
-                      <button className="text-link" onClick={() => go("rooms")}>
-                        Alle kamers <ArrowRight size={16} />
+                  <details className="home-more">
+                    <summary>
+                      Meer over jullie huis <ChevronDown size={18} />
+                    </summary>
+                    <div className="stats-grid">
+                      <button className="stat-card" onClick={() => go("tasks")}>
+                        <div>
+                          <span className="stat-icon sage">
+                            <CheckCheck size={20} />
+                          </span>
+                          <ArrowUpRight size={16} />
+                        </div>
+                        <strong>{tasks.length}</strong>
+                        <span>Openstaande taken</span>
+                        <small>
+                          {
+                            r.tasks.filter((t) => t.status === "Afgerond")
+                              .length
+                          }{" "}
+                          afgerond · goed bezig
+                        </small>
+                      </button>
+                      <button
+                        className="stat-card"
+                        onClick={() => go("projects")}
+                      >
+                        <div>
+                          <span className="stat-icon clay">
+                            <FolderKanban size={20} />
+                          </span>
+                          <ArrowUpRight size={16} />
+                        </div>
+                        <strong>{activeProjects.length}</strong>
+                        <span>Actieve projecten</span>
+                        <small>Van plannen naar werkelijkheid</small>
+                      </button>
+                      <button
+                        className="stat-card"
+                        onClick={() => go("expenses")}
+                      >
+                        <div>
+                          <span className="stat-icon sand">
+                            <Wallet size={20} />
+                          </span>
+                          <ArrowUpRight size={16} />
+                        </div>
+                        <strong>{euro(total)}</strong>
+                        <span>Samen geïnvesteerd</span>
+                        <small>In een plek die van jullie is</small>
+                      </button>
+                      <button
+                        className="stat-card"
+                        onClick={() => go("budgets")}
+                      >
+                        <div>
+                          <span className="stat-icon sage">
+                            <Leaf size={20} />
+                          </span>
+                          <ArrowUpRight size={16} />
+                        </div>
+                        <strong>
+                          {householdBudget
+                            ? euro(householdBudget - total)
+                            : "—"}
+                        </strong>
+                        <span>Beschikbaar huisbudget</span>
+                        <small>
+                          {householdBudget
+                            ? "Totaalbudget min jullie uitgaven"
+                            : "Stel jullie eerste budget in"}
+                        </small>
                       </button>
                     </div>
-                    {r.rooms.length ? (
-                      grid(
-                        "rooms",
-                        r.rooms
-                          .filter((k) => k.status !== "Gearchiveerd")
-                          .sort(
-                            (a, b) => (a.sort_order || 0) - (b.sort_order || 0),
-                          )
-                          .slice(0, 3),
-                      )
-                    ) : (
-                      <button
-                        className="start-room-card"
-                        onClick={() => create("rooms")}
-                      >
-                        <span className="empty-room-art">
-                          <House size={50} strokeWidth={1} />
-                          <Leaf size={24} />
-                        </span>
-                        <span>
-                          <h3>Waar begint jullie verhaal?</h3>
-                          <p>
-                            De woonkamer, de keuken of een fijne tuin.
-                            <br />
-                            Geef jullie eerste kamer een plek.
-                          </p>
-                          <span className="text-link">
-                            Kamer toevoegen <Plus size={15} />
-                          </span>
-                        </span>
-                        <span className="room-drawing" />
-                      </button>
-                    )}
-                  </section>
-                  <div className="dashboard-bottom">
-                    <section className="panel">
+                    <section className="dashboard-section">
                       <div className="section-heading">
-                        <h2>Op de planning</h2>
+                        <div>
+                          <p className="eyebrow">ALLES PER KAMER</p>
+                          <h2>Jullie kamers</h2>
+                        </div>
                         <button
-                          className="icon-button"
-                          onClick={() => go("calendar_events")}
-                          aria-label="Alle afspraken"
+                          className="text-link"
+                          onClick={() => go("rooms")}
                         >
-                          <ArrowUpRight size={18} />
+                          Alle kamers <ArrowRight size={16} />
                         </button>
                       </div>
-                      {upcoming.length ? (
-                        upcoming.slice(0, 3).map((e) => (
-                          <button
-                            className="agenda-row"
-                            key={e.id}
-                            onClick={() => open(e.kind, e)}
-                          >
-                            <span className="date-block">
-                              <strong>{new Date(e.when).getDate()}</strong>
-                              <small>
-                                {new Intl.DateTimeFormat("nl-NL", {
-                                  month: "short",
-                                  timeZone: "Europe/Amsterdam",
-                                }).format(new Date(e.when))}
-                              </small>
-                            </span>
-                            <span>
-                              <strong>{e.title}</strong>
-                              <small>
-                                {labels[e.kind]} ·{" "}
-                                {r.rooms.find((k) => k.id === e.room_id)
-                                  ?.title || "Ons huis"}
-                              </small>
-                            </span>
-                            <ChevronRight size={15} />
-                          </button>
-                        ))
+                      {r.rooms.length ? (
+                        grid(
+                          "rooms",
+                          r.rooms
+                            .filter((k) => k.status !== "Gearchiveerd")
+                            .sort(
+                              (a, b) =>
+                                (a.sort_order || 0) - (b.sort_order || 0),
+                            )
+                            .slice(0, 3),
+                        )
                       ) : (
-                        <div className="small-empty">
-                          <CalendarDays size={25} />
-                          <p>Een lege agenda, vol mogelijkheden.</p>
-                          <button
-                            className="text-link"
-                            onClick={() => create("calendar_events")}
-                          >
-                            Plan iets samen <Plus size={14} />
-                          </button>
-                        </div>
+                        <button
+                          className="start-room-card"
+                          onClick={() => create("rooms")}
+                        >
+                          <span className="empty-room-art">
+                            <House size={50} strokeWidth={1} />
+                            <Leaf size={24} />
+                          </span>
+                          <span>
+                            <h3>Waar begint jullie verhaal?</h3>
+                            <p>
+                              De woonkamer, de keuken of een fijne tuin.
+                              <br />
+                              Geef jullie eerste kamer een plek.
+                            </p>
+                            <span className="text-link">
+                              Kamer toevoegen <Plus size={15} />
+                            </span>
+                          </span>
+                          <span className="room-drawing" />
+                        </button>
                       )}
                     </section>
-                  </div>
-                  <div className="home-footer">
-                    <Leaf size={17} />
-                    <p>Het hoeft niet in één dag af. Het is al van jullie.</p>
-                    <span>CHEESE THE ROOSTER</span>
-                  </div>
+                    <div className="dashboard-bottom">
+                      <section className="panel">
+                        <div className="section-heading">
+                          <h2>Op de planning</h2>
+                          <button
+                            className="icon-button"
+                            onClick={() => go("calendar_events")}
+                            aria-label="Alle afspraken"
+                          >
+                            <ArrowUpRight size={18} />
+                          </button>
+                        </div>
+                        {upcoming.length ? (
+                          upcoming.slice(0, 3).map((e) => (
+                            <button
+                              className="agenda-row"
+                              key={e.id}
+                              onClick={() => open(e.kind, e)}
+                            >
+                              <span className="date-block">
+                                <strong>{new Date(e.when).getDate()}</strong>
+                                <small>
+                                  {new Intl.DateTimeFormat("nl-NL", {
+                                    month: "short",
+                                    timeZone: "Europe/Amsterdam",
+                                  }).format(new Date(e.when))}
+                                </small>
+                              </span>
+                              <span>
+                                <strong>{e.title}</strong>
+                                <small>
+                                  {labels[e.kind]} ·{" "}
+                                  {r.rooms.find((k) => k.id === e.room_id)
+                                    ?.title || "Ons huis"}
+                                </small>
+                              </span>
+                              <ChevronRight size={15} />
+                            </button>
+                          ))
+                        ) : (
+                          <div className="small-empty">
+                            <CalendarDays size={25} />
+                            <p>Een lege agenda, vol mogelijkheden.</p>
+                            <button
+                              className="text-link"
+                              onClick={() => create("calendar_events")}
+                            >
+                              Plan iets samen <Plus size={14} />
+                            </button>
+                          </div>
+                        )}
+                      </section>
+                    </div>
+                  </details>
                 </>
               ) : view === "shopping" ? (
                 h ? (

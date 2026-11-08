@@ -1189,14 +1189,6 @@
     "template": false
   },
   {
-    "key": "copy_5253bd9e",
-    "source": "Een klus, een aankoop of dat ene goede idee.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_dd088e95",
     "source": "Een lege agenda, vol mogelijkheden.",
     "groups": [
@@ -1883,14 +1875,6 @@
     "template": false
   },
   {
-    "key": "copy_69d207e2",
-    "source": "Het hoeft niet in één dag af. Het is al van jullie.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_3b4f37ff",
     "source": "HH:mm",
     "groups": [
@@ -2002,14 +1986,6 @@
     "groups": [
       "Formulieren en velden",
       "Meldingen en validatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_a51f2454",
-    "source": "Idee bewaren",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -2368,14 +2344,6 @@
     "template": false
   },
   {
-    "key": "copy_1bdd2324",
-    "source": "KLEINE MOEITE, FIJN GEREGELD",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_cda29920",
     "source": "Klik op een tekst op deze pagina om hem aan te passen.",
     "groups": [
@@ -2727,6 +2695,14 @@
   {
     "key": "copy_f1b4a69c",
     "source": "Meer",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_42552670",
+    "source": "Meer over jullie huis",
     "groups": [
       "Website en navigatie"
     ],
@@ -3975,14 +3951,6 @@
     "source": "Uitgave",
     "groups": [
       "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_f928cf50",
-    "source": "Uitgave invoeren",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
