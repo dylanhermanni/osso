@@ -59,3 +59,9 @@ export const changeShoppingItem = (
 export const reorderRecords = (
   ...args: Parameters<typeof server.reorderRecords>
 ) => unwrap(server.reorderRecords(...args));
+export const addProjectPhase = (
+  ...args: Parameters<typeof server.addProjectPhase>
+) => unwrap(server.addProjectPhase(...args));
+export const renameProjectPhase = (
+  ...args: Parameters<typeof server.renameProjectPhase>
+) => unwrap(server.renameProjectPhase(...args));

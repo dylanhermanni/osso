@@ -3967,3 +3967,53 @@ main {
     flex-basis: 50%;
   }
 }
+
+.phase-row .phase-title {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.phase-done {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+.phase-row > .icon-button {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.phase-edit-form {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.phase-edit-form input {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 16px;
+}
+.phase-add-form input {
+  min-width: 0;
+}
+.phase-retry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 10px;
+}
+.phase-row {
+  align-items: center;
+  min-height: 48px;
+  font-size: 14px;
+}
+.phase-row .icon-button {
+  min-width: 44px;
+  min-height: 44px;
+}

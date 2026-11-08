@@ -24,6 +24,14 @@
     "template": true
   },
   {
+    "key": "copy_7993d435",
+    "source": "{1} bewerken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
     "key": "copy_cda21953",
     "source": "{1} m²",
     "groups": [
@@ -547,6 +555,14 @@
     "template": false
   },
   {
+    "key": "copy_4e9ac782",
+    "source": "Bewerken annuleren",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_48ca3606",
     "source": "Bezig",
     "groups": [
@@ -892,6 +908,14 @@
     "template": false
   },
   {
+    "key": "copy_acc2ba8c",
+    "source": "Deze fase is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_d8f01033",
     "source": "Deze herstellink is verlopen of ongeldig. Vraag een nieuwe resetmail aan.",
     "groups": [
@@ -1230,6 +1254,14 @@
     "template": false
   },
   {
+    "key": "copy_b7bb7226",
+    "source": "Escape",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_0e2b0104",
     "source": "Even aan denken",
     "groups": [
@@ -1280,6 +1312,14 @@
   {
     "key": "copy_743a9d0c",
     "source": "Fase",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_a8d1419c",
+    "source": "Fase opslaan",
     "groups": [
       "Website en navigatie"
     ],
@@ -2599,6 +2639,14 @@
     "template": false
   },
   {
+    "key": "copy_9f47f5c6",
+    "source": "Naam projectfase",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_0aec511d",
     "source": "Naam van jullie huis",
     "groups": [
@@ -2696,8 +2744,24 @@
     "template": false
   },
   {
+    "key": "copy_11736e6b",
+    "source": "Nieuwe fase…",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_2e282c50",
     "source": "Nieuwe opmerking",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_33711bce",
+    "source": "Nieuwe projectfase",
     "groups": [
       "Website en navigatie"
     ],
@@ -2986,6 +3050,14 @@
     "groups": [
       "Website en navigatie",
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ab2563d3",
+    "source": "Opslaan lukt niet. Probeer opnieuw.",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -4140,6 +4212,14 @@
     "source": "Vul de gegevens in en sla op.",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ae2f8bb2",
+    "source": "Vul een fase in.",
+    "groups": [
+      "Meldingen en validatie"
     ],
     "template": false
   },

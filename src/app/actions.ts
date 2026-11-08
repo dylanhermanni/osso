@@ -651,3 +651,78 @@ export async function reorderRecords(
     checked(error);
   });
 }
+
+export async function addProjectPhase(
+  h: string,
+  project: string,
+  phase: string,
+  title: string,
+) {
+  return actionResult(async () => {
+    id.parse(project);
+    id.parse(phase);
+    const name = z
+      .string()
+      .trim()
+      .min(1, "Vul een fase in.")
+      .max(4000)
+      .parse(title);
+    const { db } = await member(h);
+    const { error } = await db
+      .from("project_phases")
+      .insert({ id: phase, household_id: h, project_id: project, title: name });
+    if (error?.code === "23505") {
+      // Retrying a response that was lost must not create the phase twice.
+      const existing = await db
+        .from("project_phases")
+        .select("id")
+        .eq("id", phase)
+        .eq("household_id", h)
+        .eq("project_id", project)
+        .eq("title", name)
+        .maybeSingle();
+      if (existing.error || !existing.data)
+        throw new Error(
+          "Deze fase is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+        );
+      revalidatePath("/");
+      return;
+    }
+    checked(error);
+  });
+}
+
+export async function renameProjectPhase(
+  h: string,
+  project: string,
+  phase: string,
+  previousTitle: string,
+  title: string,
+) {
+  return actionResult(async () => {
+    id.parse(project);
+    id.parse(phase);
+    z.string().min(1).max(4000).parse(previousTitle);
+    const name = z
+      .string()
+      .trim()
+      .min(1, "Vul een fase in.")
+      .max(4000)
+      .parse(title);
+    const { db } = await member(h);
+    const { data, error } = await db
+      .from("project_phases")
+      .update({ title: name })
+      .eq("household_id", h)
+      .eq("project_id", project)
+      .eq("id", phase)
+      .eq("title", previousTitle)
+      .select("id")
+      .maybeSingle();
+    checked(error);
+    if (!data)
+      throw new Error(
+        "Deze fase is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+      );
+  });
+}

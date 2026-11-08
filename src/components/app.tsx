@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { ProjectPhases } from "./project-phases";
 import { SortableCards } from "./sortable-cards";
 import {
   orderedRecords,
@@ -2741,89 +2742,99 @@ function Detail({
                     </Button>
                   </form>
                 )}
-                {childrenKind && (
-                  <div className="form-section">
-                    <h3>
-                      {entity === "tasks"
-                        ? "Subtaken"
-                        : entity === "projects"
-                          ? "Projectfases"
-                          : "Samen bespreken"}
-                    </h3>
-                    {children.map((c) => (
-                      <div className="child-row" key={c.id}>
-                        {childrenKind !== "idea_comments" ? (
-                          <button
-                            className={`check-button ${c.done ? "checked" : ""}`}
-                            aria-label={`${c.title} ${c.done ? "heropenen" : "afronden"}`}
-                            disabled={pending}
-                            onClick={() =>
-                              mutate(() =>
-                                toggleChild(
-                                  h,
-                                  childrenKind as
-                                    "task_subtasks" | "project_phases",
-                                  c.id,
-                                  !c.done,
-                                ),
-                              )
-                            }
-                          >
-                            <Check size={14} />
-                          </button>
-                        ) : (
-                          <MessageCircle size={16} />
-                        )}
-                        <div>
-                          <span>{c.title || c.body}</span>
-                          {childrenKind === "idea_comments" && (
-                            <small>
-                              {data.members.find((m) => m.user_id === c.user_id)
-                                ?.profiles.display_name || "Samen"}{" "}
-                              · {dateLabel(c.created_at)}
-                            </small>
+                {childrenKind === "project_phases" ? (
+                  <ProjectPhases
+                    key={item.id}
+                    householdId={h}
+                    projectId={item.id}
+                    phases={children}
+                  />
+                ) : (
+                  childrenKind && (
+                    <div className="form-section">
+                      <h3>
+                        {entity === "tasks"
+                          ? "Subtaken"
+                          : entity === "projects"
+                            ? "Projectfases"
+                            : "Samen bespreken"}
+                      </h3>
+                      {children.map((c) => (
+                        <div className="child-row" key={c.id}>
+                          {childrenKind !== "idea_comments" ? (
+                            <button
+                              className={`check-button ${c.done ? "checked" : ""}`}
+                              aria-label={`${c.title} ${c.done ? "heropenen" : "afronden"}`}
+                              disabled={pending}
+                              onClick={() =>
+                                mutate(() =>
+                                  toggleChild(
+                                    h,
+                                    childrenKind as
+                                      "task_subtasks" | "project_phases",
+                                    c.id,
+                                    !c.done,
+                                  ),
+                                )
+                              }
+                            >
+                              <Check size={14} />
+                            </button>
+                          ) : (
+                            <MessageCircle size={16} />
                           )}
+                          <div>
+                            <span>{c.title || c.body}</span>
+                            {childrenKind === "idea_comments" && (
+                              <small>
+                                {data.members.find(
+                                  (m) => m.user_id === c.user_id,
+                                )?.profiles.display_name || "Samen"}{" "}
+                                · {dateLabel(c.created_at)}
+                              </small>
+                            )}
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                    <form
-                      className="inline-form"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        const form = e.currentTarget;
-                        const f = new FormData(form);
-                        mutate(async () => {
-                          await addChild(
-                            h,
-                            childrenKind,
-                            item.id,
-                            String(f.get("text")),
-                          );
-                          form.reset();
-                        }, "Toegevoegd.");
-                      }}
-                    >
-                      <input
-                        aria-label={
-                          entity === "ideas"
-                            ? "Nieuwe reactie"
-                            : "Nieuw onderdeel"
-                        }
-                        name="text"
-                        placeholder={
-                          entity === "ideas"
-                            ? "Wat vind jij?"
-                            : "Voeg een stap toe…"
-                        }
-                        required
-                        maxLength={4000}
-                      />
-                      <Button size="sm" variant="outline" disabled={pending}>
-                        <Plus size={16} />
-                        Toevoegen
-                      </Button>
-                    </form>
-                  </div>
+                      ))}
+                      <form
+                        className="inline-form"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          const form = e.currentTarget;
+                          const f = new FormData(form);
+                          mutate(async () => {
+                            await addChild(
+                              h,
+                              childrenKind,
+                              item.id,
+                              String(f.get("text")),
+                            );
+                            form.reset();
+                          }, "Toegevoegd.");
+                        }}
+                      >
+                        <input
+                          aria-label={
+                            entity === "ideas"
+                              ? "Nieuwe reactie"
+                              : "Nieuw onderdeel"
+                          }
+                          name="text"
+                          placeholder={
+                            entity === "ideas"
+                              ? "Wat vind jij?"
+                              : "Voeg een stap toe…"
+                          }
+                          required
+                          maxLength={4000}
+                        />
+                        <Button size="sm" variant="outline" disabled={pending}>
+                          <Plus size={16} />
+                          Toevoegen
+                        </Button>
+                      </form>
+                    </div>
+                  )
                 )}
                 {entity === "tasks" && (
                   <TaskDiscussion
