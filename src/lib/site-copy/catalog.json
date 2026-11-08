@@ -417,14 +417,6 @@
     "template": false
   },
   {
-    "key": "copy_c72e3577",
-    "source": "Bekijk de planning",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_f51d6137",
     "source": "Bekijk wie er bij jullie huis hoort en nodig je partner uit.",
     "groups": [
@@ -1816,22 +1808,6 @@
     "source": "Het bedrag moet groter zijn dan nul.",
     "groups": [
       "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_3b4f37ff",
-    "source": "HH:mm",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_2f98e4aa",
-    "source": "Hier verschijnen afspraken, taken en onderhoud die aandacht vragen.",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -3605,14 +3581,6 @@
     "template": false
   },
   {
-    "key": "copy_e367c740",
-    "source": "Te laat",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_501d2672",
     "source": "Tekst aanpassen",
     "groups": [
@@ -3949,24 +3917,7 @@
     "key": "copy_c03ec7cd",
     "source": "Vandaag",
     "groups": [
-      "Website en navigatie",
       "Planning"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_26eb306f",
-    "source": "Vandaag en te laat",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_a9d7e8e7",
-    "source": "Vandaag geen openstaande deadlines",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },

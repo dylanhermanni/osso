@@ -853,64 +853,6 @@ export function App({
               {view === "home" ? (
                 <>
                   <div className="dashboard-top">
-                    <section className="week-card">
-                      <div className="section-heading">
-                        <h2>Vandaag en te laat</h2>
-                        <span className="subtle-icon">
-                          <CalendarDays size={20} />
-                        </span>
-                      </div>
-                      {attention.length ? (
-                        <div className="home-attention">
-                          {attention.map((entry) => {
-                            const assignee = data.members.find(
-                              (member) => member.user_id === entry.assignee_id,
-                            )?.profiles.display_name;
-                            return (
-                              <button
-                                className="record-row"
-                                key={entry.id}
-                                onClick={() => open(entry.kind, entry)}
-                              >
-                                <span className="record-name">
-                                  <strong>{entry.title}</strong>
-                                  <small>
-                                    {entry.day < date ? "Te laat" : "Vandaag"} ·{" "}
-                                    {labels[entry.kind]}
-                                    {assignee && <> · {assignee}</>}
-                                  </small>
-                                </span>
-                                <span>
-                                  {entry.kind === "calendar_events"
-                                    ? DateTime.fromISO(entry.when)
-                                        .setZone(ZONE)
-                                        .toFormat("HH:mm")
-                                    : dateLabel(entry.day)}
-                                </span>
-                                <ChevronRight size={16} />
-                              </button>
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <div className="calm-empty">
-                          <span>
-                            <CheckCheck size={26} strokeWidth={1.3} />
-                          </span>
-                          <h3>Vandaag geen openstaande deadlines</h3>
-                          <p>
-                            Hier verschijnen afspraken, taken en onderhoud die
-                            aandacht vragen.
-                          </p>
-                        </div>
-                      )}
-                      <button
-                        className="text-link card-bottom-link"
-                        onClick={() => go("calendar_events")}
-                      >
-                        Bekijk de planning <ArrowRight size={16} />
-                      </button>
-                    </section>
                     <section
                       className="quick-start-card"
                       aria-labelledby="quick-start-heading"

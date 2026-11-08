@@ -3628,7 +3628,7 @@ main {
   display: none;
 }
 .home-overview .dashboard-top {
-  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+  grid-template-columns: 1fr;
   gap: 24px;
   margin-bottom: 28px;
 }
@@ -3638,7 +3638,7 @@ main {
   color: var(--ink);
 }
 .home-overview .quick-start-actions {
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   margin-top: 18px;
   gap: 8px;
 }
@@ -3691,6 +3691,9 @@ main {
   }
   .home-overview .page-heading {
     margin-bottom: 24px;
+  }
+  .home-overview .quick-start-actions {
+    grid-template-columns: 1fr;
   }
 }
 
