@@ -180,7 +180,6 @@ export function App({
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [globalSearch, setGlobalSearch] = useState(false);
   const [globalQuery, setGlobalQuery] = useState("");
-  const [liveStatus, setLiveStatus] = useState("Verbinden");
   const h = data.household?.id;
   const notify = (s: string) => {
     setToast(s);
@@ -279,13 +278,6 @@ export function App({
     const subscribe = () =>
       channel.subscribe((status) => {
         liveConnected = status === "SUBSCRIBED";
-        setLiveStatus(
-          status === "SUBSCRIBED"
-            ? "Live"
-            : status === "CHANNEL_ERROR" || status === "TIMED_OUT"
-              ? "Offline"
-              : "Verbinden",
-        );
         if (status === "CHANNEL_ERROR" || status === "TIMED_OUT")
           setToast(
             "Live verbinding onderbroken. Vernieuw om wijzigingen op te halen.",
@@ -302,7 +294,6 @@ export function App({
       })
       .catch(() => {
         if (!cancelled) {
-          setLiveStatus("Offline");
           setToast("Live sessie kon niet worden geopend. Log opnieuw in.");
         }
       });
@@ -325,7 +316,6 @@ export function App({
         void refreshAuth().catch(() => {
           if (!cancelled) {
             liveConnected = false;
-            setLiveStatus("Offline");
           }
         });
       },
@@ -734,21 +724,6 @@ export function App({
               </div>
               <div className="topbar-actions">
                 <ContentTools />
-                {h && (
-                  <span
-                    className="live-status"
-                    aria-label={
-                      liveStatus === "Live"
-                        ? "Live verbonden"
-                        : liveStatus === "Offline"
-                          ? "Live verbinding onderbroken"
-                          : "Live verbinding maken"
-                    }
-                  >
-                    <i className={liveStatus === "Live" ? "connected" : ""} />
-                    <span>{liveStatus}</span>
-                  </span>
-                )}
                 <button
                   className="icon-button"
                   onClick={() => setGlobalSearch(true)}

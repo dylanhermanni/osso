@@ -2356,14 +2356,6 @@
     "template": false
   },
   {
-    "key": "copy_881c63cf",
-    "source": "Live",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_be080708",
     "source": "Live sessie kon niet worden geopend. Log opnieuw in.",
     "groups": [
@@ -2380,32 +2372,8 @@
     "template": false
   },
   {
-    "key": "copy_94587863",
-    "source": "Live verbinding maken",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_dbc32f6a",
-    "source": "Live verbinding onderbroken",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_3fd7c080",
     "source": "Live verbinding onderbroken. Vernieuw om wijzigingen op te halen.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_8bd72720",
-    "source": "Live verbonden",
     "groups": [
       "Website en navigatie"
     ],
@@ -2850,14 +2818,6 @@
   {
     "key": "copy_8fca9a6d",
     "source": "Of koppel een bestaande uitgave",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_c47c37c8",
-    "source": "Offline",
     "groups": [
       "Website en navigatie"
     ],
@@ -3934,14 +3894,6 @@
     "groups": [
       "Website en navigatie",
       "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_89be5e26",
-    "source": "Verbinden",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },

@@ -2419,27 +2419,6 @@ main {
     max-width: 300px;
   }
 }
-.live-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #8b957f;
-}
-.live-status i {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #c68f70;
-}
-.live-status i.connected {
-  background: #81936e;
-}
-@media (max-width: 700px) {
-  .live-status > span {
-    display: none;
-  }
-}
 /* Reading and touch sizes remain comfortable on small screens. */
 .page-description {
   color: #747a6d;
