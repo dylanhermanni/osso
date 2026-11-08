@@ -3819,3 +3819,16 @@ main {
 .finance-chart-details .chart-container .small-empty {
   padding: 20px 0;
 }
+
+.room-area {
+  grid-column: 1 / -1;
+}
+.room-area output {
+  display: block;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #edf3ee;
+  color: #356148;
+  font-size: 16px;
+  font-weight: 600;
+}

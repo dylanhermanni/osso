@@ -2337,7 +2337,7 @@ function Detail({
                         <small>Oppervlakte</small>
                         <strong>
                           {item.width_cm && item.length_cm
-                            ? `${((item.width_cm * item.length_cm) / 10000).toLocaleString("nl-NL")} m²`
+                            ? `${((item.width_cm * item.length_cm) / 10000).toLocaleString("nl-NL", { maximumFractionDigits: 4 })} m²`
                             : "Nog niet ingevuld"}
                         </strong>
                       </div>

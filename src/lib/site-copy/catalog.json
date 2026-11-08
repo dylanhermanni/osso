@@ -27,7 +27,8 @@
     "key": "copy_cda21953",
     "source": "{1} m²",
     "groups": [
-      "Website en navigatie"
+      "Website en navigatie",
+      "Formulieren en velden"
     ],
     "template": true
   },
@@ -2974,7 +2975,8 @@
     "key": "copy_29b5fb14",
     "source": "Oppervlakte",
     "groups": [
-      "Website en navigatie"
+      "Website en navigatie",
+      "Formulieren en velden"
     ],
     "template": false
   },
@@ -4147,6 +4149,14 @@
     "source": "Vul het e-mailadres van je account in. Je ontvangt een link om zelf een nieuw wachtwoord te kiezen.",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_aefbf93a",
+    "source": "Vul lengte en breedte in",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },

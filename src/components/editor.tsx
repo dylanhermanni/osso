@@ -74,6 +74,15 @@ export function Editor({
 }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [roomWidth, setRoomWidth] = useState(String(record?.width_cm ?? ""));
+  const [roomLength, setRoomLength] = useState(String(record?.length_cm ?? ""));
+  const roomArea =
+    Number.isSafeInteger(Number(roomWidth)) &&
+    Number(roomWidth) > 0 &&
+    Number.isSafeInteger(Number(roomLength)) &&
+    Number(roomLength) > 0
+      ? (Number(roomWidth) * Number(roomLength)) / 10000
+      : null;
   const [total, setTotal] = useState(
     record?.amount_cents
       ? String(record.amount_cents / 100)
@@ -506,18 +515,36 @@ export function Editor({
                 )}
                 {entity === "rooms" && (
                   <>
-                    <Field
-                      name="width_cm"
-                      label="Breedte (cm)"
-                      type="number"
-                      value={record?.width_cm}
-                    />
-                    <Field
-                      name="length_cm"
-                      label="Lengte (cm)"
-                      type="number"
-                      value={record?.length_cm}
-                    />
+                    <label className="field">
+                      Breedte (cm)
+                      <input
+                        name="width_cm"
+                        type="number"
+                        min="1"
+                        step="1"
+                        value={roomWidth}
+                        onChange={(event) => setRoomWidth(event.target.value)}
+                      />
+                    </label>
+                    <label className="field">
+                      Lengte (cm)
+                      <input
+                        name="length_cm"
+                        type="number"
+                        min="1"
+                        step="1"
+                        value={roomLength}
+                        onChange={(event) => setRoomLength(event.target.value)}
+                      />
+                    </label>
+                    <div className="field room-area">
+                      <span>Oppervlakte</span>
+                      <output aria-live="polite" aria-atomic="true">
+                        {roomArea !== null
+                          ? `${roomArea.toLocaleString("nl-NL", { maximumFractionDigits: 4 })} m²`
+                          : "Vul lengte en breedte in"}
+                      </output>
+                    </div>
                     <Field
                       name="paint"
                       label="Verfkleuren"
