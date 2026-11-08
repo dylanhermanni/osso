@@ -77,6 +77,9 @@ export async function loadSnapshot(): Promise<Snapshot> {
         if (r.error) throw r.error;
         data.members = r.data as unknown as Member[];
       }),
+    rows("record_orders").then((orders) => {
+      data.orders = orders as unknown as Snapshot["orders"];
+    }),
     rows("shopping_items").then((records) => {
       data.shopping = records as Snapshot["shopping"];
     }),

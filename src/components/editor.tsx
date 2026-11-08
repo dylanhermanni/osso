@@ -148,7 +148,7 @@ export function Editor({
           length_cm: str("length_cm") ? Number(str("length_cm")) : null,
           paint: str("paint"),
           materials: str("materials"),
-          sort_order: Number(str("sort_order") || 0),
+          sort_order: record?.sort_order ?? 0,
         });
       if (entity === "suppliers")
         Object.assign(input, {
@@ -554,12 +554,6 @@ export function Editor({
                       name="materials"
                       label="Materialen"
                       value={record?.materials}
-                    />
-                    <Field
-                      name="sort_order"
-                      label="Volgorde"
-                      type="number"
-                      value={record?.sort_order || 0}
                     />
                   </>
                 )}

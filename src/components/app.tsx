@@ -5,6 +5,12 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { SortableCards } from "./sortable-cards";
+import {
+  orderedRecords,
+  mergeVisibleOrder,
+  type SortableEntity,
+} from "@/lib/domain/order";
 import { ContentTools } from "./content-tools";
 import {
   House,
@@ -58,6 +64,7 @@ import {
   signout,
   invite,
   saveRecord,
+  reorderRecords,
   removeRecord,
   completeMaintenance,
   convertIdea,
@@ -255,6 +262,7 @@ export function App({
       ...entities,
       "activity_log",
       "shopping_items",
+      "record_orders",
       "idea_comments",
       "task_comments",
       "task_subtasks",
@@ -498,12 +506,36 @@ export function App({
       )}
     </div>
   );
-  const grid = (entity: Entity, items: RecordData[]) =>
+  const grid = (entity: SortableEntity, items: RecordData[]) =>
     items.length ? (
-      <div
+      <SortableCards
+        items={orderedRecords(
+          items,
+          data.orders?.find((order) => order.entity === entity),
+          entity,
+        )}
         className={`cards-grid ${entity === "ideas" ? "inspiration-grid" : ""}`}
+        enabled={Boolean(h)}
+        projects={entity === "projects"}
+        onReorder={async (ids) => {
+          if (!h) return;
+          const saved = data.orders?.find((order) => order.entity === entity);
+          const all = orderedRecords(r[entity], saved, entity).map(
+            (item) => item.id,
+          );
+          await reorderRecords(
+            h,
+            entity,
+            mergeVisibleOrder(all, ids),
+            saved?.version ?? 0,
+          );
+        }}
+        onError={(message) => {
+          notify(message);
+          router.refresh();
+        }}
       >
-        {items.map((item, i) => (
+        {(item, i) => (
           <article
             className={`visual-card${item.image_url ? "" : " text-card"}`}
             key={item.id}
@@ -601,8 +633,8 @@ export function App({
               )}
             </button>
           </article>
-        ))}
-      </div>
+        )}
+      </SortableCards>
     ) : (
       empty(entity)
     );
@@ -1012,13 +1044,15 @@ export function App({
                       {r.rooms.length ? (
                         grid(
                           "rooms",
-                          r.rooms
-                            .filter((k) => k.status !== "Gearchiveerd")
-                            .sort(
-                              (a, b) =>
-                                (a.sort_order || 0) - (b.sort_order || 0),
-                            )
-                            .slice(0, 3),
+                          orderedRecords(
+                            r.rooms.filter(
+                              (room) => room.status !== "Gearchiveerd",
+                            ),
+                            data.orders?.find(
+                              (order) => order.entity === "rooms",
+                            ),
+                            "rooms",
+                          ).slice(0, 3),
                         )
                       ) : (
                         <button
@@ -1431,16 +1465,7 @@ export function App({
                   {["rooms", "ideas", "projects", "wishlist_items"].includes(
                     view,
                   ) ? (
-                    grid(
-                      view,
-                      visible.sort((a, b) =>
-                        view === "rooms"
-                          ? (a.sort_order || 0) - (b.sort_order || 0)
-                          : view === "projects"
-                            ? runningProjectsFirst(a, b)
-                            : 0,
-                      ),
-                    )
+                    grid(view as SortableEntity, visible)
                   ) : view === "calendar_events" ||
                     (view === "tasks" && taskMode === "Kalender") ? (
                     <section className="panel calendar-panel">

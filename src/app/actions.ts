@@ -618,3 +618,32 @@ export async function changeShoppingItem(
     checked(error);
   });
 }
+
+export async function reorderRecords(
+  h: string,
+  entity: string,
+  recordIds: string[],
+  version: number,
+) {
+  return actionResult(async () => {
+    z.enum(["rooms", "ideas", "projects", "wishlist_items"]).parse(entity);
+    z.array(id)
+      .min(1)
+      .max(10000)
+      .refine((ids) => new Set(ids).size === ids.length)
+      .parse(recordIds);
+    z.number().int().min(0).parse(version);
+    const { db } = await member(h);
+    const { error } = await db.rpc("reorder_records", {
+      h,
+      kind: entity,
+      ordered_ids: recordIds,
+      expected_version: version,
+    });
+    if (error?.message.includes("ondertussen"))
+      throw new Error(
+        "De volgorde is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+      );
+    checked(error);
+  });
+}

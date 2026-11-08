@@ -98,6 +98,7 @@ export type ShoppingItem = {
 };
 
 export type Snapshot = {
+  orders?: import("./domain/order").RecordOrder[];
   shopping: ShoppingItem[];
   configured: boolean;
   user: { id: string; email?: string } | null;

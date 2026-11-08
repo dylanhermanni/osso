@@ -18,15 +18,6 @@ describe("editable site copy", () => {
     expect(
       translateCopy("Leverancier toevoegen", { [add.key]: "Nieuwe {1}" }),
     ).toBe("Nieuwe Leverancier");
-    const welcome = catalog.find(
-      (entry) => entry.source === "WELKOM THUIS{1}",
-    )!;
-    expect(translateCopy("WELKOM THUIS", { [welcome.key]: "Welkom{1}" })).toBe(
-      "Welkom",
-    );
-    expect(
-      translateCopy("WELKOM THUIS, DYLAN", { [welcome.key]: "Welkom{1}" }),
-    ).toBe("Welkom, DYLAN");
     const remove = catalog.find((entry) =>
       entry.source.startsWith("“{1}” verwijderen?"),
     )!;

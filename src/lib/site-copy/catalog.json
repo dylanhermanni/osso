@@ -81,6 +81,14 @@
     "template": true
   },
   {
+    "key": "copy_13f7b1fd",
+    "source": "{1} verplaatsen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
     "key": "copy_d8a2159d",
     "source": "{1}/auth/herstel",
     "groups": [
@@ -838,6 +846,14 @@
     "source": "De volgende datum wordt automatisch berekend vanaf de uitvoerdatum.",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_26baf2fa",
+    "source": "De volgorde is ondertussen gewijzigd. Vernieuw en probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
     ],
     "template": false
   },
@@ -3217,6 +3233,14 @@
     "template": false
   },
   {
+    "key": "copy_3c862a67",
+    "source": "Projecten in uitvoering blijven bovenaan. Sleep binnen dezelfde groep.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_3b9197d7",
     "source": "Projectfase",
     "groups": [
@@ -3310,6 +3334,14 @@
     "source": "september",
     "groups": [
       "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bd2054ba",
+    "source": "Sleep om te verplaatsen",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -4031,10 +4063,10 @@
     "template": false
   },
   {
-    "key": "copy_e8a3f2b1",
-    "source": "Volgorde",
+    "key": "copy_2647b62d",
+    "source": "Volgorde opslaan lukt niet. Probeer opnieuw.",
     "groups": [
-      "Formulieren en velden"
+      "Website en navigatie"
     ],
     "template": false
   },
