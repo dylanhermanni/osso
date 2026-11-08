@@ -227,7 +227,8 @@ export function CopyScope({ children }: { children: ReactNode }) {
           : text(source),
       ]),
     );
-    if (props.children !== undefined)
+    // Render functions must reach their component intact. Their output owns its copy scope.
+    if (props.children !== undefined && typeof props.children !== "function")
       updated.children = Children.map(props.children as ReactNode, visit);
     const copy = cloneElement(element, updated);
     originalAttributes.set(copy, originals);

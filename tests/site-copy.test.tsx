@@ -6,6 +6,7 @@ import {
   translateCopy,
   validateCopyValue,
 } from "../src/lib/site-copy/core";
+import { SortableCards } from "../src/components/sortable-cards";
 import { ContentProvider, CopyScope } from "../src/components/content-provider";
 const key = (text: string) => {
   const found = findCopy(text);
@@ -126,5 +127,38 @@ describe("editable site copy", () => {
     );
     expect(html).toContain(">Kamers</button>");
     expect(html).not.toContain("Niet nog eens");
+  });
+  it("renders sortable cards when the household has customized website text", () => {
+    const html = renderToStaticMarkup(
+      <ContentProvider
+        canEdit
+        ready
+        records={[
+          { key: key("Taken"), value: "Klusjes", version: 1, updated_at: "" },
+        ]}
+      >
+        <CopyScope>
+          <SortableCards
+            items={[
+              { id: "room", household_id: "home", title: "Keuken", version: 1 },
+            ]}
+            className="cards-grid"
+            enabled
+            projects={false}
+            onReorder={async () => {}}
+            onError={() => {}}
+          >
+            {(item) => (
+              <article>
+                <h3>{item.title}</h3>
+                <button>Taken</button>
+              </article>
+            )}
+          </SortableCards>
+        </CopyScope>
+      </ContentProvider>,
+    );
+    expect(html).toContain("Keuken");
+    expect(html).toContain(">Klusjes</button>");
   });
 });

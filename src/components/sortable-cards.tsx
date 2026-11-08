@@ -19,6 +19,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { GripVertical } from "lucide-react";
+import { CopyScope } from "./content-provider";
 import type { RecordData } from "@/lib/types";
 
 export function SortableCards({
@@ -116,7 +117,7 @@ export function SortableCards({
               enabled={enabled && items.length > 1}
               disabled={pending}
             >
-              {children(item, index)}
+              <CopyScope>{children(item, index)}</CopyScope>
             </SortableTile>
           ))}
         </div>
