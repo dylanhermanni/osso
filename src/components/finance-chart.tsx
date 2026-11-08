@@ -61,9 +61,10 @@ export function FinanceChart({
     <CopyScope>
       {
         <div className="finance-top">
-          <section className="panel chart-panel">
+          <details className="panel chart-panel finance-chart-details">
+            <summary>Uitgavengrafiek</summary>
             <div className="section-heading">
-              <h2>Een blik op jullie uitgaven</h2>
+              <span>Groeperen</span>
               <select
                 value={mode}
                 onChange={(e) => setMode(e.target.value)}
@@ -111,15 +112,14 @@ export function FinanceChart({
               ) : (
                 <div className="small-empty">
                   <WalletMark />
-                  <p>Jullie eerste uitgave vertelt het begin.</p>
+                  <p>Nog geen uitgaven.</p>
                 </div>
               )}
             </div>
-          </section>
+          </details>
           <section className="panel finance-total">
-            <p className="eyebrow">VOOR ONS THUIS</p>
             <h2>{euro(total)}</h2>
-            <p>Totale gezamenlijke uitgaven</p>
+            <p>Totaal uitgegeven</p>
             {members.map((m) => (
               <div className="list-row" key={m.user_id}>
                 <span>{m.profiles.display_name} betaald</span>

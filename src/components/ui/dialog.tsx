@@ -32,7 +32,9 @@ export function Dialog({
               <div className="dialog-header">
                 <div>
                   <DialogPrimitive.Title>{title}</DialogPrimitive.Title>
-                  <DialogPrimitive.Description>
+                  <DialogPrimitive.Description
+                    className={description ? undefined : "sr-only"}
+                  >
                     {description || "Alles voor ons thuis, op één plek."}
                   </DialogPrimitive.Description>
                 </div>

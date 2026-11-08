@@ -91,7 +91,6 @@ const navigation: {
   key: View;
   label: string;
   icon: LucideIcon;
-  section?: string;
 }[] = [
   { key: "home", label: "Overzicht", icon: House },
   { key: "shopping", label: "Boodschappen", icon: ShoppingBasket },
@@ -101,7 +100,6 @@ const navigation: {
     key: "tasks",
     label: "Taken",
     icon: CheckCheck,
-    section: "SAMEN AAN DE SLAG",
   },
   { key: "projects", label: "Projecten", icon: FolderKanban },
   { key: "expenses", label: "Financiën", icon: Wallet },
@@ -110,7 +108,6 @@ const navigation: {
     key: "calendar_events",
     label: "Planning",
     icon: CalendarDays,
-    section: "GOED GEREGELD",
   },
   { key: "maintenance_items", label: "Onderhoud", icon: Wrench },
   { key: "documents", label: "Woningdossier", icon: Files },
@@ -127,30 +124,10 @@ const titles: Record<View, string> = {
   calendar_events: "Planning",
   maintenance_items: "Onderhoud",
   documents: "Woningdossier",
-  budgets: "Ruimte in jullie budget.",
-  savings_goals: "Samen ergens naartoe.",
-  activity: "Wat er thuis gebeurt.",
-  suppliers: "Fijne mensen voor jullie plannen.",
-};
-const descriptions: Record<View, string> = {
-  home: "Boodschappen, afspraken en alles wat thuis aandacht vraagt.",
-  shopping:
-    "Zet op de lijst wat jullie nodig hebben en vink het af in de winkel.",
-  rooms: "Ontdek, organiseer en maak elke kamer een beetje meer van jullie.",
-  ideas:
-    "Verzamel wat jullie raakt. Droom, bespreek en maak het werkelijkheid.",
-  tasks: "Zie wat er moet gebeuren, voor wie en wanneer.",
-  projects: "Een overzicht van jullie grotere plannen en de stappen ernaartoe.",
-  expenses: "Jullie uitgaven, budgetten en verrekeningen. Eerlijk verdeeld.",
-  wishlist_items: "Mooie vondsten voor later. Of voor binnenkort.",
-  calendar_events:
-    "Klusdagen, leveringen en afspraken, in één gezamenlijke agenda.",
-  maintenance_items: "Goed onderhoud begint met een rustig overzicht.",
-  documents: "Van de eerste offerte tot dat ene garantiebewijs.",
-  budgets: "Geef jullie plannen een financieel kader.",
-  savings_goals: "Maak ruimte voor de volgende grote wens.",
-  activity: "De laatste stappen die jullie samen hebben gezet.",
-  suppliers: "Contactgegevens en afspraken, bij het juiste project.",
+  budgets: "Budgetten",
+  savings_goals: "Spaardoelen",
+  activity: "Activiteiten",
+  suppliers: "Contacten",
 };
 const runningProjectsFirst = (a: RecordData, b: RecordData) =>
   Number(b.status === "In uitvoering") - Number(a.status === "In uitvoering");
@@ -162,12 +139,6 @@ const dateLabel = (d?: string | null) =>
         timeZone: "Europe/Amsterdam",
       }).format(new Date(d))
     : "Geen datum";
-const cardImages: Partial<Record<Entity, string>> = {
-  rooms: "/room.svg",
-  ideas: "/inspiration.svg",
-  projects: "/room.svg",
-  wishlist_items: "/inspiration.svg",
-};
 export function App({
   data,
   initialView = "home",
@@ -455,21 +426,13 @@ export function App({
       (entry.kind !== "calendar_events" || entry.day === date),
   );
   const upcoming = scheduled.filter((entry) => entry.day >= date);
-  const quickOptions: { entity: Entity; icon: LucideIcon; sub: string }[] = [
-    { entity: "ideas", icon: Lightbulb, sub: "Bewaar een mooie gedachte" },
-    { entity: "tasks", icon: CheckCheck, sub: "Een stapje dichterbij" },
-    { entity: "expenses", icon: Wallet, sub: "Houd het eerlijk verdeeld" },
-    {
-      entity: "wishlist_items",
-      icon: Heart,
-      sub: "Een vondst voor jullie thuis",
-    },
-    {
-      entity: "projects",
-      icon: FolderKanban,
-      sub: "Geef een groot plan de ruimte",
-    },
-    { entity: "calendar_events", icon: CalendarDays, sub: "Maak er tijd voor" },
+  const quickOptions: { entity: Entity; icon: LucideIcon }[] = [
+    { entity: "ideas", icon: Lightbulb },
+    { entity: "tasks", icon: CheckCheck },
+    { entity: "expenses", icon: Wallet },
+    { entity: "wishlist_items", icon: Heart },
+    { entity: "projects", icon: FolderKanban },
+    { entity: "calendar_events", icon: CalendarDays },
   ];
   const taskRow = (t: RecordData) => (
     <div className="task-row" key={t.id}>
@@ -532,13 +495,11 @@ export function App({
       <h3>
         {search || roomFilter || statusFilter || personFilter
           ? "Geen resultaten gevonden"
-          : `Hier is ruimte voor jullie ${entity === "rooms" ? "kamers" : entity === "ideas" ? "ideeën" : "plannen"}`}
+          : `Nog geen ${entity === "rooms" ? "kamers" : entity === "ideas" ? "ideeën" : "onderdelen"}`}
       </h3>
-      <p>
-        {search || roomFilter || statusFilter || personFilter
-          ? "Probeer een andere zoekterm of pas je filters aan."
-          : "Voeg het eerste onderdeel toe en maak jullie huis een beetje meer thuis."}
-      </p>
+      {(search || roomFilter || statusFilter || personFilter) && (
+        <p>Pas je zoekterm of filters aan.</p>
+      )}
       {!(search || roomFilter || statusFilter || personFilter) && (
         <Button variant="outline" onClick={() => create(entity)}>
           <Plus size={16} />
@@ -553,24 +514,29 @@ export function App({
         className={`cards-grid ${entity === "ideas" ? "inspiration-grid" : ""}`}
       >
         {items.map((item, i) => (
-          <article className="visual-card" key={item.id}>
-            <button
-              className={`card-picture picture-${i % 3}`}
-              style={{
-                backgroundImage: `url("${item.image_url || cardImages[entity]}")`,
-              }}
-              onClick={() => open(entity, item)}
-              aria-label={`${item.title} openen`}
-            >
-              {entity === "ideas" && item.status && (
-                <span className="image-label">{item.status}</span>
-              )}
-              {entity === "rooms" && (
-                <span className="room-open">
-                  <ArrowUpRight size={19} />
-                </span>
-              )}
-            </button>
+          <article
+            className={`visual-card${item.image_url ? "" : " text-card"}`}
+            key={item.id}
+          >
+            {item.image_url && (
+              <button
+                className={`card-picture picture-${i % 3}`}
+                style={{
+                  backgroundImage: `url("${item.image_url}")`,
+                }}
+                onClick={() => open(entity, item)}
+                aria-label={`${item.title} openen`}
+              >
+                {entity === "ideas" && item.status && (
+                  <span className="image-label">{item.status}</span>
+                )}
+                {entity === "rooms" && (
+                  <span className="room-open">
+                    <ArrowUpRight size={19} />
+                  </span>
+                )}
+              </button>
+            )}
             {entity === "ideas" && (
               <button
                 className={`favorite-button ${item.favorite ? "is-favorite" : ""}`}
@@ -612,7 +578,7 @@ export function App({
                   ? `${r.tasks.filter((t) => t.room_id === item.id && t.status !== "Afgerond").length} open taken · ${r.ideas.filter((t) => t.room_id === item.id).length} ideeën`
                   : item.description ||
                     r.rooms.find((k) => k.id === item.room_id)?.title ||
-                    "Een plan voor ons thuis"}
+                    ""}
               </p>
               {entity === "projects" && (
                 <div className="progress-section">
@@ -701,7 +667,6 @@ export function App({
             <nav aria-label="Hoofdnavigatie">
               {navigation.map((n) => (
                 <div key={n.key}>
-                  {n.section && <p className="nav-section">{n.section}</p>}
                   <button
                     className={`nav-item ${view === n.key ? "active" : ""}`}
                     onClick={() => go(n.key)}
@@ -716,14 +681,6 @@ export function App({
               ))}
             </nav>
             <div className="sidebar-bottom">
-              <div className="together-note">
-                <Leaf size={21} strokeWidth={1.3} />
-                <p>
-                  Een huis wordt een thuis.
-                  <br />
-                  <span>Stapje voor stapje, samen.</span>
-                </p>
-              </div>
               <button
                 className="profile"
                 onClick={() => {
@@ -835,17 +792,7 @@ export function App({
             >
               <div className="page-heading">
                 <div>
-                  <p className="eyebrow">
-                    {view === "home"
-                      ? `WELKOM THUIS${name ? ", " + name.toUpperCase() : ""}`
-                      : "CHEESE THE ROOSTER · " +
-                        (
-                          navigation.find((n) => n.key === view)?.label ||
-                          "SAMEN"
-                        ).toUpperCase()}
-                  </p>
                   <h1>{titles[view]}</h1>
-                  <p className="page-description">{descriptions[view]}</p>
                 </div>
                 {view !== "shopping" && (
                   <Button
@@ -1202,9 +1149,6 @@ export function App({
                         <div className="section-heading">
                           <div>
                             <h2>Eerlijk verdeeld</h2>
-                            <p className="muted">
-                              Verrekeningen tellen nooit mee als huisuitgave.
-                            </p>
                           </div>
                           <button
                             className="text-link"
@@ -1387,49 +1331,68 @@ export function App({
                         aria-label="Zoeken"
                       />
                     </label>
-                    {view !== "rooms" && (
-                      <select
-                        aria-label="Filter op kamer"
-                        value={roomFilter}
-                        onChange={(e) => setRoomFilter(e.target.value)}
-                      >
-                        <option value="">Alle kamers</option>
-                        {r.rooms.map((k) => (
-                          <option value={k.id} key={k.id}>
-                            {k.title}
-                          </option>
-                        ))}
-                      </select>
-                    )}
-                    {statuses[view] && (
-                      <select
-                        aria-label="Filter op status"
-                        value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                      >
-                        <option value="">Alle statussen</option>
-                        {(view === "wishlist_items"
-                          ? [...statuses[view]!, "Gekocht"]
-                          : statuses[view]!
-                        ).map((s) => (
-                          <option key={s}>{s}</option>
-                        ))}
-                      </select>
-                    )}
-                    {view === "tasks" && (
-                      <select
-                        value={personFilter}
-                        onChange={(e) => setPersonFilter(e.target.value)}
-                        aria-label="Filter op persoon"
-                      >
-                        <option value="">Iedereen</option>
-                        {data.members.map((m) => (
-                          <option key={m.user_id} value={m.user_id}>
-                            {m.profiles.display_name}
-                          </option>
-                        ))}
-                      </select>
-                    )}
+                    <details className="filter-disclosure" key={view}>
+                      <summary>
+                        Filters
+                        {[roomFilter, statusFilter, personFilter].filter(
+                          Boolean,
+                        ).length > 0 && (
+                          <span className="filter-count">
+                            {
+                              [roomFilter, statusFilter, personFilter].filter(
+                                Boolean,
+                              ).length
+                            }
+                          </span>
+                        )}
+                        <ChevronDown size={15} />
+                      </summary>
+                      <div className="filter-options">
+                        {view !== "rooms" && (
+                          <select
+                            aria-label="Filter op kamer"
+                            value={roomFilter}
+                            onChange={(e) => setRoomFilter(e.target.value)}
+                          >
+                            <option value="">Alle kamers</option>
+                            {r.rooms.map((k) => (
+                              <option value={k.id} key={k.id}>
+                                {k.title}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                        {statuses[view] && (
+                          <select
+                            aria-label="Filter op status"
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                          >
+                            <option value="">Alle statussen</option>
+                            {(view === "wishlist_items"
+                              ? [...statuses[view]!, "Gekocht"]
+                              : statuses[view]!
+                            ).map((s) => (
+                              <option key={s}>{s}</option>
+                            ))}
+                          </select>
+                        )}
+                        {view === "tasks" && (
+                          <select
+                            value={personFilter}
+                            onChange={(e) => setPersonFilter(e.target.value)}
+                            aria-label="Filter op persoon"
+                          >
+                            <option value="">Iedereen</option>
+                            {data.members.map((m) => (
+                              <option key={m.user_id} value={m.user_id}>
+                                {m.profiles.display_name}
+                              </option>
+                            ))}
+                          </select>
+                        )}
+                      </div>
+                    </details>
                     <span className="result-count">
                       {visible.length}{" "}
                       {visible.length === 1 ? "onderdeel" : "onderdelen"}
@@ -1456,27 +1419,28 @@ export function App({
                     )}
                   </div>
                   {view === "tasks" && (
-                    <div className="tab-bar">
-                      {[
-                        "Lijst",
-                        "Kanban",
-                        "Per kamer",
-                        "Per persoon",
-                        "Kalender",
-                      ].map((m) => (
-                        <button
-                          className={taskMode === m ? "selected" : ""}
-                          key={m}
-                          onClick={() => setTaskMode(m)}
-                        >
-                          {m}
-                        </button>
-                      ))}
-                    </div>
+                    <label className="task-view-control">
+                      Weergave
+                      <select
+                        aria-label="Taakweergave"
+                        value={taskMode}
+                        onChange={(event) => setTaskMode(event.target.value)}
+                      >
+                        {[
+                          "Lijst",
+                          "Kanban",
+                          "Per kamer",
+                          "Per persoon",
+                          "Kalender",
+                        ].map((mode) => (
+                          <option key={mode}>{mode}</option>
+                        ))}
+                      </select>
+                    </label>
                   )}
                   {view === "wishlist_items" && (
                     <div className="panel wishlist-subtotal">
-                      <span>Geschat subtotaal van de getoonde producten</span>
+                      <span>Geschat totaal (huidige selectie)</span>
                       <strong>
                         {euro(
                           visible.reduce(
@@ -1721,7 +1685,6 @@ export function App({
             open={quick}
             onOpenChange={setQuick}
             title="Wat voegen we toe?"
-            description="Een idee, een plan of een kleine stap vooruit."
           >
             <div className="quick-grid">
               {quickOptions.map((q) => (
@@ -1730,7 +1693,6 @@ export function App({
                     <q.icon size={23} />
                   </span>
                   <strong>{labels[q.entity]}</strong>
-                  <small>{q.sub}</small>
                   <ArrowUpRight size={16} />
                 </button>
               ))}
@@ -1983,10 +1945,7 @@ function ActivityFeed({ data, limit }: { data: Snapshot; limit?: number }) {
           })}
         </ul>
       ) : (
-        <p className="small-empty">
-          Hier zie je straks wat jullie hebben toegevoegd, aangepast of
-          afgerond.
-        </p>
+        <p className="small-empty">Nog geen activiteiten.</p>
       )}
     </CopyScope>
   );

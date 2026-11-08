@@ -239,9 +239,7 @@ export function Shopping({
         {openItems.length ? (
           rows(openItems)
         ) : (
-          <p className="muted">
-            Alles in huis. Voeg hierboven toe wat jullie nodig hebben.
-          </p>
+          <p className="muted">Alles in huis.</p>
         )}
         {checkedItems.length > 0 && (
           <details className="shopping-checked">

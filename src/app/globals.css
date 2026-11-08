@@ -3714,3 +3714,129 @@ main {
     margin-bottom: 24px;
   }
 }
+
+/* Secondary tools stay available without filling the page header. */
+.filter-disclosure {
+  position: relative;
+}
+.filter-disclosure > summary,
+.finance-chart-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+.filter-disclosure > summary {
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+.filter-disclosure > summary::-webkit-details-marker,
+.finance-chart-details > summary::-webkit-details-marker {
+  display: none;
+}
+.filter-disclosure[open] > summary > svg {
+  transform: rotate(180deg);
+}
+.filter-count {
+  background: #edf3ee;
+  border-radius: 20px;
+  min-width: 22px;
+  text-align: center;
+  color: #356148;
+}
+.filter-options {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 10px;
+  width: 220px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 8px 24px #25382b12;
+}
+.filters .filter-options select {
+  max-width: 100%;
+  width: 100%;
+}
+.task-view-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.task-view-control select {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+}
+.finance-top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.finance-top .finance-total {
+  order: -1;
+  background: #fff;
+}
+.finance-chart-details > summary::after {
+  content: "+";
+  margin-left: auto;
+}
+.finance-chart-details[open] > summary::after {
+  content: "−";
+}
+.finance-chart-details[open] > summary {
+  margin-bottom: 18px;
+}
+.card-body p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-body p:empty {
+  display: none;
+}
+.quick-grid > button {
+  min-height: 88px;
+}
+@media (max-width: 700px) {
+  .filters .search-box {
+    flex: 1 1 100%;
+  }
+  .filter-options {
+    left: 0;
+    right: auto;
+    max-width: calc(100vw - 48px);
+  }
+}
+
+.text-card:has(.favorite-button) .card-title {
+  padding-right: 38px;
+}
+.empty-state {
+  padding: 36px 20px;
+}
+.empty-state h3 {
+  font-size: 20px;
+}
+.finance-chart-details .chart-container:has(.small-empty) {
+  height: 120px;
+}
+.finance-chart-details .chart-container .small-empty {
+  padding: 20px 0;
+}
