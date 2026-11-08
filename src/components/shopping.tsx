@@ -119,24 +119,6 @@ export function Shopping({
                 {/^[0-9]+$/.test(item.quantity) ? "×" : ""}
               </span>
             )}
-            {item.done && (
-              <button
-                className="button button-outline button-sm"
-                disabled={item.version === 0 || busyRows.has(item.id)}
-                onClick={() =>
-                  run(item, false, () =>
-                    changeShoppingItem(
-                      householdId,
-                      item.id,
-                      item.version,
-                      false,
-                    ),
-                  )
-                }
-              >
-                Terugzetten
-              </button>
-            )}
             <button
               className="icon-button"
               disabled={item.version === 0 || busyRows.has(item.id)}
