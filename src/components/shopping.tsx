@@ -260,10 +260,12 @@ export function Shopping({
             <p className="muted">Alles in huis.</p>
           )}
           {checkedItems.length > 0 && (
-            <details className="shopping-checked">
-              <summary>Afgevinkt ({checkedItems.length})</summary>
+            <section
+              className="shopping-checked"
+              aria-label="Afgevinkte boodschappen"
+            >
               {rows(checkedItems)}
-            </details>
+            </section>
           )}
         </div>
       </section>
