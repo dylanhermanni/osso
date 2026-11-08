@@ -578,7 +578,11 @@ export async function addShoppingItem(
     const item = z
       .object({
         title: z.string().trim().min(1, "Vul een product in.").max(120),
-        quantity: z.string().trim().max(40),
+        quantity: z
+          .string()
+          .trim()
+          .max(40)
+          .regex(/^[0-9]*$/, "Vul bij aantal alleen cijfers in."),
         store: z.string().trim().max(80),
       })
       .parse({ title, quantity, store });

@@ -1,7 +1,7 @@
 "use client";
 
 import { useOptimistic, useRef, useState, useTransition } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, ShoppingBasket } from "lucide-react";
 import { addShoppingItem, changeShoppingItem } from "@/lib/actions";
 import type { ShoppingItem } from "@/lib/types";
 import { CopyScope } from "./content-provider";
@@ -17,6 +17,7 @@ export function Shopping({
   const [pending, startTransition] = useTransition();
   const [busyRows, setBusyRows] = useState<Set<string>>(() => new Set());
   const [error, setError] = useState("");
+  const [quantityInput, setQuantityInput] = useState("");
   const [failedAdds, setFailedAdds] = useState<
     { item: ShoppingItem; message: string }[]
   >([]);
@@ -109,13 +110,15 @@ export function Shopping({
               />
               <span>
                 <strong>{item.title}</strong>
-                {(item.quantity || item.store) && (
-                  <small>
-                    {[item.quantity, item.store].filter(Boolean).join(" · ")}
-                  </small>
-                )}
+                {item.store && <small>{item.store}</small>}
               </span>
             </label>
+            {item.quantity && (
+              <span className="shopping-quantity">
+                {item.quantity}
+                {/^[0-9]+$/.test(item.quantity) ? "×" : ""}
+              </span>
+            )}
             {item.done && (
               <button
                 className="button button-outline button-sm"
@@ -131,7 +134,7 @@ export function Shopping({
                   )
                 }
               >
-                Opnieuw toevoegen
+                Terugzetten
               </button>
             )}
             <button
@@ -154,9 +157,9 @@ export function Shopping({
 
   return (
     <CopyScope>
-      <section className="panel shopping-panel">
+      <section className="shopping-panel">
         <form
-          className="shopping-form"
+          className="panel shopping-form"
           onSubmit={(event) => {
             event.preventDefault();
             const values = new FormData(event.currentTarget);
@@ -176,6 +179,7 @@ export function Shopping({
               version: 0,
             });
             event.currentTarget.reset();
+            setQuantityInput("");
             titleInput.current?.focus();
           }}
         >
@@ -192,23 +196,32 @@ export function Shopping({
               <Plus size={17} /> Toevoegen
             </button>
           </div>
-          <details>
-            <summary>Aantal of winkel toevoegen</summary>
-            <div className="shopping-extra">
-              <label className="field">
-                Aantal
-                <input
-                  name="quantity"
-                  maxLength={40}
-                  placeholder="Bijv. 2 pakken"
-                />
-              </label>
-              <label className="field">
-                Winkel
-                <input name="store" maxLength={80} />
-              </label>
-            </div>
-          </details>
+          <div className="shopping-extra">
+            <label className="field">
+              Aantal
+              <input
+                name="quantity"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={40}
+                placeholder="1"
+                value={quantityInput}
+                onChange={(event) => {
+                  if (/^[0-9]*$/.test(event.target.value))
+                    setQuantityInput(event.target.value);
+                }}
+              />
+            </label>
+            <label className="field">
+              Winkel
+              <input
+                name="store"
+                maxLength={80}
+                placeholder="Bijv. Albert Heijn"
+              />
+            </label>
+          </div>
         </form>
         {pending && (
           <p className="form-hint" role="status">
@@ -235,18 +248,24 @@ export function Shopping({
             </button>
           </div>
         ))}
-        <h2>Nog te halen</h2>
-        {openItems.length ? (
-          rows(openItems)
-        ) : (
-          <p className="muted">Alles in huis.</p>
-        )}
-        {checkedItems.length > 0 && (
-          <details className="shopping-checked">
-            <summary>Afgevinkt ({checkedItems.length})</summary>
-            {rows(checkedItems)}
-          </details>
-        )}
+        <div className="shopping-paper">
+          <div className="shopping-paper-heading">
+            <ShoppingBasket size={22} aria-hidden="true" />
+            <h2>Nog te halen</h2>
+            <span className="shopping-paper-count">{openItems.length}</span>
+          </div>
+          {openItems.length ? (
+            rows(openItems)
+          ) : (
+            <p className="muted">Alles in huis.</p>
+          )}
+          {checkedItems.length > 0 && (
+            <details className="shopping-checked">
+              <summary>Afgevinkt ({checkedItems.length})</summary>
+              {rows(checkedItems)}
+            </details>
+          )}
+        </div>
       </section>
     </CopyScope>
   );

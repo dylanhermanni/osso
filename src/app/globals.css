@@ -3868,3 +3868,102 @@ main {
 .sortable-tile:has(.tile-drag-handle) .room-open {
   display: none;
 }
+
+/* A quiet paper list with clear checkboxes and quantities. */
+.shopping-panel .shopping-form {
+  margin-bottom: 22px;
+}
+.shopping-panel .shopping-extra {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: minmax(80px, 0.4fr) minmax(0, 1fr);
+  gap: 14px;
+}
+.shopping-paper {
+  position: relative;
+  padding: 26px 24px 18px;
+  border: 1px solid #e6e0ce;
+  border-top: 4px solid #b8c9b8;
+  border-radius: 5px 5px 16px 16px;
+  background: #fffdf5;
+  box-shadow:
+    0 3px 0 #f2eedf,
+    0 4px 0 #e6e0ce,
+    0 12px 26px #403d2710;
+}
+.shopping-paper-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #dcd9c9;
+  color: #3c5c46;
+}
+.shopping-paper-heading h2 {
+  font-size: 21px;
+  margin: 0;
+}
+.shopping-paper-count {
+  margin-left: auto;
+  padding: 3px 10px;
+  border: 1px solid #dddccc;
+  border-radius: 20px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.shopping-paper .shopping-row {
+  min-height: 68px;
+  padding: 8px 0;
+  gap: 12px;
+  border-bottom: 1px solid #e7e4d7;
+}
+.shopping-paper .shopping-row label {
+  gap: 14px;
+}
+.shopping-paper .shopping-row input {
+  width: 23px;
+  height: 23px;
+}
+.shopping-paper .shopping-row strong {
+  font-size: 16px;
+  font-weight: 500;
+}
+.shopping-paper .shopping-row small {
+  font-size: 12px;
+  margin-top: 3px;
+}
+.shopping-paper .shopping-row .icon-button {
+  min-width: 44px;
+  min-height: 44px;
+  color: #8c9486;
+}
+.shopping-quantity {
+  flex-shrink: 0;
+  max-width: 30%;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  font-weight: 600;
+  color: #52694f;
+  font-variant-numeric: tabular-nums;
+}
+.shopping-paper > .muted {
+  padding: 24px 0;
+}
+.shopping-paper .shopping-checked {
+  margin-top: 18px;
+}
+.shopping-checked .shopping-row strong {
+  color: #879180;
+}
+@media (max-width: 500px) {
+  .shopping-paper {
+    padding: 22px 16px 16px;
+  }
+  .shopping-paper .shopping-row {
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .shopping-paper .shopping-row label {
+    flex-basis: 50%;
+  }
+}

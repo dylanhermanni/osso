@@ -155,14 +155,6 @@
     "template": false
   },
   {
-    "key": "copy_603ddca9",
-    "source": "Aantal of winkel toevoegen",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_c857dda0",
     "source": "Account maken",
     "groups": [
@@ -580,8 +572,8 @@
     "template": false
   },
   {
-    "key": "copy_1619e4e6",
-    "source": "Bijv. 2 pakken",
+    "key": "copy_30e3af8a",
+    "source": "Bijv. Albert Heijn",
     "groups": [
       "Website en navigatie"
     ],
@@ -2980,14 +2972,6 @@
     "template": false
   },
   {
-    "key": "copy_7aade886",
-    "source": "Opnieuw toevoegen",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_29b5fb14",
     "source": "Oppervlakte",
     "groups": [
@@ -3637,6 +3621,14 @@
     "template": false
   },
   {
+    "key": "copy_6cbd5d0e",
+    "source": "Terugzetten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_65187914",
     "source": "the Rooster",
     "groups": [
@@ -4140,6 +4132,14 @@
     "source": "vrijdag",
     "groups": [
       "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_80f8f9b0",
+    "source": "Vul bij aantal alleen cijfers in.",
+    "groups": [
+      "Meldingen en validatie"
     ],
     "template": false
   },
