@@ -4136,10 +4136,10 @@ main {
   min-height: 44px;
   color: #8c9486;
 }
-.shopping-quantity {
+.shopping-paper .shopping-row .shopping-quantity {
   flex-shrink: 0;
   overflow-wrap: anywhere;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: #52694f;
   font-variant-numeric: tabular-nums;
@@ -4225,4 +4225,15 @@ main {
 .phase-row .icon-button {
   min-width: 44px;
   min-height: 44px;
+}
+
+.visual-card[data-room-color="sage"] { --room-pastel: #e5efe4; }
+.visual-card[data-room-color="blue"] { --room-pastel: #e3eef8; }
+.visual-card[data-room-color="lilac"] { --room-pastel: #eee7f6; }
+.visual-card[data-room-color="rose"] { --room-pastel: #f7e6ec; }
+.visual-card[data-room-color="peach"] { --room-pastel: #faeadf; }
+.visual-card[data-room-color="yellow"] { --room-pastel: #f8f0d8; }
+.visual-card[data-room-color] {
+  background-color: var(--room-pastel);
+  border-color: color-mix(in srgb, var(--room-pastel), #3d4c3b 16%);
 }

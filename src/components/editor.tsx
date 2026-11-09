@@ -10,6 +10,7 @@ import { CalendarDays, ChevronDown, SlidersHorizontal } from "lucide-react";
 import { Button } from "./ui/button";
 import { Dialog } from "./ui/dialog";
 import { saveRecord, recordExpense, uploadFile } from "@/lib/actions";
+import { roomColors } from "@/lib/domain/room-colors";
 import { cents, splitCents, euro } from "@/lib/domain/finance";
 import { localToISO, today, ZONE } from "@/lib/domain/dates";
 import type { Entity, RecordData, Snapshot } from "@/lib/types";
@@ -171,6 +172,7 @@ export function Editor({
         input.image_url = str("image_url");
       if (entity === "rooms")
         Object.assign(input, {
+          color: nullable("color"),
           width_cm: str("width_cm") ? Number(str("width_cm")) : null,
           length_cm: str("length_cm") ? Number(str("length_cm")) : null,
           paint: str("paint"),
@@ -541,6 +543,17 @@ export function Editor({
                 )}
                 {entity === "rooms" && (
                   <>
+                    <label className="field">
+                      Pastelkleur
+                      <select name="color" defaultValue={record?.color ?? ""}>
+                        <option value="">Geen kleur</option>
+                        {Object.entries(roomColors).map(([color, label]) => (
+                          <option key={color} value={color}>
+                            {label}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                     <label className="field">
                       Breedte (cm)
                       <input

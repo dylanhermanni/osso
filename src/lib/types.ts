@@ -49,6 +49,7 @@ export type RecordData = {
   last_done?: string;
   paint?: string;
   materials?: string;
+  color?: keyof typeof import("./domain/room-colors").roomColors | null;
   width_cm?: number;
   length_cm?: number;
   sort_order?: number;

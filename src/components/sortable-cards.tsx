@@ -27,6 +27,7 @@ export function SortableCards({
   className,
   enabled,
   projects,
+  hideGrip = false,
   onReorder,
   onError,
   children,
@@ -35,6 +36,7 @@ export function SortableCards({
   className: string;
   enabled: boolean;
   projects: boolean;
+  hideGrip?: boolean;
   onReorder: (ids: string[]) => Promise<void>;
   onError: (message: string) => void;
   children: (item: RecordData, index: number) => ReactNode;
@@ -116,7 +118,7 @@ export function SortableCards({
               item={item}
               enabled={enabled && items.length > 1}
               disabled={pending}
-              showGrip={!projects}
+              showGrip={!hideGrip}
             >
               <CopyScope>{children(item, index)}</CopyScope>
             </SortableTile>

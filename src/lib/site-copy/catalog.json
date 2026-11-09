@@ -1562,6 +1562,14 @@
     "template": false
   },
   {
+    "key": "copy_4641ad7f",
+    "source": "Geen kleur",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_7ec13143",
     "source": "Geen openstaande taken.",
     "groups": [
@@ -3275,6 +3283,14 @@
     "source": "Pas je zoekterm of filters aan.",
     "groups": [
       "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_51e7dc2d",
+    "source": "Pastelkleur",
+    "groups": [
+      "Formulieren en velden"
     ],
     "template": false
   },

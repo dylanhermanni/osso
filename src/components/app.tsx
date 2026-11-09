@@ -521,6 +521,7 @@ export function App({
         className={`cards-grid ${entity === "ideas" ? "inspiration-grid" : ""}`}
         enabled={Boolean(h)}
         projects={entity === "projects"}
+        hideGrip={entity === "projects" || entity === "rooms"}
         onReorder={async (ids) => {
           if (!h) return;
           const saved = data.orders?.find((order) => order.entity === entity);
@@ -543,6 +544,13 @@ export function App({
           <article
             className={`visual-card${item.image_url ? "" : " text-card"}`}
             key={item.id}
+            data-room-color={
+              entity === "rooms"
+                ? item.color
+                : entity === "projects"
+                  ? r.rooms.find((room) => room.id === item.room_id)?.color
+                  : undefined
+            }
           >
             {item.image_url && (
               <button
@@ -717,7 +725,10 @@ export function App({
               >
                 <span className="avatar">
                   {name ? name[0] : <Users size={17} />}
-                  <ProfilePhoto url={currentMember?.avatarUrl} />
+                  <ProfilePhoto
+                    key={currentMember?.user_id}
+                    url={currentMember?.avatarUrl}
+                  />
                 </span>
                 <span>
                   <strong>
@@ -1798,11 +1809,22 @@ const activityEntities: Record<string, string> = {
 };
 
 function ProfilePhoto({ url }: { url?: string }) {
-  return url ? (
+  const [visibleUrl, setVisibleUrl] = useState(url);
+  useEffect(() => {
+    if (!url || url === visibleUrl) return;
+    const image = new window.Image();
+    image.onload = () => setVisibleUrl(url);
+    image.src = url;
+    return () => {
+      image.onload = null;
+    };
+  }, [url, visibleUrl]);
+
+  return visibleUrl ? (
     <Image
-      key={url}
+      key={visibleUrl}
       className="profile-photo"
-      src={url}
+      src={visibleUrl}
       alt=""
       width={36}
       height={36}

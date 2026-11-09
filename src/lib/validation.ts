@@ -1,3 +1,4 @@
+import { roomColors } from "./domain/room-colors";
 import { z } from "zod";
 import { nl } from "zod/locales";
 z.config(nl());
@@ -25,6 +26,10 @@ export const schemas = {
     url,
   }),
   rooms: z.object({
+    color: z
+      .enum(Object.keys(roomColors) as (keyof typeof roomColors)[])
+      .nullable()
+      .optional(),
     title: text,
     description: optionalText,
     image_url: url,
