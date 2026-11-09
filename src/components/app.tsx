@@ -23,7 +23,6 @@ import {
   Wallet,
   Heart,
   CalendarDays,
-  Wrench,
   Files,
   Search,
   Plus,
@@ -103,7 +102,6 @@ const navigation: {
   { key: "home", label: "Overzicht", icon: House },
   { key: "shopping", label: "Boodschappen", icon: ShoppingBasket },
   { key: "rooms", label: "Kamers", icon: LayoutGrid },
-  { key: "ideas", label: "Inspiratie", icon: Lightbulb },
   {
     key: "tasks",
     label: "Taken",
@@ -117,7 +115,6 @@ const navigation: {
     label: "Planning",
     icon: CalendarDays,
   },
-  { key: "maintenance_items", label: "Onderhoud", icon: Wrench },
   { key: "documents", label: "Woningdossier", icon: Files },
 ];
 const titles: Record<View, string> = {
