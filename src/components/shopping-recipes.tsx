@@ -1,7 +1,15 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  ArrowLeft,
+  BookOpen,
+  ChefHat,
+  Pencil,
+  Plus,
+  ShoppingBasket,
+  Trash2,
+} from "lucide-react";
 import {
   addRecipeToShopping,
   deleteShoppingRecipe,
@@ -41,248 +49,319 @@ export function ShoppingRecipes({
         Recepten
       </button>
       <Dialog
-        open={listOpen && editing === undefined && !deleting}
-        onOpenChange={setListOpen}
-        title="Recepten"
+        open={listOpen}
+        onOpenChange={(open) => {
+          if (pending) return;
+          setListOpen(open);
+          if (!open) {
+            setEditing(undefined);
+            setDeleting(undefined);
+            setFeedback(undefined);
+          }
+        }}
+        title="Boodschappen / Recepten"
+        className="recipe-workspace"
       >
-        <button
-          type="button"
-          className="button button-outline button-sm"
-          disabled={pending}
-          onClick={() => openEditor(null)}
-        >
-          <Plus size={16} aria-hidden="true" /> Nieuw recept
-        </button>
-        {recipes.length ? (
-          <ul className="shopping-list shopping-recipe-list">
-            {recipes.map((recipe) => (
-              <li key={recipe.id}>
+        <div className="recipe-page">
+          {editing === undefined && !deleting && (
+            <header className="recipe-hero">
+              <div>
+                <span className="recipe-eyebrow">
+                  CHEESE THE ROOSTER · KEUKEN
+                </span>
+                <h2>Ons receptenboek</h2>
+                <p>Van favoriete gerechten naar je boodschappenlijst.</p>
+              </div>
+              <div className="recipe-hero-art" aria-hidden="true">
+                <ChefHat size={85} strokeWidth={1.05} />
+              </div>
+            </header>
+          )}
+          {editing === undefined && !deleting && (
+            <section
+              className="recipe-collection"
+              aria-labelledby="recipe-collection-title"
+            >
+              <div className="recipe-section-heading">
+                <div>
+                  <h3 id="recipe-collection-title">Bewaarde recepten</h3>
+                  <p>
+                    {recipes.length}{" "}
+                    {recipes.length === 1 ? "recept" : "recepten"}
+                  </p>
+                </div>
                 <button
                   type="button"
-                  className="button button-outline button-sm"
-                  aria-label={`${recipe.title} toevoegen aan boodschappen`}
+                  className="button button-primary"
+                  disabled={pending}
+                  onClick={() => openEditor(null)}
+                >
+                  <Plus size={18} aria-hidden="true" /> Nieuw recept
+                </button>
+              </div>
+              {recipes.length ? (
+                <ul className="shopping-list shopping-recipe-list">
+                  {recipes.map((recipe) => (
+                    <li key={recipe.id} className="recipe-card">
+                      <div className="recipe-card-top">
+                        <span className="recipe-card-icon">
+                          <BookOpen size={20} aria-hidden="true" />
+                        </span>
+                        <div className="recipe-card-tools">
+                          <button
+                            type="button"
+                            className="icon-button"
+                            disabled={pending}
+                            aria-label={`${recipe.title} bewerken`}
+                            onClick={() => openEditor(recipe)}
+                          >
+                            <Pencil size={16} aria-hidden="true" />
+                          </button>
+                          <button
+                            type="button"
+                            className="icon-button"
+                            disabled={pending}
+                            aria-label={`${recipe.title} verwijderen`}
+                            onClick={() => {
+                              setFormError("");
+                              setDeleting(recipe);
+                            }}
+                          >
+                            <Trash2 size={16} aria-hidden="true" />
+                          </button>
+                        </div>
+                      </div>
+                      <h4>{recipe.title}</h4>
+                      <p>
+                        {recipe.ingredients.length}{" "}
+                        {recipe.ingredients.length === 1
+                          ? "ingrediënt"
+                          : "ingrediënten"}
+                      </p>
+                      <button
+                        type="button"
+                        className="button button-outline recipe-add-to-list"
+                        aria-label={`${recipe.title} toevoegen aan boodschappen`}
+                        disabled={pending}
+                        onClick={() => {
+                          setFeedback(undefined);
+                          startTransition(async () => {
+                            try {
+                              await addRecipeToShopping(householdId, recipe.id);
+                              setFeedback({
+                                text: `Ingrediënten voor ${recipe.title} staan op de lijst.`,
+                              });
+                            } catch (error) {
+                              setFeedback({
+                                text:
+                                  error instanceof Error
+                                    ? error.message
+                                    : "Ingrediënten toevoegen lukt niet.",
+                                error: true,
+                              });
+                            }
+                          });
+                        }}
+                      >
+                        <ShoppingBasket size={16} aria-hidden="true" /> Op
+                        boodschappenlijst
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="recipe-empty">
+                  <BookOpen size={28} aria-hidden="true" />
+                  <h4>Ruimte voor je favorieten</h4>
+                  <p>
+                    Sla je eerste recept op. Dan heb je de ingrediënten de
+                    volgende keer meteen bij de hand.
+                  </p>
+                </div>
+              )}
+              {feedback && (
+                <p
+                  role={feedback.error ? "alert" : "status"}
+                  className={feedback.error ? "form-error" : "form-hint"}
+                >
+                  {feedback.text}
+                </p>
+              )}
+            </section>
+          )}
+          {deleting && (
+            <section className="recipe-editor">
+              <h3>Recept verwijderen?</h3>
+              <p>Wil je {deleting?.title} uit je recepten verwijderen?</p>
+              {formError && (
+                <p className="form-error" role="alert">
+                  {formError}
+                </p>
+              )}
+              <div className="dialog-footer">
+                <button
+                  type="button"
+                  className="button button-outline"
+                  disabled={pending}
+                  onClick={() => setDeleting(undefined)}
+                >
+                  Annuleren
+                </button>
+                <button
+                  type="button"
+                  className="button button-primary"
                   disabled={pending}
                   onClick={() => {
-                    setFeedback(undefined);
+                    if (!deleting) return;
+                    setFormError("");
                     startTransition(async () => {
                       try {
-                        await addRecipeToShopping(householdId, recipe.id);
-                        setFeedback({
-                          text: `Ingrediënten voor ${recipe.title} staan op de lijst.`,
-                        });
+                        await deleteShoppingRecipe(householdId, deleting.id);
+                        setDeleting(undefined);
+                        setFeedback({ text: "Recept verwijderd." });
                       } catch (error) {
-                        setFeedback({
-                          text:
-                            error instanceof Error
-                              ? error.message
-                              : "Ingrediënten toevoegen lukt niet.",
-                          error: true,
-                        });
+                        setFormError(
+                          error instanceof Error
+                            ? error.message
+                            : "Recept verwijderen lukt niet.",
+                        );
                       }
                     });
                   }}
                 >
-                  <Plus size={16} aria-hidden="true" /> {recipe.title}
-                </button>
-                <button
-                  type="button"
-                  className="icon-button"
-                  disabled={pending}
-                  aria-label={`${recipe.title} bewerken`}
-                  onClick={() => openEditor(recipe)}
-                >
-                  <Pencil size={16} aria-hidden="true" />
-                </button>
-                <button
-                  type="button"
-                  className="icon-button"
-                  disabled={pending}
-                  aria-label={`${recipe.title} verwijderen`}
-                  onClick={() => {
-                    setFormError("");
-                    setDeleting(recipe);
-                  }}
-                >
-                  <Trash2 size={16} aria-hidden="true" />
-                </button>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p className="muted">
-            Bewaar je favoriete recepten en voeg alle ingrediënten met één tik
-            toe.
-          </p>
-        )}
-        {feedback && (
-          <p
-            role={feedback.error ? "alert" : "status"}
-            className={feedback.error ? "form-error" : "form-hint"}
-          >
-            {feedback.text}
-          </p>
-        )}
-      </Dialog>
-      <Dialog
-        open={!!deleting}
-        onOpenChange={(open) => {
-          if (!open && !pending) setDeleting(undefined);
-        }}
-        title="Recept verwijderen?"
-      >
-        <p>Wil je {deleting?.title} uit je recepten verwijderen?</p>
-        {formError && (
-          <p className="form-error" role="alert">
-            {formError}
-          </p>
-        )}
-        <div className="dialog-footer">
-          <button
-            type="button"
-            className="button button-outline"
-            disabled={pending}
-            onClick={() => setDeleting(undefined)}
-          >
-            Annuleren
-          </button>
-          <button
-            type="button"
-            className="button button-primary"
-            disabled={pending}
-            onClick={() => {
-              if (!deleting) return;
-              setFormError("");
-              startTransition(async () => {
-                try {
-                  await deleteShoppingRecipe(householdId, deleting.id);
-                  setDeleting(undefined);
-                  setFeedback({ text: "Recept verwijderd." });
-                } catch (error) {
-                  setFormError(
-                    error instanceof Error
-                      ? error.message
-                      : "Recept verwijderen lukt niet.",
-                  );
-                }
-              });
-            }}
-          >
-            Verwijderen
-          </button>
-        </div>
-      </Dialog>
-      <Dialog
-        open={editing !== undefined}
-        onOpenChange={(open) => {
-          if (!open && !pending) setEditing(undefined);
-        }}
-        title={editing ? "Recept bewerken" : "Nieuw recept"}
-      >
-        <form
-          className="editor-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            const values = new FormData(event.currentTarget);
-            const title = String(values.get("title") ?? "");
-            const ingredients = ingredientRows.map((row) =>
-              String(values.get(`ingredient-${row}`) ?? "").trim(),
-            );
-            const quantities = ingredientRows.map((row) =>
-              String(values.get(`quantity-${row}`) ?? "").trim(),
-            );
-            setFormError("");
-            startTransition(async () => {
-              try {
-                await saveShoppingRecipe(
-                  householdId,
-                  title,
-                  ingredients,
-                  quantities,
-                  editing?.id,
-                );
-                setEditing(undefined);
-                setFeedback({ text: "Recept opgeslagen." });
-              } catch (error) {
-                setFormError(
-                  error instanceof Error
-                    ? error.message
-                    : "Recept opslaan lukt niet.",
-                );
-              }
-            });
-          }}
-        >
-          <label className="field">
-            Receptnaam
-            <input
-              name="title"
-              defaultValue={editing?.title}
-              maxLength={120}
-              required
-            />
-          </label>
-          <fieldset className="recipe-ingredients">
-            <legend>Ingrediënten</legend>
-            {ingredientRows.map((row, index) => (
-              <div className="recipe-ingredient-row" key={row}>
-                <label className="field">
-                  Ingrediënt
-                  <input
-                    name={`ingredient-${row}`}
-                    defaultValue={editing?.ingredients[row]}
-                    placeholder="Bijv. pasta"
-                    maxLength={120}
-                    required
-                    pattern=".*\S.*"
-                  />
-                </label>
-                <label className="field">
-                  Hoeveelheid
-                  <input
-                    name={`quantity-${row}`}
-                    defaultValue={editing?.quantities?.[row]}
-                    placeholder="Bijv. 250 g"
-                    maxLength={40}
-                  />
-                </label>
-                <button
-                  type="button"
-                  className="icon-button"
-                  aria-label={`Ingrediënt ${index + 1} verwijderen`}
-                  disabled={pending || ingredientRows.length === 1}
-                  onClick={() =>
-                    setIngredientRows((rows) => rows.filter((id) => id !== row))
-                  }
-                >
-                  <Trash2 size={17} aria-hidden="true" />
+                  Verwijderen
                 </button>
               </div>
-            ))}
-            <button
-              type="button"
-              className="button button-outline button-sm"
-              disabled={pending || ingredientRows.length >= 50}
-              onClick={() => {
-                setIngredientRows((rows) => [...rows, Math.max(...rows) + 1]);
-              }}
-            >
-              <Plus size={16} aria-hidden="true" /> Ingrediënt toevoegen
-            </button>
-          </fieldset>
-          {formError && (
-            <p className="form-error" role="alert">
-              {formError}
-            </p>
+            </section>
           )}
-          <button
-            type="submit"
-            className="button button-primary"
-            disabled={pending}
-          >
-            Recept opslaan
-          </button>
-        </form>
+          {editing !== undefined && (
+            <section className="recipe-editor">
+              <button
+                type="button"
+                className="recipe-back"
+                disabled={pending}
+                onClick={() => setEditing(undefined)}
+              >
+                <ArrowLeft size={17} aria-hidden="true" /> Alle recepten
+              </button>
+              <h3>{editing ? "Recept bewerken" : "Nieuw recept"}</h3>
+              <p>
+                Geef je recept een naam en voeg de ingrediënten één voor één
+                toe.
+              </p>
+              <form
+                className="editor-form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  const values = new FormData(event.currentTarget);
+                  const title = String(values.get("title") ?? "");
+                  const ingredients = ingredientRows.map((row) =>
+                    String(values.get(`ingredient-${row}`) ?? "").trim(),
+                  );
+                  const quantities = ingredientRows.map((row) =>
+                    String(values.get(`quantity-${row}`) ?? "").trim(),
+                  );
+                  setFormError("");
+                  startTransition(async () => {
+                    try {
+                      await saveShoppingRecipe(
+                        householdId,
+                        title,
+                        ingredients,
+                        quantities,
+                        editing?.id,
+                      );
+                      setEditing(undefined);
+                      setFeedback({ text: "Recept opgeslagen." });
+                    } catch (error) {
+                      setFormError(
+                        error instanceof Error
+                          ? error.message
+                          : "Recept opslaan lukt niet.",
+                      );
+                    }
+                  });
+                }}
+              >
+                <label className="field">
+                  Receptnaam
+                  <input
+                    name="title"
+                    defaultValue={editing?.title}
+                    maxLength={120}
+                    required
+                  />
+                </label>
+                <fieldset className="recipe-ingredients">
+                  <legend>Ingrediënten</legend>
+                  {ingredientRows.map((row, index) => (
+                    <div className="recipe-ingredient-row" key={row}>
+                      <label className="field">
+                        Ingrediënt
+                        <input
+                          name={`ingredient-${row}`}
+                          defaultValue={editing?.ingredients[row]}
+                          placeholder="Bijv. pasta"
+                          maxLength={120}
+                          required
+                          pattern=".*\S.*"
+                        />
+                      </label>
+                      <label className="field">
+                        Hoeveelheid
+                        <input
+                          name={`quantity-${row}`}
+                          defaultValue={editing?.quantities?.[row]}
+                          placeholder="Bijv. 250 g"
+                          maxLength={40}
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        className="icon-button"
+                        aria-label={`Ingrediënt ${index + 1} verwijderen`}
+                        disabled={pending || ingredientRows.length === 1}
+                        onClick={() =>
+                          setIngredientRows((rows) =>
+                            rows.filter((id) => id !== row),
+                          )
+                        }
+                      >
+                        <Trash2 size={17} aria-hidden="true" />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    className="button button-outline button-sm"
+                    disabled={pending || ingredientRows.length >= 50}
+                    onClick={() => {
+                      setIngredientRows((rows) => [
+                        ...rows,
+                        Math.max(...rows) + 1,
+                      ]);
+                    }}
+                  >
+                    <Plus size={16} aria-hidden="true" /> Ingrediënt toevoegen
+                  </button>
+                </fieldset>
+                {formError && (
+                  <p className="form-error" role="alert">
+                    {formError}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="button button-primary"
+                  disabled={pending}
+                >
+                  Recept opslaan
+                </button>
+              </form>
+            </section>
+          )}
+        </div>
       </Dialog>
     </>
   );

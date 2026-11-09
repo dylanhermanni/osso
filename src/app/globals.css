@@ -3889,8 +3889,142 @@ main {
   display: grid;
   gap: 6px;
 }
+.dialog-content.recipe-workspace {
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  transform: none;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: #f8f6f0;
+  overflow-y: auto;
+}
+.recipe-workspace > .dialog-header {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  margin: 0;
+  padding: 12px max(20px, calc((100% - 1100px) / 2));
+  background: #fffdf8;
+  border-bottom: 1px solid #e8e4d9;
+}
+.recipe-workspace > .dialog-header h2 {
+  font-weight: 650;
+  font-size: 14px;
+  color: #40594a;
+}
+.recipe-page {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: clamp(16px, 4vw, 40px) clamp(16px, 4vw, 32px) 56px;
+}
+.recipe-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 230px;
+  padding: clamp(24px, 6vw, 64px);
+  border-radius: 24px;
+  background: #203e32;
+  color: #fffaf0;
+}
+.recipe-hero > div:first-child { z-index: 1; }
+.recipe-eyebrow {
+  color: #f1d8a5;
+  font-size: 11px;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+}
+.recipe-hero h2 {
+  margin: 14px 0 8px;
+  font: 500 clamp(38px, 7vw, 76px)/0.98 "Fraunces", Georgia, serif;
+  letter-spacing: -0.055em;
+  color: inherit;
+}
+.recipe-hero p { margin: 0; color: #ecede0; }
+.recipe-hero-art {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  top: 50%;
+  right: 7%;
+  translate: 0 -50%;
+  width: 180px;
+  aspect-ratio: 1;
+  border: 1px solid #ffffff45;
+  border-radius: 50%;
+  outline: 1px solid #ffffff26;
+  outline-offset: 14px;
+  box-shadow: 0 0 0 33px #ffffff0a, 0 0 0 52px #ffffff08;
+  color: #f1d8a5;
+  rotate: 10deg;
+}
+.recipe-collection { margin-top: 30px; }
+.recipe-section-heading, .recipe-card-top, .recipe-card-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.recipe-section-heading { margin-bottom: 15px; }
+.recipe-section-heading h3, .recipe-editor h3 {
+  margin: 0;
+  font: 600 clamp(23px, 4vw, 34px)/1.12 "Fraunces", Georgia, serif;
+  color: #203e32;
+}
+.recipe-section-heading p, .recipe-card p, .recipe-editor > p {
+  margin: 5px 0 0;
+  color: #5d665c;
+}
 .shopping-recipe-list {
-  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 14px;
+}
+.recipe-card, .recipe-editor, .recipe-empty {
+  padding: clamp(16px, 3vw, 26px);
+  border: 1px solid #e4ded1;
+  border-radius: 18px;
+  background: #fffdf8;
+}
+.recipe-card { min-width: 0; display: flex; flex-direction: column; }
+.recipe-card-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: #395747;
+  background: #eaf0e6;
+}
+.recipe-card h4, .recipe-empty h4 {
+  margin: 15px 0 0;
+  font: 600 24px/1.15 "Fraunces", Georgia, serif;
+  overflow-wrap: anywhere;
+}
+.recipe-card p { margin-bottom: 18px; }
+.recipe-card .recipe-add-to-list { margin-top: auto; align-self: start; }
+.recipe-empty { text-align: center; padding-block: 40px; color: #40594a; }
+.recipe-empty p { margin-bottom: 0; }
+.recipe-editor { margin: 0 auto; max-width: 720px; }
+.recipe-editor .editor-form { margin-top: 22px; padding: 0; }
+.recipe-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 4px 0;
+  color: #40594a;
+  font: inherit;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
 }
 .recipe-ingredients {
   display: grid;
@@ -3901,39 +4035,18 @@ main {
   margin-bottom: 8px;
   font-weight: 700;
 }
-.recipe-ingredients > button {
-  justify-self: start;
-}
+.recipe-ingredients > button { justify-self: start; }
 .recipe-ingredient-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(92px, 0.65fr) auto;
   align-items: end;
   gap: 8px;
 }
-.recipe-ingredient-row input {
-  width: 100%;
-  min-width: 0;
-}
-.shopping-recipe-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.shopping-recipe-list li {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-width: 0;
-  max-width: 100%;
-}
-.shopping-recipe-list button {
-  min-width: 0;
-  max-width: 100%;
-  white-space: normal;
-  overflow-wrap: anywhere;
-}
-.shopping-recipe-list svg {
-  flex-shrink: 0;
+.recipe-ingredient-row input { width: 100%; min-width: 0; }
+@media (max-width: 640px) {
+  .recipe-hero { min-height: 180px; }
+  .recipe-hero-art { right: -48px; opacity: 0.22; }
+  .recipe-section-heading > .button { padding-inline: 10px; }
 }
 .shopping-paper {
   position: relative;

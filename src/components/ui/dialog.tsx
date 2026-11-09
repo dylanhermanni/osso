@@ -11,6 +11,7 @@ export function Dialog({
   children,
   wide = false,
   editor = false,
+  className = "",
 }: {
   open: boolean;
   onOpenChange: (value: boolean) => void;
@@ -19,6 +20,7 @@ export function Dialog({
   children: React.ReactNode;
   wide?: boolean;
   editor?: boolean;
+  className?: string;
 }) {
   return (
     <CopyScope>
@@ -27,7 +29,7 @@ export function Dialog({
           <DialogPrimitive.Portal>
             <DialogPrimitive.Overlay className="dialog-overlay" />
             <DialogPrimitive.Content
-              className={`dialog-content ${wide ? "dialog-wide" : ""} ${editor ? "dialog-editor" : ""}`}
+              className={`dialog-content ${wide ? "dialog-wide" : ""} ${editor ? "dialog-editor" : ""} ${className}`}
             >
               <div className="dialog-header">
                 <div>

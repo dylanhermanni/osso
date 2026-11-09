@@ -312,6 +312,14 @@
     "template": false
   },
   {
+    "key": "copy_e3e9f5b7",
+    "source": "Alle recepten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_6c02e6fb",
     "source": "Alle statussen",
     "groups": [
@@ -540,8 +548,8 @@
     "template": false
   },
   {
-    "key": "copy_d110fea1",
-    "source": "Bewaar je favoriete recepten en voeg alle ingrediënten met één tik toe.",
+    "key": "copy_d99c8986",
+    "source": "Bewaarde recepten",
     "groups": [
       "Website en navigatie"
     ],
@@ -669,6 +677,14 @@
     "template": false
   },
   {
+    "key": "copy_1d615394",
+    "source": "Boodschappen / Recepten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_c83aae2b",
     "source": "Boodschappen opslaan…",
     "groups": [
@@ -763,6 +779,14 @@
   {
     "key": "copy_02940047",
     "source": "Cheese the Rooster — naar overzicht",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ad5f5d41",
+    "source": "CHEESE THE ROOSTER · KEUKEN",
     "groups": [
       "Website en navigatie"
     ],
@@ -1559,6 +1583,14 @@
     "source": "Geef je afspraak een naam en kies het tijdstip.",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_20a424f6",
+    "source": "Geef je recept een naam en voeg de ingrediënten één voor één toe.",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -3084,10 +3116,26 @@
     "template": false
   },
   {
+    "key": "copy_d8fce086",
+    "source": "Ons receptenboek",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_4ef858a5",
     "source": "Oorspronkelijke uitgave",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5f07cd7c",
+    "source": "Op boodschappenlijst",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -3538,6 +3586,14 @@
     "template": false
   },
   {
+    "key": "copy_21a6f50f",
+    "source": "Ruimte voor je favorieten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_c514756f",
     "source": "Samen",
     "groups": [
@@ -3591,6 +3647,14 @@
     "source": "september",
     "groups": [
       "Planning"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6ca13e35",
+    "source": "Sla je eerste recept op. Dan heb je de ingrediënten de volgende keer meteen bij de hand.",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -4127,6 +4191,14 @@
       "Website en navigatie",
       "Formulieren en velden",
       "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_75210ab7",
+    "source": "Van favoriete gerechten naar je boodschappenlijst.",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
