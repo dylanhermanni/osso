@@ -881,11 +881,7 @@ export function App({
                       )}
                     </section>
                   )}
-                  <section
-                    className="home-more"
-                    aria-labelledby="home-more-heading"
-                  >
-                    <h2 id="home-more-heading">Meer over jullie huis</h2>
+                  <section className="home-more" aria-label="Huisoverzicht">
                     <div className="stats-grid">
                       <button className="stat-card" onClick={() => go("tasks")}>
                         <div>

@@ -1942,6 +1942,14 @@
     "template": false
   },
   {
+    "key": "copy_af48e596",
+    "source": "Huisoverzicht",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_79978d6e",
     "source": "Idee",
     "groups": [
@@ -2648,14 +2656,6 @@
   {
     "key": "copy_f1b4a69c",
     "source": "Meer",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_42552670",
-    "source": "Meer over jullie huis",
     "groups": [
       "Website en navigatie"
     ],

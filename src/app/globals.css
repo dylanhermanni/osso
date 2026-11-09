@@ -3680,17 +3680,6 @@ main {
 .home-tasks-panel .task-title small {
   font-size: 13px;
 }
-.home-more {
-  border-top: 1px solid var(--line);
-  margin-top: 12px;
-}
-.home-more > h2 {
-  margin: 0;
-  padding: 22px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #526057;
-}
 .home-more .stat-card {
   background: #fff;
 }
