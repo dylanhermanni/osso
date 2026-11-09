@@ -1557,11 +1557,11 @@ export function App({
               <Plus size={25} />
             </button>
             <button
-              className={view === "calendar_events" ? "active" : ""}
-              onClick={() => go("calendar_events")}
+              className={view === "tasks" ? "active" : ""}
+              onClick={() => go("tasks")}
             >
-              <CalendarDays size={20} />
-              Planning
+              <CheckCheck size={20} />
+              Taken
             </button>
             <button onClick={() => setShowMenu(true)}>
               <MoreHorizontal size={20} />
