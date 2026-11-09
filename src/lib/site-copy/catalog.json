@@ -280,14 +280,6 @@
     "template": false
   },
   {
-    "key": "copy_81f444fe",
-    "source": "Alle afspraken",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_860841d4",
     "source": "Alle kamers",
     "groups": [
@@ -354,14 +346,6 @@
   {
     "key": "copy_263d5614",
     "source": "Alles in huis.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_189dc723",
-    "source": "ALLES PER KAMER",
     "groups": [
       "Website en navigatie"
     ],
@@ -923,14 +907,6 @@
     "template": false
   },
   {
-    "key": "copy_53c11cb2",
-    "source": "De woonkamer, de keuken of een fijne tuin.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_402e1ed5",
     "source": "Deadline",
     "groups": [
@@ -1239,14 +1215,6 @@
     "template": false
   },
   {
-    "key": "copy_dd088e95",
-    "source": "Een lege agenda, vol mogelijkheden.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_b1473b62",
     "source": "Een nieuw begin. Koppel Supabase om jullie eigen huisgegevens veilig op te slaan.",
     "groups": [
@@ -1483,7 +1451,6 @@
     "key": "copy_b45c94aa",
     "source": "Gearchiveerd",
     "groups": [
-      "Website en navigatie",
       "Formulieren en velden",
       "Meldingen en validatie"
     ],
@@ -1573,14 +1540,6 @@
   {
     "key": "copy_20a424f6",
     "source": "Geef je recept een naam en voeg de ingrediënten één voor één toe.",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_d88371df",
-    "source": "Geef jullie eerste kamer een plek.",
     "groups": [
       "Website en navigatie"
     ],
@@ -2294,14 +2253,6 @@
     "source": "Kamer",
     "groups": [
       "Formulieren en velden"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_fe5916df",
-    "source": "Kamer toevoegen",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -3156,14 +3107,6 @@
     "template": false
   },
   {
-    "key": "copy_c6c5e6ba",
-    "source": "Op de planning",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_44ed9d52",
     "source": "Open taken",
     "groups": [
@@ -3379,14 +3322,6 @@
   {
     "key": "copy_b460ce59",
     "source": "Plak hier de code uit de uitnodiging",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_9b3fb875",
-    "source": "Plan iets samen",
     "groups": [
       "Website en navigatie"
     ],
@@ -4557,14 +4492,6 @@
     "source": "Vul minstens één ingrediënt in.",
     "groups": [
       "Meldingen en validatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_3f721da0",
-    "source": "Waar begint jullie verhaal?",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },

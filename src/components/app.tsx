@@ -872,16 +872,17 @@ export function App({
                         </button>
                       </div>
                       {tasks.length ? (
-                        <div>{tasks.slice(0, 3).map(taskRow)}</div>
+                        <div>{tasks.slice(0, 5).map(taskRow)}</div>
                       ) : (
                         <p className="small-empty">Geen openstaande taken.</p>
                       )}
                     </section>
                   )}
-                  <details className="home-more">
-                    <summary>
-                      Meer over jullie huis <ChevronDown size={18} />
-                    </summary>
+                  <section
+                    className="home-more"
+                    aria-labelledby="home-more-heading"
+                  >
+                    <h2 id="home-more-heading">Meer over jullie huis</h2>
                     <div className="stats-grid">
                       <button className="stat-card" onClick={() => go("tasks")}>
                         <div>
@@ -951,110 +952,7 @@ export function App({
                         </small>
                       </button>
                     </div>
-                    <section className="dashboard-section">
-                      <div className="section-heading">
-                        <div>
-                          <p className="eyebrow">ALLES PER KAMER</p>
-                          <h2>Jullie kamers</h2>
-                        </div>
-                        <button
-                          className="text-link"
-                          onClick={() => go("rooms")}
-                        >
-                          Alle kamers <ArrowRight size={16} />
-                        </button>
-                      </div>
-                      {r.rooms.length ? (
-                        grid(
-                          "rooms",
-                          orderedRecords(
-                            r.rooms.filter(
-                              (room) => room.status !== "Gearchiveerd",
-                            ),
-                            data.orders?.find(
-                              (order) => order.entity === "rooms",
-                            ),
-                            "rooms",
-                          ).slice(0, 3),
-                        )
-                      ) : (
-                        <button
-                          className="start-room-card"
-                          onClick={() => create("rooms")}
-                        >
-                          <span className="empty-room-art">
-                            <House size={50} strokeWidth={1} />
-                            <Leaf size={24} />
-                          </span>
-                          <span>
-                            <h3>Waar begint jullie verhaal?</h3>
-                            <p>
-                              De woonkamer, de keuken of een fijne tuin.
-                              <br />
-                              Geef jullie eerste kamer een plek.
-                            </p>
-                            <span className="text-link">
-                              Kamer toevoegen <Plus size={15} />
-                            </span>
-                          </span>
-                          <span className="room-drawing" />
-                        </button>
-                      )}
-                    </section>
-                    <div className="dashboard-bottom">
-                      <section className="panel">
-                        <div className="section-heading">
-                          <h2>Op de planning</h2>
-                          <button
-                            className="icon-button"
-                            onClick={() => go("calendar_events")}
-                            aria-label="Alle afspraken"
-                          >
-                            <ArrowUpRight size={18} />
-                          </button>
-                        </div>
-                        {upcoming.length ? (
-                          upcoming.slice(0, 3).map((e) => (
-                            <button
-                              className="agenda-row"
-                              key={e.id}
-                              onClick={() => open(e.kind, e)}
-                            >
-                              <span className="date-block">
-                                <strong>{new Date(e.when).getDate()}</strong>
-                                <small>
-                                  {new Intl.DateTimeFormat("nl-NL", {
-                                    month: "short",
-                                    timeZone: "Europe/Amsterdam",
-                                  }).format(new Date(e.when))}
-                                </small>
-                              </span>
-                              <span>
-                                <strong>{e.title}</strong>
-                                <small>
-                                  {labels[e.kind]} ·{" "}
-                                  {r.rooms.find((k) => k.id === e.room_id)
-                                    ?.title || "Ons huis"}
-                                </small>
-                              </span>
-                              <ChevronRight size={15} />
-                            </button>
-                          ))
-                        ) : (
-                          <div className="small-empty">
-                            <CalendarDays size={25} />
-                            <p>Een lege agenda, vol mogelijkheden.</p>
-                            <button
-                              className="text-link"
-                              onClick={() => create("calendar_events")}
-                            >
-                              Plan iets samen <Plus size={14} />
-                            </button>
-                          </div>
-                        )}
-                      </section>
-                    </div>
-                  </details>
+                  </section>
                 </>
               ) : view === "shopping" ? (
                 h ? (

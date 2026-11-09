@@ -3664,28 +3664,15 @@ main {
   border-top: 1px solid var(--line);
   margin-top: 12px;
 }
-.home-more > summary {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.home-more > h2 {
+  margin: 0;
   padding: 22px 0;
-  cursor: pointer;
-  list-style: none;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #526057;
 }
-.home-more > summary::-webkit-details-marker {
-  display: none;
-}
-.home-more[open] > summary > svg {
-  transform: rotate(180deg);
-}
 .home-more .stat-card {
   background: #fff;
-}
-.home-more .dashboard-section .eyebrow {
-  display: none;
 }
 @media (max-width: 700px) {
   .home-overview .dashboard-top {
