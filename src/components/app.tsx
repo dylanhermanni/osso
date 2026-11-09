@@ -65,6 +65,7 @@ import {
   invite,
   saveRecord,
   readTaskNotification,
+  uploadProfilePhoto,
   reorderRecords,
   removeRecord,
   completeMaintenance,
@@ -346,8 +347,8 @@ export function App({
   const householdBudget = r.budgets
     .filter((b) => !b.room_id && !b.project_id)
     .reduce((n, b) => n + (b.amount_cents || 0), 0);
-  const name = data.members.find((m) => m.user_id === data.user?.id)?.profiles
-    .display_name;
+  const currentMember = data.members.find((m) => m.user_id === data.user?.id);
+  const name = currentMember?.profiles.display_name;
   const activeProjects = r.projects.filter(
     (p) => p.status !== "Afgerond" && p.status !== "Gepauzeerd",
   );
@@ -716,6 +717,7 @@ export function App({
               >
                 <span className="avatar">
                   {name ? name[0] : <Users size={17} />}
+                  <ProfilePhoto url={currentMember?.avatarUrl} />
                 </span>
                 <span>
                   <strong>
@@ -796,6 +798,7 @@ export function App({
                         title={member.profiles.display_name}
                       >
                         {member.profiles.display_name[0]}
+                        <ProfilePhoto url={member.avatarUrl} />
                       </span>
                     ))}
                   </div>
@@ -1625,12 +1628,48 @@ export function App({
                 </>
               ) : (
                 <>
+                  {h && currentMember && (
+                    <form
+                      className="profile-photo-form"
+                      onSubmit={(event) => {
+                        event.preventDefault();
+                        const form = event.currentTarget;
+                        const values = new FormData(form);
+                        mutate(async () => {
+                          await uploadProfilePhoto(h, values);
+                          form.reset();
+                        }, "Profielfoto opgeslagen.");
+                      }}
+                    >
+                      <label className="field">
+                        Profielfoto
+                        <input
+                          name="photo"
+                          type="file"
+                          accept="image/jpeg,image/png,image/webp"
+                          required
+                          disabled={pending}
+                        />
+                      </label>
+                      <p className="form-hint">
+                        JPG, PNG of WebP, maximaal 3 MB.
+                      </p>
+                      <Button
+                        type="submit"
+                        variant="outline"
+                        disabled={pending}
+                      >
+                        {pending ? "Opslaan…" : "Profielfoto opslaan"}
+                      </Button>
+                    </form>
+                  )}
                   {h && <h3>Leden van jullie huishouden</h3>}
                   <div className="settings-members">
                     {data.members.map((m) => (
                       <div key={m.user_id}>
                         <span className="avatar">
                           {m.profiles.display_name[0]}
+                          <ProfilePhoto url={m.avatarUrl} />
                         </span>
                         <strong>{m.profiles.display_name}</strong>
                         <small>Gelijkwaardige partner</small>
@@ -1755,6 +1794,23 @@ const activityEntities: Record<string, string> = {
   settlements: "Verrekening",
   shopping_items: "Boodschappen",
 };
+
+function ProfilePhoto({ url }: { url?: string }) {
+  return url ? (
+    <Image
+      key={url}
+      className="profile-photo"
+      src={url}
+      alt=""
+      width={36}
+      height={36}
+      unoptimized
+      onError={(event) => {
+        event.currentTarget.hidden = true;
+      }}
+    />
+  ) : null;
+}
 
 function activityName(data: Snapshot, userId: string | null | undefined) {
   return (

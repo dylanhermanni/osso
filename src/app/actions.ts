@@ -315,27 +315,34 @@ async function toggleChildImpl(
     .single();
   checked(error);
 }
+async function fileSignature(file: File) {
+  const bytes = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  return Array.from(bytes)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+function validImageSignature(file: File, signature: string) {
+  return file.type === "image/jpeg"
+    ? signature.startsWith("ffd8ff")
+    : file.type === "image/png"
+      ? signature.startsWith("89504e470d0a1a0a")
+      : file.type === "image/webp"
+        ? signature.startsWith("52494646") &&
+          signature.slice(16, 24) === "57454250"
+        : false;
+}
+
 async function uploadFileImpl(h: string, form: FormData) {
   const { db } = await member(h);
   const file = form.get("file");
   if (!(file instanceof File) || file.size === 0 || file.size > 3 * 1024 * 1024)
     throw new Error("Kies een bestand van maximaal 3 MB.");
-  const bytes = new Uint8Array(await file.slice(0, 16).arrayBuffer());
-  const signature = Array.from(bytes)
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join("");
-  const valid =
-    file.type === "application/pdf"
-      ? signature.startsWith("25504446")
-      : file.type === "image/jpeg"
-        ? signature.startsWith("ffd8ff")
-        : file.type === "image/png"
-          ? signature.startsWith("89504e470d0a1a0a")
-          : file.type === "image/webp"
-            ? signature.startsWith("52494646") &&
-              signature.slice(16, 24) === "57454250"
-            : false;
-  if (!valid)
+  const signature = await fileSignature(file);
+  if (
+    !validImageSignature(file, signature) &&
+    !(file.type === "application/pdf" && signature.startsWith("25504446"))
+  )
     throw new Error(
       "Alleen geldige JPG-, PNG-, WebP- en PDF-bestanden zijn toegestaan.",
     );
@@ -745,6 +752,25 @@ export async function addRecipeToShopping(
     const { error } = await db
       .from("shopping_items")
       .insert(titles.map((title) => ({ household_id: householdId, title })));
+    checked(error);
+  });
+}
+
+export async function uploadProfilePhoto(householdId: string, form: FormData) {
+  return actionResult(async () => {
+    const { db, user } = await member(householdId);
+    const file = form.get("photo");
+    if (!(file instanceof File) || !file.size || file.size > 3 * 1024 * 1024)
+      throw new Error("Kies een foto van maximaal 3 MB.");
+    if (!validImageSignature(file, await fileSignature(file)))
+      throw new Error("Kies een geldige JPG-, PNG- of WebP-afbeelding.");
+    const { error } = await db.storage
+      .from("profile-photos")
+      .upload(`${householdId}/${user.id}`, file, {
+        contentType: file.type,
+        cacheControl: "0",
+        upsert: true,
+      });
     checked(error);
   });
 }

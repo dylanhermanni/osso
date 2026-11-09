@@ -61,7 +61,11 @@ export type RecordData = {
   refund_of?: string | null;
   reversed_at?: string | null;
 };
-export type Member = { user_id: string; profiles: { display_name: string } };
+export type Member = {
+  user_id: string;
+  profiles: { display_name: string };
+  avatarUrl?: string;
+};
 export type Child = {
   id: string;
   household_id: string;

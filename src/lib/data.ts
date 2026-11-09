@@ -128,6 +128,21 @@ export async function loadSnapshot(): Promise<Snapshot> {
     ),
   ]);
   void results;
+  if (data.members.length) {
+    const { data: photos } = await db.storage
+      .from("profile-photos")
+      .createSignedUrls(
+        data.members.map((member) => `${h}/${member.user_id}`),
+        3600,
+      );
+    const urls = new Map(
+      photos
+        ?.filter((photo) => !photo.error)
+        .map((photo) => [photo.path, photo.signedUrl]),
+    );
+    for (const member of data.members)
+      member.avatarUrl = urls.get(`${h}/${member.user_id}`) ?? undefined;
+  }
   data.members.sort((a, b) =>
     a.profiles.display_name.localeCompare(b.profiles.display_name, "nl"),
   );

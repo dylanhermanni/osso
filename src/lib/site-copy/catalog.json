@@ -2177,6 +2177,14 @@
     "template": false
   },
   {
+    "key": "copy_b56ac672",
+    "source": "JPG, PNG of WebP, maximaal 3 MB.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_f1d0edc5",
     "source": "JPG, PNG, WebP of PDF · maximaal 3 MB · privé opgeslagen.",
     "groups": [
@@ -2299,6 +2307,22 @@
   {
     "key": "copy_ecd489ad",
     "source": "Kies een bestand van maximaal 3 MB.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_237be014",
+    "source": "Kies een foto van maximaal 3 MB.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_bccfbebd",
+    "source": "Kies een geldige JPG-, PNG- of WebP-afbeelding.",
     "groups": [
       "Meldingen en validatie"
     ],
@@ -3371,6 +3395,30 @@
   {
     "key": "copy_89348897",
     "source": "Product voor de boodschappenlijst",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c9bcea6a",
+    "source": "Profielfoto",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_450859c5",
+    "source": "Profielfoto opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_90ecd146",
+    "source": "Profielfoto opslaan",
     "groups": [
       "Website en navigatie"
     ],
