@@ -2,7 +2,7 @@
 import { CopyScope } from "@/components/content-provider";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { DateTime } from "luxon";
@@ -53,6 +53,15 @@ const formSchema = z.object({
   description: z.string().max(10000),
 });
 type FormValues = z.infer<typeof formSchema>;
+function roomSearchText(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, " ")
+    .trim();
+}
+
 export function Editor({
   entity,
   record,
@@ -74,6 +83,7 @@ export function Editor({
 }) {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [chosenRoom, setChosenRoom] = useState<string>();
   const [roomWidth, setRoomWidth] = useState(String(record?.width_cm ?? ""));
   const [roomLength, setRoomLength] = useState(String(record?.length_cm ?? ""));
   const roomArea =
@@ -102,6 +112,7 @@ export function Editor({
   const [requestId] = useState(() => crypto.randomUUID());
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
@@ -111,6 +122,22 @@ export function Editor({
       description: record?.description || "",
     },
   });
+  const title = useWatch({ control, name: "title" });
+  const defaultRoom = record?.room_id || linkedRoom || purchase?.room_id || "";
+  const canSuggestRoom =
+    entity === "tasks" && !record && !defaultRoom && chosenRoom === undefined;
+  const titleText = ` ${roomSearchText(title)} `;
+  const matchingRooms = canSuggestRoom
+    ? data.records.rooms.filter((room) => {
+        const roomName = roomSearchText(room.title);
+        return (
+          room.status !== "Gearchiveerd" &&
+          roomName &&
+          titleText.includes(` ${roomName} `)
+        );
+      })
+    : [];
+  const suggestedRoom = matchingRooms.length === 1 ? matchingRooms[0].id : "";
   const h = data.household?.id;
   const appointment = entity === "calendar_events";
   const canLink = !["rooms"].includes(entity);
@@ -289,9 +316,8 @@ export function Editor({
           Kamer
           <select
             name="room_id"
-            defaultValue={
-              record?.room_id || linkedRoom || purchase?.room_id || ""
-            }
+            value={chosenRoom ?? (defaultRoom || suggestedRoom)}
+            onChange={(event) => setChosenRoom(event.target.value)}
           >
             <option value="">Hele huis</option>
             {data.records.rooms.map((r) => (
