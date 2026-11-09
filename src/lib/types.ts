@@ -107,6 +107,13 @@ export type ShoppingRecipe = {
 
 export type Snapshot = {
   shoppingRecipes: ShoppingRecipe[];
+  notifications: {
+    id: string;
+    task_id: string | null;
+    title: string;
+    read_at: string | null;
+    created_at: string;
+  }[];
   orders?: import("./domain/order").RecordOrder[];
   shopping: ShoppingItem[];
   configured: boolean;

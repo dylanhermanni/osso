@@ -264,14 +264,6 @@
     "template": false
   },
   {
-    "key": "copy_125ce274",
-    "source": "Afspraak plannen",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_c0c2619b",
     "source": "Al gespaard",
     "groups": [
@@ -1335,14 +1327,6 @@
     "template": false
   },
   {
-    "key": "copy_0e2b0104",
-    "source": "Even aan denken",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_aa0be00a",
     "source": "Even geduld…",
     "groups": [
@@ -1363,14 +1347,6 @@
     "source": "Even offline.",
     "groups": [
       "App en browser"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_103545cf",
-    "source": "Even snel toevoegen",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -1893,14 +1869,6 @@
     "template": false
   },
   {
-    "key": "copy_ae8660ff",
-    "source": "Herinneringen",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_294a37c0",
     "source": "Herinneringen verschijnen hier in de app. E-mail- en pushberichten zijn nog niet beschikbaar.",
     "groups": [
@@ -2262,14 +2230,6 @@
     "source": "juli",
     "groups": [
       "Planning"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_9c1b0610",
-    "source": "Jullie aankomende afspraken, deadlines en onderhoud.",
-    "groups": [
-      "Website en navigatie"
     ],
     "template": false
   },
@@ -2751,6 +2711,22 @@
     "template": false
   },
   {
+    "key": "copy_41d1e4be",
+    "source": "Meldingen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_d1c54ef1",
+    "source": "Meldingen, nieuwe taakmeldingen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_d76d8c4d",
     "source": "Menu openen",
     "groups": [
@@ -2877,6 +2853,14 @@
     "groups": [
       "Formulieren en velden",
       "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_e138f8aa",
+    "source": "Nieuw ·",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -3861,14 +3845,6 @@
     "template": false
   },
   {
-    "key": "copy_0a164d7e",
-    "source": "Taak toevoegen",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_453369e8",
     "source": "Taakweergave",
     "groups": [
@@ -4032,6 +4008,14 @@
   {
     "key": "copy_652d1f96",
     "source": "Toegevoegd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_234ee930",
+    "source": "Toegewezen taken en herinneringen voor jullie huis.",
     "groups": [
       "Website en navigatie"
     ],

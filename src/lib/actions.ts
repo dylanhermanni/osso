@@ -65,6 +65,9 @@ export const deleteShoppingRecipe = (
 export const addRecipeToShopping = (
   ...args: Parameters<typeof server.addRecipeToShopping>
 ) => unwrap(server.addRecipeToShopping(...args));
+export const readTaskNotification = (
+  ...args: Parameters<typeof server.readTaskNotification>
+) => unwrap(server.readTaskNotification(...args));
 export const reorderRecords = (
   ...args: Parameters<typeof server.reorderRecords>
 ) => unwrap(server.reorderRecords(...args));

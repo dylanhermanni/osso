@@ -749,6 +749,23 @@ export async function addRecipeToShopping(
   });
 }
 
+export async function readTaskNotification(
+  householdId: string,
+  notificationId: string,
+) {
+  return actionResult(async () => {
+    const { db, user } = await member(householdId);
+    const { error } = await db
+      .from("notifications")
+      .update({ read_at: new Date().toISOString() })
+      .eq("id", id.parse(notificationId))
+      .eq("household_id", householdId)
+      .eq("user_id", user.id)
+      .is("read_at", null);
+    checked(error);
+  });
+}
+
 export async function reorderRecords(
   h: string,
   entity: string,

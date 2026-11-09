@@ -3654,6 +3654,12 @@ main {
 .home-overview .home-tasks-panel {
   margin-bottom: 28px;
 }
+.home-tasks-panel .task-title strong {
+  font-size: 17px;
+}
+.home-tasks-panel .task-title small {
+  font-size: 14px;
+}
 .home-more {
   border-top: 1px solid var(--line);
   margin-top: 12px;

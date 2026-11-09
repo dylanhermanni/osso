@@ -64,6 +64,7 @@ import {
   signout,
   invite,
   saveRecord,
+  readTaskNotification,
   reorderRecords,
   removeRecord,
   completeMaintenance,
@@ -259,6 +260,7 @@ export function App({
     for (const table of [
       ...entities,
       "activity_log",
+      "notifications",
       "shopping_items",
       "shopping_recipes",
       "record_orders",
@@ -392,7 +394,9 @@ export function App({
       }
     : null;
   const date = today();
-  const openShoppingCount = data.shopping.filter((item) => !item.done).length;
+  const hasUnreadNotifications = data.notifications.some(
+    (entry) => !entry.read_at,
+  );
   const scheduled = [
     ...r.calendar_events.map((e) => ({
       ...e,
@@ -772,10 +776,16 @@ export function App({
                 <button
                   className="icon-button notification-button"
                   onClick={() => setNotificationOpen(true)}
-                  aria-label="Herinneringen"
+                  aria-label={
+                    hasUnreadNotifications
+                      ? "Meldingen, nieuwe taakmeldingen"
+                      : "Meldingen"
+                  }
                 >
                   <Bell size={19} />
-                  {(upcoming.length > 0 || attention.length > 0) && <i />}
+                  {(hasUnreadNotifications ||
+                    upcoming.length > 0 ||
+                    attention.length > 0) && <i />}
                 </button>
                 {data.members.length > 0 && (
                   <div className="couple-avatars">
@@ -850,38 +860,6 @@ export function App({
               )}
               {view === "home" ? (
                 <>
-                  <div className="dashboard-top">
-                    <section
-                      className="quick-start-card"
-                      aria-labelledby="quick-start-heading"
-                    >
-                      <div className="section-heading">
-                        <div>
-                          <h2 id="quick-start-heading">Even snel toevoegen</h2>
-                        </div>
-                        <Plus size={22} aria-hidden="true" />
-                      </div>
-                      <div className="quick-start-actions">
-                        <button onClick={() => go("shopping")}>
-                          <ShoppingBasket size={19} />
-                          <span>Boodschappen</span>
-                          <span className="shopping-count">
-                            {openShoppingCount}
-                          </span>
-                        </button>
-                        <button onClick={() => create("tasks")}>
-                          <CheckCheck size={19} />
-                          <span>Taak toevoegen</span>
-                          <ArrowUpRight size={16} />
-                        </button>
-                        <button onClick={() => create("calendar_events")}>
-                          <CalendarDays size={19} />
-                          <span>Afspraak plannen</span>
-                          <ArrowUpRight size={16} />
-                        </button>
-                      </div>
-                    </section>
-                  </div>
                   {h && (
                     <section className="panel home-tasks-panel">
                       <div className="section-heading">
@@ -1791,10 +1769,39 @@ export function App({
           <Dialog
             open={notificationOpen}
             onOpenChange={setNotificationOpen}
-            title="Even aan denken"
-            description="Jullie aankomende afspraken, deadlines en onderhoud."
+            title="Meldingen"
+            description="Toegewezen taken en herinneringen voor jullie huis."
           >
             <div className="settings-content">
+              {data.notifications.map((entry) => (
+                <button
+                  type="button"
+                  className="record-row"
+                  key={entry.id}
+                  disabled={pending}
+                  onClick={() => {
+                    if (h && !entry.read_at) {
+                      mutate(() => readTaskNotification(h, entry.id), "");
+                    }
+                    const task = r.tasks.find(
+                      (item) => item.id === entry.task_id,
+                    );
+                    if (task) {
+                      setNotificationOpen(false);
+                      open("tasks", task);
+                    }
+                  }}
+                >
+                  <CheckCheck size={19} />
+                  <span className="record-name">
+                    <strong>{entry.title}</strong>
+                    <small>
+                      {!entry.read_at && "Nieuw · "}
+                      {dateLabel(entry.created_at)}
+                    </small>
+                  </span>
+                </button>
+              ))}
               {attention.length > 0 || upcoming.length > 0 ? (
                 [
                   ...attention.filter((entry) => entry.day < date),
@@ -1818,12 +1825,12 @@ export function App({
                     <ChevronRight size={16} />
                   </button>
                 ))
-              ) : (
+              ) : data.notifications.length === 0 ? (
                 <div className="small-empty">
                   <CheckCheck size={30} />
                   <p>Je bent helemaal bij.</p>
                 </div>
-              )}
+              ) : null}
               <p className="form-hint">
                 Herinneringen verschijnen hier in de app. E-mail- en
                 pushberichten zijn nog niet beschikbaar.
