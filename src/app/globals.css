@@ -1015,9 +1015,6 @@ main {
   padding: 0;
   list-style: none;
 }
-.activity-panel {
-  margin-bottom: 22px;
-}
 .record-attribution {
   color: var(--muted);
   font-size: 13px;
@@ -3654,7 +3651,7 @@ main {
 .home-overview .quick-start-actions button > svg:first-child {
   color: #52705b;
 }
-.home-overview .activity-panel {
+.home-overview .home-tasks-panel {
   margin-bottom: 28px;
 }
 .home-more {

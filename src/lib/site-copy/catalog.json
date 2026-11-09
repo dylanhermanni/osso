@@ -288,14 +288,6 @@
     "template": false
   },
   {
-    "key": "copy_a85a5d26",
-    "source": "Alle activiteiten",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
     "key": "copy_81f444fe",
     "source": "Alle afspraken",
     "groups": [
@@ -322,6 +314,14 @@
   {
     "key": "copy_6c02e6fb",
     "source": "Alle statussen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_c19bcb3c",
+    "source": "Alle taken",
     "groups": [
       "Website en navigatie"
     ],
@@ -1621,6 +1621,14 @@
   {
     "key": "copy_3c34c409",
     "source": "Geen datum",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7ec13143",
+    "source": "Geen openstaande taken.",
     "groups": [
       "Website en navigatie"
     ],
@@ -3504,14 +3512,6 @@
       "Website en navigatie"
     ],
     "template": true
-  },
-  {
-    "key": "copy_5e17e67c",
-    "source": "Recente activiteiten",
-    "groups": [
-      "Website en navigatie"
-    ],
-    "template": false
   },
   {
     "key": "copy_6331fe99",

@@ -883,17 +883,21 @@ export function App({
                     </section>
                   </div>
                   {h && (
-                    <section className="panel activity-panel">
+                    <section className="panel home-tasks-panel">
                       <div className="section-heading">
-                        <h2>Recente activiteiten</h2>
+                        <h2>Openstaande taken</h2>
                         <button
                           className="text-link"
-                          onClick={() => go("activity")}
+                          onClick={() => go("tasks")}
                         >
-                          Alle activiteiten <ArrowUpRight size={16} />
+                          Alle taken <ArrowUpRight size={16} />
                         </button>
                       </div>
-                      <ActivityFeed data={data} limit={3} />
+                      {tasks.length ? (
+                        <div>{tasks.slice(0, 3).map(taskRow)}</div>
+                      ) : (
+                        <p className="small-empty">Geen openstaande taken.</p>
+                      )}
                     </section>
                   )}
                   <details className="home-more">
@@ -1854,8 +1858,8 @@ function activityName(data: Snapshot, userId: string | null | undefined) {
   );
 }
 
-function ActivityFeed({ data, limit }: { data: Snapshot; limit?: number }) {
-  const activity = data.activity.slice(0, limit);
+function ActivityFeed({ data }: { data: Snapshot }) {
+  const activity = data.activity;
   return (
     <CopyScope>
       {activity.length ? (
