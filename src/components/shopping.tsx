@@ -113,15 +113,15 @@ export function Shopping({
               />
               <span>
                 <strong>{item.title}</strong>
+                {item.quantity && (
+                  <small className="shopping-quantity">
+                    {item.quantity}
+                    {/^[0-9]+$/.test(item.quantity) ? "×" : ""}
+                  </small>
+                )}
                 {item.store && <small>{item.store}</small>}
               </span>
             </label>
-            {item.quantity && (
-              <span className="shopping-quantity">
-                {item.quantity}
-                {/^[0-9]+$/.test(item.quantity) ? "×" : ""}
-              </span>
-            )}
             <button
               className="icon-button"
               disabled={item.version === 0 || busyRows.has(item.id)}

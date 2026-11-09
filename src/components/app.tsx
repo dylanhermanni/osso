@@ -807,7 +807,13 @@ export function App({
             </header>
             <main
               id="main-content"
-              className={view === "home" ? "home-overview" : undefined}
+              className={
+                view === "home"
+                  ? "home-overview"
+                  : view === "tasks"
+                    ? "tasks-page"
+                    : undefined
+              }
             >
               <div className="page-heading">
                 <div>

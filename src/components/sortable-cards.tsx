@@ -116,6 +116,7 @@ export function SortableCards({
               item={item}
               enabled={enabled && items.length > 1}
               disabled={pending}
+              showGrip={!projects}
             >
               <CopyScope>{children(item, index)}</CopyScope>
             </SortableTile>
@@ -130,11 +131,13 @@ function SortableTile({
   item,
   disabled,
   enabled,
+  showGrip,
   children,
 }: {
   item: RecordData;
   enabled: boolean;
   disabled: boolean;
+  showGrip: boolean;
   children: ReactNode;
 }) {
   const {
@@ -158,13 +161,13 @@ function SortableTile({
           ref={setActivatorNodeRef}
           type="button"
           disabled={disabled}
-          className="tile-drag-handle"
+          className={`tile-drag-handle${showGrip ? "" : " tile-drag-handle-plain"}`}
           {...attributes}
           {...listeners}
           aria-label={`${item.title} verplaatsen`}
           title="Sleep om te verplaatsen"
         >
-          <GripVertical size={19} />
+          {showGrip && <GripVertical size={19} />}
         </button>
       )}
     </div>

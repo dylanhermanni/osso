@@ -3674,6 +3674,12 @@ main {
 .home-overview .home-tasks-panel {
   margin-bottom: 28px;
 }
+.tasks-page .task-title strong {
+  font-size: 18px;
+}
+.tasks-page .task-title small {
+  font-size: 14px;
+}
 .home-tasks-panel .task-title strong {
   font-size: 16px;
 }
@@ -3860,6 +3866,14 @@ main {
   color: #526b59;
   cursor: grab;
   touch-action: none;
+}
+.tile-drag-handle-plain {
+  border-color: transparent;
+  background: transparent;
+}
+.tile-drag-handle-plain:focus-visible {
+  outline: 2px solid var(--forest);
+  background: #fff;
 }
 .tile-drag-handle:active {
   cursor: grabbing;
@@ -4091,6 +4105,11 @@ main {
   font-size: 13px;
   font-variant-numeric: tabular-nums;
 }
+.shopping-paper .shopping-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 20px;
+}
 .shopping-paper .shopping-row {
   min-height: 68px;
   padding: 8px 0;
@@ -4119,7 +4138,6 @@ main {
 }
 .shopping-quantity {
   flex-shrink: 0;
-  max-width: 30%;
   overflow-wrap: anywhere;
   font-size: 14px;
   font-weight: 600;
@@ -4139,12 +4157,23 @@ main {
   .shopping-paper {
     padding: 22px 16px 16px;
   }
-  .shopping-paper .shopping-row {
-    gap: 8px;
-    flex-wrap: wrap;
+  .shopping-paper .shopping-list {
+    column-gap: 10px;
   }
+  .shopping-paper .shopping-row,
   .shopping-paper .shopping-row label {
-    flex-basis: 50%;
+    gap: 6px;
+  }
+  .shopping-paper .shopping-row input {
+    width: 18px;
+    height: 18px;
+  }
+  .shopping-paper .shopping-row strong {
+    font-size: 14px;
+  }
+  .shopping-paper .shopping-row .icon-button {
+    min-width: 32px;
+    padding: 0;
   }
 }
 
