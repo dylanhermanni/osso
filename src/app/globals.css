@@ -3883,11 +3883,49 @@ main {
   gap: 14px;
 }
 .shopping-recipes {
-  margin-bottom: 22px;
+  margin-top: 20px;
+  border-top: 1px solid var(--line);
 }
-.shopping-recipes > .muted,
-.shopping-recipe-list {
+.shopping-recipes > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 10px 0;
+  color: var(--forest);
+  cursor: pointer;
+}
+.shopping-recipes > summary::-webkit-details-marker {
+  display: none;
+}
+.shopping-recipes[open] > summary svg {
+  transform: rotate(180deg);
+}
+.shopping-recipes-body > .muted,
+.shopping-recipes-body > .shopping-recipe-list {
   margin-top: 12px;
+}
+.recipe-ingredients {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.recipe-ingredients legend {
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.recipe-ingredients > button {
+  justify-self: start;
+}
+.recipe-ingredient-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(92px, 0.65fr) auto;
+  align-items: end;
+  gap: 8px;
+}
+.recipe-ingredient-row input {
+  width: 100%;
+  min-width: 0;
 }
 .shopping-recipe-list {
   display: flex;

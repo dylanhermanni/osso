@@ -596,8 +596,8 @@
     "template": false
   },
   {
-    "key": "copy_ef752cef",
-    "source": "Bijv. 250 g pasta",
+    "key": "copy_7e5c8a98",
+    "source": "Bijv. 250 g",
     "groups": [
       "Website en navigatie"
     ],
@@ -614,6 +614,14 @@
   {
     "key": "copy_6ead1add",
     "source": "Bijv. melk",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_24336d01",
+    "source": "Bijv. pasta",
     "groups": [
       "Website en navigatie"
     ],
@@ -1868,6 +1876,14 @@
     "template": false
   },
   {
+    "key": "copy_792301f9",
+    "source": "Hoeveelheid",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_52f50eae",
     "source": "Home",
     "groups": [
@@ -1977,8 +1993,40 @@
     "template": false
   },
   {
-    "key": "copy_511bba80",
-    "source": "Ingrediënten (één per regel)",
+    "key": "copy_e5d618b4",
+    "source": "Ingrediënt",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_158cb0a8",
+    "source": "Ingrediënt {1} verwijderen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_ac708d64",
+    "source": "Ingrediënt toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_81d30b38",
+    "source": "ingredient-{1}",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
+    "key": "copy_ee466e97",
+    "source": "Ingrediënten",
     "groups": [
       "Website en navigatie"
     ],
@@ -3359,6 +3407,14 @@
       "Website en navigatie"
     ],
     "template": false
+  },
+  {
+    "key": "copy_32079f3e",
+    "source": "quantity-{1}",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
   },
   {
     "key": "copy_5e17e67c",

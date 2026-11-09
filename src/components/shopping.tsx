@@ -233,7 +233,6 @@ export function Shopping({
             </button>
           </div>
         ))}
-        <ShoppingRecipes householdId={householdId} recipes={recipes} />
         <div className="shopping-paper">
           <div className="shopping-paper-heading">
             <ShoppingBasket size={22} aria-hidden="true" />
@@ -254,6 +253,7 @@ export function Shopping({
             </section>
           )}
         </div>
+        <ShoppingRecipes householdId={householdId} recipes={recipes} />
       </section>
     </CopyScope>
   );
