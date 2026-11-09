@@ -1,7 +1,7 @@
 "use client";
 
 import { useOptimistic, useRef, useState, useTransition } from "react";
-import { Plus, Trash2, ShoppingBasket } from "lucide-react";
+import { ChevronDown, Plus, Trash2, ShoppingBasket } from "lucide-react";
 import { addShoppingItem, changeShoppingItem } from "@/lib/actions";
 import { ShoppingRecipes } from "./shopping-recipes";
 import type { ShoppingItem, ShoppingRecipe } from "@/lib/types";
@@ -143,74 +143,80 @@ export function Shopping({
   return (
     <CopyScope>
       <section className="shopping-panel">
-        <form
-          className="panel shopping-form"
-          onSubmit={(event) => {
-            event.preventDefault();
-            const values = new FormData(event.currentTarget);
-            const title = String(values.get("title") ?? "").trim();
-            const quantity = String(values.get("quantity") ?? "").trim();
-            const store = String(values.get("store") ?? "").trim();
-            if (!title) {
-              setError("Vul een product in.");
-              return;
-            }
-            add({
-              id: crypto.randomUUID(),
-              title,
-              quantity,
-              store,
-              done: false,
-              version: 0,
-            });
-            event.currentTarget.reset();
-            setQuantityInput("");
-            titleInput.current?.focus();
-          }}
-        >
-          <div className="shopping-add">
-            <input
-              ref={titleInput}
-              name="title"
-              required
-              maxLength={120}
-              aria-label="Product voor de boodschappenlijst"
-              placeholder="Bijv. melk"
-            />
-            <div className="shopping-add-actions">
-              <button className="button button-primary" type="submit">
-                <Plus size={17} /> Toevoegen
-              </button>{" "}
-              <ShoppingRecipes householdId={householdId} recipes={recipes} />
+        <details className="panel shopping-entry">
+          <summary>
+            <Plus size={18} aria-hidden="true" /> Boodschappen toevoegen
+            <ChevronDown size={18} aria-hidden="true" />
+          </summary>
+          <form
+            className="shopping-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              const values = new FormData(event.currentTarget);
+              const title = String(values.get("title") ?? "").trim();
+              const quantity = String(values.get("quantity") ?? "").trim();
+              const store = String(values.get("store") ?? "").trim();
+              if (!title) {
+                setError("Vul een product in.");
+                return;
+              }
+              add({
+                id: crypto.randomUUID(),
+                title,
+                quantity,
+                store,
+                done: false,
+                version: 0,
+              });
+              event.currentTarget.reset();
+              setQuantityInput("");
+              titleInput.current?.focus();
+            }}
+          >
+            <div className="shopping-add">
+              <input
+                ref={titleInput}
+                name="title"
+                required
+                maxLength={120}
+                aria-label="Product voor de boodschappenlijst"
+                placeholder="Bijv. melk"
+              />
+              <div className="shopping-add-actions">
+                <button className="button button-primary" type="submit">
+                  <Plus size={17} /> Toevoegen
+                </button>{" "}
+                <ShoppingRecipes householdId={householdId} recipes={recipes} />
+              </div>
             </div>
-          </div>
-          <div className="shopping-extra">
-            <label className="field">
-              Aantal
-              <input
-                name="quantity"
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                maxLength={40}
-                placeholder="1"
-                value={quantityInput}
-                onChange={(event) => {
-                  if (/^[0-9]*$/.test(event.target.value))
-                    setQuantityInput(event.target.value);
-                }}
-              />
-            </label>
-            <label className="field">
-              Winkel
-              <input
-                name="store"
-                maxLength={80}
-                placeholder="Bijv. Albert Heijn"
-              />
-            </label>
-          </div>
-        </form>
+            <div className="shopping-extra">
+              <label className="field">
+                Aantal
+                <input
+                  name="quantity"
+                  type="text"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={40}
+                  placeholder="1"
+                  value={quantityInput}
+                  onChange={(event) => {
+                    if (/^[0-9]*$/.test(event.target.value))
+                      setQuantityInput(event.target.value);
+                  }}
+                />
+              </label>
+              <label className="field">
+                Winkel
+                <input
+                  name="store"
+                  maxLength={80}
+                  placeholder="Bijv. Albert Heijn"
+                />
+              </label>
+            </div>
+          </form>
+        </details>
         {pending && (
           <p className="form-hint" role="status">
             Boodschappen opslaan…

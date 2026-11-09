@@ -3674,6 +3674,20 @@ main {
 .home-overview .home-tasks-panel {
   margin-bottom: 28px;
 }
+.tasks-page .task-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 clamp(8px, 3vw, 28px);
+}
+.tasks-page .task-list .task-row {
+  min-width: 0;
+  gap: clamp(5px, 1.3vw, 12px);
+  border-bottom: 1px solid var(--line);
+}
+.tasks-page .task-list .task-title {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
 .tasks-page .task-title strong {
   font-size: 18px;
 }
@@ -3868,6 +3882,8 @@ main {
   touch-action: none;
 }
 .tile-drag-handle-plain {
+  left: auto;
+  right: 10px;
   border-color: transparent;
   background: transparent;
 }
@@ -3878,16 +3894,40 @@ main {
 .tile-drag-handle:active {
   cursor: grabbing;
 }
-.sortable-tile:has(.tile-drag-handle) .text-card .card-title {
+.sortable-tile:has(.tile-drag-handle:not(.tile-drag-handle-plain)) .text-card .card-title {
   padding-left: 36px;
+}
+.sortable-tile:has(.tile-drag-handle-plain) .text-card .card-title {
+  padding-right: 30px;
 }
 .sortable-tile:has(.tile-drag-handle) .room-open {
   display: none;
 }
 
 /* A quiet paper list with clear checkboxes and quantities. */
-.shopping-panel .shopping-form {
+.shopping-entry {
   margin-bottom: 22px;
+}
+.shopping-entry > summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--forest);
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+.shopping-entry > summary::-webkit-details-marker {
+  display: none;
+}
+.shopping-entry > summary svg:last-child {
+  margin-left: auto;
+}
+.shopping-entry[open] > summary svg:last-child {
+  transform: rotate(180deg);
+}
+.shopping-panel .shopping-form {
+  margin: 16px 0 0;
 }
 .shopping-panel .shopping-extra {
   margin-top: 16px;

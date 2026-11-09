@@ -1809,31 +1809,28 @@ const activityEntities: Record<string, string> = {
 };
 
 function ProfilePhoto({ url }: { url?: string }) {
-  const [visibleUrl, setVisibleUrl] = useState(url);
-  useEffect(() => {
-    if (!url || url === visibleUrl) return;
-    const image = new window.Image();
-    image.onload = () => setVisibleUrl(url);
-    image.src = url;
-    return () => {
-      image.onload = null;
-    };
-  }, [url, visibleUrl]);
-
-  return visibleUrl ? (
+  const [visibleUrl, setVisibleUrl] = useState<string>();
+  // Keep the loaded image mounted until its replacement has loaded in place.
+  const sources = [visibleUrl, url].filter(
+    (source, index, all): source is string =>
+      Boolean(source) && all.indexOf(source) === index,
+  );
+  return sources.map((source) => (
     <Image
-      key={visibleUrl}
+      key={source}
       className="profile-photo"
-      src={visibleUrl}
+      src={source}
       alt=""
       width={36}
       height={36}
       unoptimized
-      onError={(event) => {
-        event.currentTarget.hidden = true;
+      loading="eager"
+      style={{ opacity: visibleUrl === source ? 1 : 0 }}
+      onLoad={() => {
+        if (source === url) setVisibleUrl(source);
       }}
     />
-  ) : null;
+  ));
 }
 
 function activityName(data: Snapshot, userId: string | null | undefined) {
