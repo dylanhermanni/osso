@@ -56,6 +56,12 @@ export const addShoppingItem = (
 export const changeShoppingItem = (
   ...args: Parameters<typeof server.changeShoppingItem>
 ) => unwrap(server.changeShoppingItem(...args));
+export const createShoppingRecipe = (
+  ...args: Parameters<typeof server.createShoppingRecipe>
+) => unwrap(server.createShoppingRecipe(...args));
+export const addRecipeToShopping = (
+  ...args: Parameters<typeof server.addRecipeToShopping>
+) => unwrap(server.addRecipeToShopping(...args));
 export const reorderRecords = (
   ...args: Parameters<typeof server.reorderRecords>
 ) => unwrap(server.reorderRecords(...args));

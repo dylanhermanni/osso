@@ -263,6 +263,7 @@ export function App({
       ...entities,
       "activity_log",
       "shopping_items",
+      "shopping_recipes",
       "record_orders",
       "idea_comments",
       "task_comments",
@@ -1078,7 +1079,11 @@ export function App({
                 </>
               ) : view === "shopping" ? (
                 h ? (
-                  <Shopping householdId={h} items={data.shopping} />
+                  <Shopping
+                    householdId={h}
+                    items={data.shopping}
+                    recipes={data.shoppingRecipes}
+                  />
                 ) : null
               ) : view === "activity" ? (
                 <section className="panel">

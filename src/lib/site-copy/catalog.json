@@ -89,6 +89,14 @@
     "template": true
   },
   {
+    "key": "copy_fa798982",
+    "source": "{1} toevoegen aan boodschappen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
     "key": "copy_13f7b1fd",
     "source": "{1} verplaatsen",
     "groups": [
@@ -523,6 +531,14 @@
     "template": false
   },
   {
+    "key": "copy_d110fea1",
+    "source": "Bewaar je favoriete recepten en voeg alle ingrediënten met één tik toe.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_27130629",
     "source": "Bewaren",
     "groups": [
@@ -574,6 +590,14 @@
   {
     "key": "copy_6ec29915",
     "source": "Bijlage toevoegen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_ef752cef",
+    "source": "Bijv. 250 g pasta",
     "groups": [
       "Website en navigatie"
     ],
@@ -1458,6 +1482,22 @@
     "template": false
   },
   {
+    "key": "copy_ab76e42b",
+    "source": "Gebruik maximaal 120 tekens per ingrediënt.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_08f39f21",
+    "source": "Gebruik maximaal 50 ingrediënten per recept.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_8106eca7",
     "source": "Gebruik minimaal 10 tekens.",
     "groups": [
@@ -1935,6 +1975,30 @@
       "Website en navigatie"
     ],
     "template": false
+  },
+  {
+    "key": "copy_511bba80",
+    "source": "Ingrediënten (één per regel)",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_6241e187",
+    "source": "Ingrediënten toevoegen lukt niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_cf94171f",
+    "source": "Ingrediënten voor {1} staan op de lijst.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
   },
   {
     "key": "copy_24bfcb5e",
@@ -2696,6 +2760,14 @@
     "template": false
   },
   {
+    "key": "copy_07db38c4",
+    "source": "Nieuw recept",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_1c4af8df",
     "source": "Nieuw toevoegen",
     "groups": [
@@ -3291,6 +3363,54 @@
   {
     "key": "copy_5e17e67c",
     "source": "Recente activiteiten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_0c5f3d03",
+    "source": "Recept opgeslagen.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_13c5062f",
+    "source": "Recept ophalen lukt niet.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_32d984b0",
+    "source": "Recept opslaan",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_67e2f21e",
+    "source": "Recept opslaan lukt niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_5600298b",
+    "source": "Recepten",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_96c1ac5f",
+    "source": "Receptnaam",
     "groups": [
       "Website en navigatie"
     ],
@@ -4192,6 +4312,14 @@
     "template": false
   },
   {
+    "key": "copy_c3e26b05",
+    "source": "Vul een receptnaam in.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_503b9a8b",
     "source": "Vul een titel in.",
     "groups": [
@@ -4212,6 +4340,14 @@
     "source": "Vul lengte en breedte in",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_77e9774d",
+    "source": "Vul minstens één ingrediënt in.",
+    "groups": [
+      "Meldingen en validatie"
     ],
     "template": false
   },

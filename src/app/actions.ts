@@ -623,6 +623,64 @@ export async function changeShoppingItem(
   });
 }
 
+const recipeIngredients = z
+  .array(
+    z
+      .string()
+      .trim()
+      .min(1)
+      .max(120, "Gebruik maximaal 120 tekens per ingrediënt."),
+  )
+  .min(1, "Vul minstens één ingrediënt in.")
+  .max(50, "Gebruik maximaal 50 ingrediënten per recept.");
+
+export async function createShoppingRecipe(
+  householdId: string,
+  title: string,
+  ingredients: string[],
+) {
+  return actionResult(async () => {
+    const name = z
+      .string()
+      .trim()
+      .min(1, "Vul een receptnaam in.")
+      .max(120)
+      .parse(title);
+    const items = recipeIngredients.parse(ingredients);
+    const { db } = await member(householdId);
+    const { error } = await db.from("shopping_recipes").insert({
+      household_id: householdId,
+      title: name,
+      ingredients: items,
+    });
+    checked(error);
+  });
+}
+
+export async function addRecipeToShopping(
+  householdId: string,
+  recipeId: string,
+) {
+  return actionResult(async () => {
+    id.parse(recipeId);
+    const { db } = await member(householdId);
+    const { data: recipe, error: readError } = await db
+      .from("shopping_recipes")
+      .select("ingredients")
+      .eq("household_id", householdId)
+      .eq("id", recipeId)
+      .maybeSingle();
+    if (readError || !recipe) throw new Error("Recept ophalen lukt niet.");
+    const ingredients = recipeIngredients.parse(recipe.ingredients);
+    const { error } = await db
+      .from("shopping_items")
+      .insert(
+        ingredients.map((title) => ({ household_id: householdId, title })),
+      );
+    checked(error);
+  });
+}
+
 export async function reorderRecords(
   h: string,
   entity: string,

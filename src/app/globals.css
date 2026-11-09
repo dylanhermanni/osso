@@ -3882,6 +3882,30 @@ main {
   grid-template-columns: minmax(80px, 0.4fr) minmax(0, 1fr);
   gap: 14px;
 }
+.shopping-recipes {
+  margin-bottom: 22px;
+}
+.shopping-recipes > .muted,
+.shopping-recipe-list {
+  margin-top: 12px;
+}
+.shopping-recipe-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.shopping-recipe-list li {
+  min-width: 0;
+  max-width: 100%;
+}
+.shopping-recipe-list button {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.shopping-recipe-list svg {
+  flex-shrink: 0;
+}
 .shopping-paper {
   position: relative;
   padding: 26px 24px 18px;

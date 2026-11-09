@@ -3,15 +3,18 @@
 import { useOptimistic, useRef, useState, useTransition } from "react";
 import { Plus, Trash2, ShoppingBasket } from "lucide-react";
 import { addShoppingItem, changeShoppingItem } from "@/lib/actions";
-import type { ShoppingItem } from "@/lib/types";
+import { ShoppingRecipes } from "./shopping-recipes";
+import type { ShoppingItem, ShoppingRecipe } from "@/lib/types";
 import { CopyScope } from "./content-provider";
 
 export function Shopping({
   householdId,
   items,
+  recipes,
 }: {
   householdId: string;
   items: ShoppingItem[];
+  recipes: ShoppingRecipe[];
 }) {
   const titleInput = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
@@ -230,6 +233,7 @@ export function Shopping({
             </button>
           </div>
         ))}
+        <ShoppingRecipes householdId={householdId} recipes={recipes} />
         <div className="shopping-paper">
           <div className="shopping-paper-heading">
             <ShoppingBasket size={22} aria-hidden="true" />

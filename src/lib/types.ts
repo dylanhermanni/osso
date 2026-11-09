@@ -97,7 +97,14 @@ export type ShoppingItem = {
   version: number;
 };
 
+export type ShoppingRecipe = {
+  id: string;
+  title: string;
+  ingredients: string[];
+};
+
 export type Snapshot = {
+  shoppingRecipes: ShoppingRecipe[];
   orders?: import("./domain/order").RecordOrder[];
   shopping: ShoppingItem[];
   configured: boolean;

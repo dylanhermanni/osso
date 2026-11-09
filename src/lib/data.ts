@@ -20,6 +20,7 @@ export async function loadSnapshot(): Promise<Snapshot> {
     settlements: [],
     activity: [],
     shopping: [],
+    shoppingRecipes: [],
     children: {},
   };
   if (!data.configured) return data;
@@ -82,6 +83,9 @@ export async function loadSnapshot(): Promise<Snapshot> {
     }),
     rows("shopping_items").then((records) => {
       data.shopping = records as Snapshot["shopping"];
+    }),
+    rows("shopping_recipes").then((records) => {
+      data.shoppingRecipes = records as Snapshot["shoppingRecipes"];
     }),
     ...entities.map((e) =>
       rows(e).then((records) => {
