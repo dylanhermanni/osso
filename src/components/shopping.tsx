@@ -177,9 +177,12 @@ export function Shopping({
               aria-label="Product voor de boodschappenlijst"
               placeholder="Bijv. melk"
             />
-            <button className="button button-primary" type="submit">
-              <Plus size={17} /> Toevoegen
-            </button>
+            <div className="shopping-add-actions">
+              <button className="button button-primary" type="submit">
+                <Plus size={17} /> Toevoegen
+              </button>{" "}
+              <ShoppingRecipes householdId={householdId} recipes={recipes} />
+            </div>
           </div>
           <div className="shopping-extra">
             <label className="field">
@@ -253,7 +256,6 @@ export function Shopping({
             </section>
           )}
         </div>
-        <ShoppingRecipes householdId={householdId} recipes={recipes} />
       </section>
     </CopyScope>
   );

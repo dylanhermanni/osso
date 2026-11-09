@@ -3882,27 +3882,14 @@ main {
   grid-template-columns: minmax(80px, 0.4fr) minmax(0, 1fr);
   gap: 14px;
 }
-.shopping-recipes {
-  margin-top: 20px;
-  border-top: 1px solid var(--line);
+.shopping-add {
+  align-items: start;
 }
-.shopping-recipes > summary {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: fit-content;
-  padding: 10px 0;
-  color: var(--forest);
-  cursor: pointer;
+.shopping-add-actions {
+  display: grid;
+  gap: 6px;
 }
-.shopping-recipes > summary::-webkit-details-marker {
-  display: none;
-}
-.shopping-recipes[open] > summary svg {
-  transform: rotate(180deg);
-}
-.shopping-recipes-body > .muted,
-.shopping-recipes-body > .shopping-recipe-list {
+.shopping-recipe-list {
   margin-top: 12px;
 }
 .recipe-ingredients {
@@ -3933,10 +3920,14 @@ main {
   gap: 8px;
 }
 .shopping-recipe-list li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   min-width: 0;
   max-width: 100%;
 }
 .shopping-recipe-list button {
+  min-width: 0;
   max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;

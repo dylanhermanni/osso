@@ -105,6 +105,14 @@
     "template": true
   },
   {
+    "key": "copy_6677b83f",
+    "source": "{1} verwijderen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": true
+  },
+  {
     "key": "copy_d8a2159d",
     "source": "{1}/auth/herstel",
     "groups": [
@@ -380,7 +388,8 @@
     "key": "copy_35de0a19",
     "source": "Annuleren",
     "groups": [
-      "Formulieren en velden"
+      "Formulieren en velden",
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -1046,6 +1055,14 @@
   {
     "key": "copy_9bd3b6c1",
     "source": "Dit product is ondertussen gewijzigd. Probeer opnieuw.",
+    "groups": [
+      "Meldingen en validatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_515fef70",
+    "source": "Dit recept bestaat niet meer.",
     "groups": [
       "Meldingen en validatie"
     ],
@@ -3425,6 +3442,14 @@
     "template": false
   },
   {
+    "key": "copy_6331fe99",
+    "source": "Recept bewerken",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_0c5f3d03",
     "source": "Recept opgeslagen.",
     "groups": [
@@ -3451,6 +3476,30 @@
   {
     "key": "copy_67e2f21e",
     "source": "Recept opslaan lukt niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_098b908e",
+    "source": "Recept verwijderd.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_7c3e5f17",
+    "source": "Recept verwijderen lukt niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_2354007c",
+    "source": "Recept verwijderen?",
     "groups": [
       "Website en navigatie"
     ],
@@ -3951,6 +4000,14 @@
   {
     "key": "copy_c2fa44b2",
     "source": "Typ minimaal twee tekens om te zoeken.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_efc4144c",
+    "source": "uit je recepten verwijderen?",
     "groups": [
       "Website en navigatie"
     ],
@@ -4602,6 +4659,14 @@
   {
     "key": "copy_df4c5d4f",
     "source": "Wijziging opslaan lukt niet.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_4179e074",
+    "source": "Wil je",
     "groups": [
       "Website en navigatie"
     ],

@@ -1,8 +1,12 @@
 "use client";
 
-import { useRef, useState, useTransition } from "react";
-import { ChevronDown, Plus, Trash2 } from "lucide-react";
-import { addRecipeToShopping, createShoppingRecipe } from "@/lib/actions";
+import { useState, useTransition } from "react";
+import { Pencil, Plus, Trash2 } from "lucide-react";
+import {
+  addRecipeToShopping,
+  deleteShoppingRecipe,
+  saveShoppingRecipe,
+} from "@/lib/actions";
 import type { ShoppingRecipe } from "@/lib/types";
 import { Dialog } from "./ui/dialog";
 
@@ -13,28 +17,39 @@ export function ShoppingRecipes({
   householdId: string;
   recipes: ShoppingRecipe[];
 }) {
-  const [creating, setCreating] = useState(false);
+  const [listOpen, setListOpen] = useState(false);
+  const [editing, setEditing] = useState<ShoppingRecipe | null | undefined>();
+  const [deleting, setDeleting] = useState<ShoppingRecipe>();
+  function openEditor(recipe: ShoppingRecipe | null) {
+    setFormError("");
+    const count = recipe?.ingredients.length ?? 1;
+    setIngredientRows(Array.from({ length: count }, (_, index) => index));
+    setEditing(recipe);
+  }
   const [pending, startTransition] = useTransition();
   const [ingredientRows, setIngredientRows] = useState([0]);
-  const nextRow = useRef(1);
   const [formError, setFormError] = useState("");
   const [feedback, setFeedback] = useState<{ text: string; error?: boolean }>();
 
   return (
-    <details className="shopping-recipes">
-      <summary>
-        Recepten <ChevronDown size={16} aria-hidden="true" />
-      </summary>
-      <div className="shopping-recipes-body">
+    <>
+      <button
+        type="button"
+        className="button button-outline button-sm"
+        onClick={() => setListOpen(true)}
+      >
+        Recepten
+      </button>
+      <Dialog
+        open={listOpen && editing === undefined && !deleting}
+        onOpenChange={setListOpen}
+        title="Recepten"
+      >
         <button
           type="button"
           className="button button-outline button-sm"
           disabled={pending}
-          onClick={() => {
-            setFormError("");
-            setIngredientRows([0]);
-            setCreating(true);
-          }}
+          onClick={() => openEditor(null)}
         >
           <Plus size={16} aria-hidden="true" /> Nieuw recept
         </button>
@@ -69,6 +84,27 @@ export function ShoppingRecipes({
                 >
                   <Plus size={16} aria-hidden="true" /> {recipe.title}
                 </button>
+                <button
+                  type="button"
+                  className="icon-button"
+                  disabled={pending}
+                  aria-label={`${recipe.title} bewerken`}
+                  onClick={() => openEditor(recipe)}
+                >
+                  <Pencil size={16} aria-hidden="true" />
+                </button>
+                <button
+                  type="button"
+                  className="icon-button"
+                  disabled={pending}
+                  aria-label={`${recipe.title} verwijderen`}
+                  onClick={() => {
+                    setFormError("");
+                    setDeleting(recipe);
+                  }}
+                >
+                  <Trash2 size={16} aria-hidden="true" />
+                </button>
               </li>
             ))}
           </ul>
@@ -86,34 +122,86 @@ export function ShoppingRecipes({
             {feedback.text}
           </p>
         )}
-      </div>
+      </Dialog>
       <Dialog
-        open={creating}
+        open={!!deleting}
         onOpenChange={(open) => {
-          if (!pending) setCreating(open);
+          if (!open && !pending) setDeleting(undefined);
         }}
-        title="Nieuw recept"
+        title="Recept verwijderen?"
+      >
+        <p>Wil je {deleting?.title} uit je recepten verwijderen?</p>
+        {formError && (
+          <p className="form-error" role="alert">
+            {formError}
+          </p>
+        )}
+        <div className="dialog-footer">
+          <button
+            type="button"
+            className="button button-outline"
+            disabled={pending}
+            onClick={() => setDeleting(undefined)}
+          >
+            Annuleren
+          </button>
+          <button
+            type="button"
+            className="button button-primary"
+            disabled={pending}
+            onClick={() => {
+              if (!deleting) return;
+              setFormError("");
+              startTransition(async () => {
+                try {
+                  await deleteShoppingRecipe(householdId, deleting.id);
+                  setDeleting(undefined);
+                  setFeedback({ text: "Recept verwijderd." });
+                } catch (error) {
+                  setFormError(
+                    error instanceof Error
+                      ? error.message
+                      : "Recept verwijderen lukt niet.",
+                  );
+                }
+              });
+            }}
+          >
+            Verwijderen
+          </button>
+        </div>
+      </Dialog>
+      <Dialog
+        open={editing !== undefined}
+        onOpenChange={(open) => {
+          if (!open && !pending) setEditing(undefined);
+        }}
+        title={editing ? "Recept bewerken" : "Nieuw recept"}
       >
         <form
           className="editor-form"
           onSubmit={(event) => {
             event.preventDefault();
+            event.stopPropagation();
             const values = new FormData(event.currentTarget);
             const title = String(values.get("title") ?? "");
-            const ingredients = ingredientRows.map((row) => {
-              const ingredient = String(
-                values.get(`ingredient-${row}`) ?? "",
-              ).trim();
-              const quantity = String(
-                values.get(`quantity-${row}`) ?? "",
-              ).trim();
-              return [quantity, ingredient].filter(Boolean).join(" ");
-            });
+            const ingredients = ingredientRows.map((row) =>
+              String(values.get(`ingredient-${row}`) ?? "").trim(),
+            );
+            const quantities = ingredientRows.map((row) =>
+              String(values.get(`quantity-${row}`) ?? "").trim(),
+            );
             setFormError("");
             startTransition(async () => {
               try {
-                await createShoppingRecipe(householdId, title, ingredients);
-                setCreating(false);
+                await saveShoppingRecipe(
+                  householdId,
+                  title,
+                  ingredients,
+                  quantities,
+                  editing?.id,
+                );
+                setEditing(undefined);
                 setFeedback({ text: "Recept opgeslagen." });
               } catch (error) {
                 setFormError(
@@ -127,7 +215,12 @@ export function ShoppingRecipes({
         >
           <label className="field">
             Receptnaam
-            <input name="title" maxLength={120} required />
+            <input
+              name="title"
+              defaultValue={editing?.title}
+              maxLength={120}
+              required
+            />
           </label>
           <fieldset className="recipe-ingredients">
             <legend>Ingrediënten</legend>
@@ -137,6 +230,7 @@ export function ShoppingRecipes({
                   Ingrediënt
                   <input
                     name={`ingredient-${row}`}
+                    defaultValue={editing?.ingredients[row]}
                     placeholder="Bijv. pasta"
                     maxLength={120}
                     required
@@ -147,6 +241,7 @@ export function ShoppingRecipes({
                   Hoeveelheid
                   <input
                     name={`quantity-${row}`}
+                    defaultValue={editing?.quantities?.[row]}
                     placeholder="Bijv. 250 g"
                     maxLength={40}
                   />
@@ -169,8 +264,7 @@ export function ShoppingRecipes({
               className="button button-outline button-sm"
               disabled={pending || ingredientRows.length >= 50}
               onClick={() => {
-                const row = nextRow.current++;
-                setIngredientRows((rows) => [...rows, row]);
+                setIngredientRows((rows) => [...rows, Math.max(...rows) + 1]);
               }}
             >
               <Plus size={16} aria-hidden="true" /> Ingrediënt toevoegen
@@ -190,6 +284,6 @@ export function ShoppingRecipes({
           </button>
         </form>
       </Dialog>
-    </details>
+    </>
   );
 }

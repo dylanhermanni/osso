@@ -634,10 +634,12 @@ const recipeIngredients = z
   .min(1, "Vul minstens één ingrediënt in.")
   .max(50, "Gebruik maximaal 50 ingrediënten per recept.");
 
-export async function createShoppingRecipe(
+export async function saveShoppingRecipe(
   householdId: string,
   title: string,
   ingredients: string[],
+  quantities: string[],
+  recipeId?: string,
 ) {
   return actionResult(async () => {
     const name = z
@@ -647,12 +649,48 @@ export async function createShoppingRecipe(
       .max(120)
       .parse(title);
     const items = recipeIngredients.parse(ingredients);
+    const amounts = z
+      .array(z.string().trim().max(40))
+      .length(items.length)
+      .parse(quantities);
+    recipeIngredients.parse(
+      items.map((item, index) =>
+        [amounts[index], item].filter(Boolean).join(" "),
+      ),
+    );
     const { db } = await member(householdId);
-    const { error } = await db.from("shopping_recipes").insert({
-      household_id: householdId,
-      title: name,
-      ingredients: items,
-    });
+    const table = db.from("shopping_recipes");
+    const fields = { title: name, ingredients: items, quantities: amounts };
+    if (recipeId) {
+      const { data, error } = await table
+        .update(fields)
+        .eq("household_id", householdId)
+        .eq("id", id.parse(recipeId))
+        .select("id")
+        .maybeSingle();
+      if (!error && !data) throw new Error("Dit recept bestaat niet meer.");
+      checked(error);
+    } else {
+      const { error } = await table.insert({
+        household_id: householdId,
+        ...fields,
+      });
+      checked(error);
+    }
+  });
+}
+
+export async function deleteShoppingRecipe(
+  householdId: string,
+  recipeId: string,
+) {
+  return actionResult(async () => {
+    const { db } = await member(householdId);
+    const { error } = await db
+      .from("shopping_recipes")
+      .delete()
+      .eq("household_id", householdId)
+      .eq("id", id.parse(recipeId));
     checked(error);
   });
 }
@@ -666,17 +704,20 @@ export async function addRecipeToShopping(
     const { db } = await member(householdId);
     const { data: recipe, error: readError } = await db
       .from("shopping_recipes")
-      .select("ingredients")
+      .select("ingredients, quantities")
       .eq("household_id", householdId)
       .eq("id", recipeId)
       .maybeSingle();
     if (readError || !recipe) throw new Error("Recept ophalen lukt niet.");
     const ingredients = recipeIngredients.parse(recipe.ingredients);
-    const { error } = await db
-      .from("shopping_items")
-      .insert(
-        ingredients.map((title) => ({ household_id: householdId, title })),
-      );
+    const { error } = await db.from("shopping_items").insert(
+      ingredients.map((ingredient, index) => ({
+        household_id: householdId,
+        title: [recipe.quantities?.[index], ingredient]
+          .filter(Boolean)
+          .join(" "),
+      })),
+    );
     checked(error);
   });
 }

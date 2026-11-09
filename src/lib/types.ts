@@ -101,6 +101,7 @@ export type ShoppingRecipe = {
   id: string;
   title: string;
   ingredients: string[];
+  quantities: string[] | null;
 };
 
 export type Snapshot = {
