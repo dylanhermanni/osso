@@ -892,7 +892,9 @@ export function App({
                         </button>
                       </div>
                       {tasks.length ? (
-                        <div>{tasks.slice(0, 5).map(taskRow)}</div>
+                        <div className="task-list">
+                          {tasks.slice(0, 5).map(taskRow)}
+                        </div>
                       ) : (
                         <p className="small-empty">Geen openstaande taken.</p>
                       )}
