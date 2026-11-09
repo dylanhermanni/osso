@@ -4026,6 +4026,18 @@ main {
   border: 0;
   cursor: pointer;
 }
+.recipe-portion-preview li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e4ded1;
+  overflow-wrap: anywhere;
+}
+.recipe-portion-preview strong {
+  color: #203e32;
+  text-align: right;
+}
 .recipe-ingredients {
   display: grid;
   gap: 12px;

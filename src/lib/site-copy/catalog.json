@@ -1093,6 +1093,14 @@
     "template": false
   },
   {
+    "key": "copy_a7116b2e",
+    "source": "Dit recept is opgeslagen voor",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_621cd814",
     "source": "do",
     "groups": [
@@ -1921,6 +1929,22 @@
     "source": "Hoe verdelen jullie de kosten?",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_471468ee",
+    "source": "Hoeveelheden met een getal worden omgerekend. Vul ze in bij Hoeveelheid.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_70544298",
+    "source": "Hoeveelheden voor de boodschappenlijst",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },
@@ -3554,6 +3578,14 @@
     "template": false
   },
   {
+    "key": "copy_109ab179",
+    "source": "Recept voor zoveel personen",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_5600298b",
     "source": "Recepten",
     "groups": [
@@ -4401,6 +4433,14 @@
   {
     "key": "copy_c025994d",
     "source": "Voor een correctie: draai de uitgave terug en registreer het juiste bedrag opnieuw. Bestaande verrekeningen blijven zichtbaar.",
+    "groups": [
+      "Website en navigatie"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_74ceb907",
+    "source": "Voor hoeveel personen kook je?",
     "groups": [
       "Website en navigatie"
     ],

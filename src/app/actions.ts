@@ -1,6 +1,10 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import {
+  MAX_RECIPE_PORTIONS,
+  scaleRecipeQuantity,
+} from "@/lib/domain/recipe-portions";
 import { supabase } from "@/lib/supabase/server";
 import { schemas, expenseSchema, allocationsSchema } from "@/lib/validation";
 import type { Entity } from "@/lib/types";
@@ -639,6 +643,7 @@ export async function saveShoppingRecipe(
   title: string,
   ingredients: string[],
   quantities: string[],
+  portions: number,
   recipeId?: string,
 ) {
   return actionResult(async () => {
@@ -660,7 +665,17 @@ export async function saveShoppingRecipe(
     );
     const { db } = await member(householdId);
     const table = db.from("shopping_recipes");
-    const fields = { title: name, ingredients: items, quantities: amounts };
+    const fields = {
+      title: name,
+      ingredients: items,
+      quantities: amounts,
+      portions: z
+        .number()
+        .int()
+        .min(1)
+        .max(MAX_RECIPE_PORTIONS)
+        .parse(portions),
+    };
     if (recipeId) {
       const { data, error } = await table
         .update(fields)
@@ -698,26 +713,38 @@ export async function deleteShoppingRecipe(
 export async function addRecipeToShopping(
   householdId: string,
   recipeId: string,
+  portions?: number,
 ) {
   return actionResult(async () => {
     id.parse(recipeId);
     const { db } = await member(householdId);
     const { data: recipe, error: readError } = await db
       .from("shopping_recipes")
-      .select("ingredients, quantities")
+      .select("ingredients, quantities, portions")
       .eq("household_id", householdId)
       .eq("id", recipeId)
       .maybeSingle();
     if (readError || !recipe) throw new Error("Recept ophalen lukt niet.");
     const ingredients = recipeIngredients.parse(recipe.ingredients);
-    const { error } = await db.from("shopping_items").insert(
-      ingredients.map((ingredient, index) => ({
-        household_id: householdId,
-        title: [recipe.quantities?.[index], ingredient]
-          .filter(Boolean)
-          .join(" "),
-      })),
+    const target = z
+      .number()
+      .int()
+      .min(1)
+      .max(MAX_RECIPE_PORTIONS)
+      .parse(portions ?? recipe.portions);
+    const titles = recipeIngredients.parse(
+      ingredients.map((ingredient, index) => {
+        const amount = scaleRecipeQuantity(
+          recipe.quantities?.[index] ?? "",
+          recipe.portions,
+          target,
+        );
+        return [amount, ingredient].filter(Boolean).join(" ");
+      }),
     );
+    const { error } = await db
+      .from("shopping_items")
+      .insert(titles.map((title) => ({ household_id: householdId, title })));
     checked(error);
   });
 }

@@ -15,6 +15,11 @@ import {
   deleteShoppingRecipe,
   saveShoppingRecipe,
 } from "@/lib/actions";
+import {
+  DEFAULT_RECIPE_PORTIONS,
+  MAX_RECIPE_PORTIONS,
+  scaleRecipeQuantity,
+} from "@/lib/domain/recipe-portions";
 import type { ShoppingRecipe } from "@/lib/types";
 import { Dialog } from "./ui/dialog";
 
@@ -27,6 +32,11 @@ export function ShoppingRecipes({
 }) {
   const [listOpen, setListOpen] = useState(false);
   const [editing, setEditing] = useState<ShoppingRecipe | null | undefined>();
+  const [selected, setSelected] = useState<ShoppingRecipe>();
+  const [people, setPeople] = useState("");
+  const target = Number(people);
+  const validTarget =
+    Number.isInteger(target) && target >= 1 && target <= MAX_RECIPE_PORTIONS;
   const [deleting, setDeleting] = useState<ShoppingRecipe>();
   function openEditor(recipe: ShoppingRecipe | null) {
     setFormError("");
@@ -55,6 +65,7 @@ export function ShoppingRecipes({
           setListOpen(open);
           if (!open) {
             setEditing(undefined);
+            setSelected(undefined);
             setDeleting(undefined);
             setFeedback(undefined);
           }
@@ -63,7 +74,7 @@ export function ShoppingRecipes({
         className="recipe-workspace"
       >
         <div className="recipe-page">
-          {editing === undefined && !deleting && (
+          {editing === undefined && !deleting && !selected && (
             <header className="recipe-hero">
               <div>
                 <span className="recipe-eyebrow">
@@ -77,7 +88,7 @@ export function ShoppingRecipes({
               </div>
             </header>
           )}
-          {editing === undefined && !deleting && (
+          {editing === undefined && !deleting && !selected && (
             <section
               className="recipe-collection"
               aria-labelledby="recipe-collection-title"
@@ -136,7 +147,9 @@ export function ShoppingRecipes({
                         {recipe.ingredients.length}{" "}
                         {recipe.ingredients.length === 1
                           ? "ingrediënt"
-                          : "ingrediënten"}
+                          : "ingrediënten"}{" "}
+                        · {recipe.portions}{" "}
+                        {recipe.portions === 1 ? "persoon" : "personen"}
                       </p>
                       <button
                         type="button"
@@ -144,23 +157,9 @@ export function ShoppingRecipes({
                         aria-label={`${recipe.title} toevoegen aan boodschappen`}
                         disabled={pending}
                         onClick={() => {
-                          setFeedback(undefined);
-                          startTransition(async () => {
-                            try {
-                              await addRecipeToShopping(householdId, recipe.id);
-                              setFeedback({
-                                text: `Ingrediënten voor ${recipe.title} staan op de lijst.`,
-                              });
-                            } catch (error) {
-                              setFeedback({
-                                text:
-                                  error instanceof Error
-                                    ? error.message
-                                    : "Ingrediënten toevoegen lukt niet.",
-                                error: true,
-                              });
-                            }
-                          });
+                          setFormError("");
+                          setPeople(String(recipe.portions));
+                          setSelected(recipe);
                         }}
                       >
                         <ShoppingBasket size={16} aria-hidden="true" /> Op
@@ -187,6 +186,98 @@ export function ShoppingRecipes({
                   {feedback.text}
                 </p>
               )}
+            </section>
+          )}
+          {selected && (
+            <section className="recipe-editor">
+              <button
+                type="button"
+                className="recipe-back"
+                disabled={pending}
+                onClick={() => setSelected(undefined)}
+              >
+                <ArrowLeft size={17} aria-hidden="true" /> Alle recepten
+              </button>
+              <h3>{selected.title}</h3>
+              <p>
+                Dit recept is opgeslagen voor {selected.portions}{" "}
+                {selected.portions === 1 ? "persoon" : "personen"}.
+              </p>
+              <form
+                className="editor-form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  event.stopPropagation();
+                  if (!validTarget || pending) return;
+                  setFormError("");
+                  startTransition(async () => {
+                    try {
+                      await addRecipeToShopping(
+                        householdId,
+                        selected.id,
+                        target,
+                      );
+                      setSelected(undefined);
+                      setFeedback({
+                        text: `Ingrediënten voor ${selected.title} staan op de lijst.`,
+                      });
+                    } catch (error) {
+                      setFormError(
+                        error instanceof Error
+                          ? error.message
+                          : "Ingrediënten toevoegen lukt niet.",
+                      );
+                    }
+                  });
+                }}
+              >
+                <label className="field">
+                  Voor hoeveel personen kook je?
+                  <input
+                    type="number"
+                    min={1}
+                    max={MAX_RECIPE_PORTIONS}
+                    step={1}
+                    required
+                    value={people}
+                    onChange={(event) => setPeople(event.target.value)}
+                  />
+                </label>
+                <ul
+                  className="shopping-list recipe-portion-preview"
+                  aria-label="Hoeveelheden voor de boodschappenlijst"
+                >
+                  {selected.ingredients.map((ingredient, index) => (
+                    <li key={index}>
+                      <span>{ingredient}</span>
+                      <strong>
+                        {scaleRecipeQuantity(
+                          selected.quantities?.[index] ?? "",
+                          selected.portions,
+                          validTarget ? target : selected.portions,
+                        )}
+                      </strong>
+                    </li>
+                  ))}
+                </ul>
+                <p className="form-hint">
+                  Hoeveelheden met een getal worden omgerekend. Vul ze in bij
+                  Hoeveelheid.
+                </p>
+                {formError && (
+                  <p className="form-error" role="alert">
+                    {formError}
+                  </p>
+                )}
+                <button
+                  type="submit"
+                  className="button button-primary"
+                  disabled={pending || !validTarget}
+                >
+                  <ShoppingBasket size={16} aria-hidden="true" /> Op
+                  boodschappenlijst
+                </button>
+              </form>
             </section>
           )}
           {deleting && (
@@ -256,6 +347,7 @@ export function ShoppingRecipes({
                   event.stopPropagation();
                   const values = new FormData(event.currentTarget);
                   const title = String(values.get("title") ?? "");
+                  const portions = Number(values.get("portions"));
                   const ingredients = ingredientRows.map((row) =>
                     String(values.get(`ingredient-${row}`) ?? "").trim(),
                   );
@@ -270,6 +362,7 @@ export function ShoppingRecipes({
                         title,
                         ingredients,
                         quantities,
+                        portions,
                         editing?.id,
                       );
                       setEditing(undefined);
@@ -291,6 +384,18 @@ export function ShoppingRecipes({
                     defaultValue={editing?.title}
                     maxLength={120}
                     required
+                  />
+                </label>
+                <label className="field">
+                  Recept voor zoveel personen
+                  <input
+                    name="portions"
+                    type="number"
+                    min={1}
+                    max={MAX_RECIPE_PORTIONS}
+                    step={1}
+                    required
+                    defaultValue={editing?.portions ?? DEFAULT_RECIPE_PORTIONS}
                   />
                 </label>
                 <fieldset className="recipe-ingredients">

@@ -102,6 +102,7 @@ export type ShoppingRecipe = {
   title: string;
   ingredients: string[];
   quantities: string[] | null;
+  portions: number;
 };
 
 export type Snapshot = {
