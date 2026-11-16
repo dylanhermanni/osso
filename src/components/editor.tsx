@@ -546,7 +546,7 @@ export function Editor({
                     <label className="field">
                       Pastelkleur
                       <select name="color" defaultValue={record?.color ?? ""}>
-                        <option value="">Geen kleur</option>
+                        <option value="">Automatisch kiezen</option>
                         {Object.entries(roomColors).map(([color, label]) => (
                           <option key={color} value={color}>
                             {label}

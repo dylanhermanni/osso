@@ -4273,6 +4273,18 @@ main {
 .visual-card[data-room-color="rose"] { --room-pastel: #f7e6ec; }
 .visual-card[data-room-color="peach"] { --room-pastel: #faeadf; }
 .visual-card[data-room-color="yellow"] { --room-pastel: #f8f0d8; }
+.visual-card[data-room-color="mint"] { --room-pastel: #dff2e9; }
+.visual-card[data-room-color="aqua"] { --room-pastel: #dfefee; }
+.visual-card[data-room-color="lavender"] { --room-pastel: #e4def3; }
+.visual-card[data-room-color="coral"] { --room-pastel: #f5dcd6; }
+.visual-card[data-room-color="sand"] { --room-pastel: #eee4d1; }
+.visual-card[data-room-color="olive"] { --room-pastel: #e5e8d3; }
+.visual-card[data-room-color="sky"] { --room-pastel: #dce8ef; }
+.visual-card[data-room-color="mauve"] { --room-pastel: #eadde7; }
+.visual-card[data-room-color="apricot"] { --room-pastel: #f6dfc4; }
+.visual-card[data-room-color="pistachio"] { --room-pastel: #edf1d5; }
+.visual-card[data-room-color="periwinkle"] { --room-pastel: #e0e4f7; }
+.visual-card[data-room-color="blush"] { --room-pastel: #f3dfe0; }
 .visual-card[data-room-color] {
   background-color: var(--room-pastel);
   border-color: color-mix(in srgb, var(--room-pastel), #3d4c3b 16%);
