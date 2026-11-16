@@ -352,7 +352,7 @@ export function App({
   const activeProjects = r.projects.filter(
     (p) => p.status !== "Afgerond" && p.status !== "Gepauzeerd",
   );
-  const visible =
+  const filteredRecords =
     view !== "home" && view !== "activity" && view !== "shopping"
       ? r[view].filter(
           (item) =>
@@ -365,6 +365,12 @@ export function App({
             (!personFilter || item.assignee_id === personFilter),
         )
       : [];
+  const visible = view === "tasks"
+    ? filteredRecords.filter((task) => task.status !== "Afgerond")
+    : filteredRecords;
+  const completedTasks = view === "tasks"
+    ? filteredRecords.filter((task) => task.status === "Afgerond")
+    : [];
   const open = (entity: Entity, record: RecordData) =>
     setDetail({ entity, record });
   const Icon = navigation.find((n) => n.key === view)?.icon || House;
@@ -1313,7 +1319,7 @@ export function App({
                     (view === "tasks" && taskMode === "Kalender") ? (
                     <section className="panel calendar-panel">
                       <CalendarView
-                        records={view === "tasks" ? visible : visible}
+                        records={visible}
                         tasks={view === "tasks"}
                         onSelect={(item) => open(view, item)}
                         onAdd={() =>
@@ -1330,7 +1336,7 @@ export function App({
                       ) : (
                         <div className="kanban-grid">
                           {(taskMode === "Kanban"
-                            ? statuses.tasks!
+                            ? statuses.tasks!.filter((status) => status !== "Afgerond")
                             : taskMode === "Per kamer"
                               ? ["", ...r.rooms.map((k) => k.id)]
                               : ["", ...data.members.map((m) => m.user_id)]
@@ -1390,7 +1396,7 @@ export function App({
                         </div>
                       )
                     ) : (
-                      empty(view)
+                      <p className="panel">Geen openstaande taken.</p>
                     )
                   ) : visible.length ? (
                     <div className="panel record-list">
@@ -1427,6 +1433,17 @@ export function App({
                     </div>
                   ) : (
                     empty(view)
+                  )}
+                  {view === "tasks" && completedTasks.length > 0 && (
+                    <details className="panel completed-tasks">
+                      <summary>
+                        <span>Afgeronde taken ({completedTasks.length})</span>
+                        <ChevronDown size={18} aria-hidden="true" />
+                      </summary>
+                      <div className="task-list">
+                        {completedTasks.map(taskRow)}
+                      </div>
+                    </details>
                   )}
                 </>
               )}

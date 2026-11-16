@@ -4302,3 +4302,27 @@ main {
   color: var(--forest);
   text-decoration: underline;
 }
+
+.completed-tasks {
+  margin-top: 24px;
+}
+.completed-tasks > summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--forest);
+  font-weight: 600;
+}
+.completed-tasks > summary::-webkit-details-marker {
+  display: none;
+}
+.completed-tasks[open] > summary svg {
+  transform: rotate(180deg);
+}
+.completed-tasks .task-title strong {
+  color: var(--muted);
+  text-decoration: line-through;
+}
