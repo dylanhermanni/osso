@@ -4289,3 +4289,16 @@ main {
   background-color: var(--room-pastel);
   border-color: color-mix(in srgb, var(--room-pastel), #3d4c3b 16%);
 }
+
+.phase-task-link {
+  text-align: left;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.phase-task-link:hover {
+  color: var(--forest);
+  text-decoration: underline;
+}

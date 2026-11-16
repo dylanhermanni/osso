@@ -394,6 +394,14 @@
     "template": false
   },
   {
+    "key": "copy_8f097ec9",
+    "source": "Automatisch kiezen",
+    "groups": [
+      "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
     "key": "copy_d3c34f72",
     "source": "Bedrag",
     "groups": [
@@ -1566,14 +1574,6 @@
     "source": "Geen datum",
     "groups": [
       "Website en navigatie"
-    ],
-    "template": false
-  },
-  {
-    "key": "copy_4641ad7f",
-    "source": "Geen kleur",
-    "groups": [
-      "Formulieren en velden"
     ],
     "template": false
   },
@@ -3848,6 +3848,14 @@
     "source": "Taak",
     "groups": [
       "Formulieren en velden"
+    ],
+    "template": false
+  },
+  {
+    "key": "copy_660f99bd",
+    "source": "Taak openen",
+    "groups": [
+      "Website en navigatie"
     ],
     "template": false
   },

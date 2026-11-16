@@ -2680,6 +2680,10 @@ function Detail({
                     householdId={h}
                     projectId={item.id}
                     phases={children}
+                    onOpenTask={(taskId) => {
+                      const task = r.tasks.find((record) => record.id === taskId);
+                      if (task) onOpen("tasks", task);
+                    }}
                   />
                 ) : (
                   childrenKind && (

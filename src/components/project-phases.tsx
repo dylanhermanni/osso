@@ -16,10 +16,12 @@ export function ProjectPhases({
   householdId,
   projectId,
   phases,
+  onOpenTask,
 }: {
   householdId: string;
   projectId: string;
   phases: Child[];
+  onOpenTask: (taskId: string) => void;
 }) {
   const input = useRef<HTMLInputElement>(null);
   const [, startTransition] = useTransition();
@@ -165,11 +167,15 @@ export function ProjectPhases({
               </form>
             ) : (
               <>
-                <span
-                  className={`phase-title${phase.done ? " phase-done" : ""}`}
+                <button
+                  type="button"
+                  className={`phase-title phase-task-link${phase.done ? " phase-done" : ""}`}
+                  disabled={!phase.task_id}
+                  onClick={() => onOpenTask(String(phase.task_id))}
+                  title="Taak openen"
                 >
                   {phase.title}
-                </span>
+                </button>
                 <button
                   type="button"
                   className="icon-button"
